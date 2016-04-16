@@ -13,7 +13,7 @@ public class SchedulerActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("io", new Runnable() {
+    registery.add(Constants.Scheduler.io, new Runnable() {
       @Override
       public void run() {
         Observable.just("a", "b").observeOn(Schedulers.io()).subscribe(new Action1<String>() {
@@ -24,7 +24,7 @@ public class SchedulerActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("compute", new Runnable() {
+    registery.add(Constants.Scheduler.compute, new Runnable() {
       @Override
       public void run() {
         Observable.just("a", "b")
@@ -37,7 +37,7 @@ public class SchedulerActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("immediate", new Runnable() {
+    registery.add(Constants.Scheduler.immediate, new Runnable() {
       @Override
       public void run() {
         Observable.just("a", "b")
@@ -50,7 +50,7 @@ public class SchedulerActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("ui", new Runnable() {
+    registery.add(Constants.Scheduler.self_define, new Runnable() {
       @Override
       public void run() {
         Observable.just("a", "b")

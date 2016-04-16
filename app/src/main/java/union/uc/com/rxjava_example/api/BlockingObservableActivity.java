@@ -18,7 +18,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("forEach", new Runnable() {
+    registery.add(Constants.BlockingObservable.forEach, new Runnable() {
       @Override
       public void run() {
         Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -36,7 +36,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("first", new Runnable() {
+    registery.add(Constants.BlockingObservable.first, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -50,7 +50,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("firstOrDefault", new Runnable() {
+    registery.add(Constants.BlockingObservable.firstOrDefault, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -62,7 +62,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("last", new Runnable() {
+    registery.add(Constants.BlockingObservable.last, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -76,7 +76,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("lastOrDefault", new Runnable() {
+    registery.add(Constants.BlockingObservable.lastOrDefault, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -88,7 +88,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("mostRecent", new Runnable() {
+    registery.add(Constants.BlockingObservable.mostRecent, new Runnable() {
       @Override
       public void run() {
         Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -104,7 +104,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         }
       }
     });
-    registery.add("next", new Runnable() {
+    registery.add(Constants.BlockingObservable.next, new Runnable() {
       @Override
       public void run() {
         Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -120,7 +120,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         }
       }
     });
-    registery.add("latest", new Runnable() {
+    registery.add(Constants.BlockingObservable.latest, new Runnable() {
       @Override
       public void run() {
         Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -136,7 +136,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         }
       }
     });
-    registery.add("single", new Runnable() {
+    registery.add(Constants.BlockingObservable.single, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -149,7 +149,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("singleOrDefault", new Runnable() {
+    registery.add(Constants.BlockingObservable.singleOrDefault, new Runnable() {
       @Override
       public void run() {
         Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -182,7 +182,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         }
       }
     });
-    registery.add("toIterable", new Runnable() {
+    registery.add(Constants.BlockingObservable.toIterable, new Runnable() {
       @Override
       public void run() {
         Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -198,7 +198,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         }
       }
     });
-    registery.add("getIterator", new Runnable() {
+    registery.add(Constants.BlockingObservable.getIterator, new Runnable() {
       @Override
       public void run() {
         Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {

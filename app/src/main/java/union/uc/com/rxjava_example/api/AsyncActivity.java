@@ -22,7 +22,7 @@ public class AsyncActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("start", new Runnable() {
+    registery.add(Constants.Async.start, new Runnable() {
       @Override
       public void run() {
         Async.start(new Func0<Integer>() {
@@ -38,7 +38,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("toAsync", new Runnable() {
+    registery.add(Constants.Async.toAsync, new Runnable() {
       @Override
       public void run() {
         Async.<Integer>toAsync(new Action0() {
@@ -54,7 +54,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("startFuture", new Runnable() {
+    registery.add(Constants.Async.startFuture, new Runnable() {
       @Override
       public void run() {
         Async.startFuture(new Func0<Future<Integer>>() {
@@ -75,7 +75,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("deferFuture", new Runnable() {
+    registery.add(Constants.Async.deferFuture, new Runnable() {
       @Override
       public void run() {
         Async.deferFuture(new Func0<Future<? extends Observable<Integer>>>() {
@@ -96,7 +96,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("forEachFuture", new Runnable() {
+    registery.add(Constants.Async.forEachFuture, new Runnable() {
       @Override
       public void run() {
         Future<Void> f = Async.forEachFuture(Observable.just(1, 2, 3), new Action1<Integer>() {
@@ -113,7 +113,7 @@ public class AsyncActivity extends APIBaseActivity {
         log("task done:" + f.isDone());
       }
     });
-    registery.add("fromAction", new Runnable() {
+    registery.add(Constants.Async.fromAction, new Runnable() {
       @Override
       public void run() {
         Async.fromAction(new Action0() {
@@ -129,7 +129,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("fromCallable", new Runnable() {
+    registery.add(Constants.Async.fromCallable, new Runnable() {
       @Override
       public void run() {
         Async.fromCallable(new Callable<Integer>() {
@@ -145,7 +145,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("fromRunnable", new Runnable() {
+    registery.add(Constants.Async.fromRunnable, new Runnable() {
       @Override
       public void run() {
         Async.fromRunnable(new Runnable() {
@@ -161,7 +161,7 @@ public class AsyncActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("runAsync", new Runnable() {
+    registery.add(Constants.Async.runAsync, new Runnable() {
       @Override
       public void run() {
         Async.runAsync(Schedulers.io(), new Action2<Observer<? super Integer>, Subscription>() {

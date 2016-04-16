@@ -14,7 +14,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("doOnError", new Runnable() {
+    registery.add(Constants.ErrorHandler.doOnError, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc").cast(Integer.class).doOnError(new Action1<Throwable>() {
@@ -35,7 +35,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("onErrorResumeNext", new Runnable() {
+    registery.add(Constants.ErrorHandler.onErrorResumeNext, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc")
@@ -54,7 +54,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("onErrorReturn", new Runnable() {
+    registery.add(Constants.ErrorHandler.onErrorReturn, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc")
@@ -78,7 +78,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("onExceptionResumeNext", new Runnable() {
+    registery.add(Constants.ErrorHandler.onExceptionResumeNext, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc", "2")
@@ -97,7 +97,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("retry", new Runnable() {
+    registery.add(Constants.ErrorHandler.retry, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc", 2).cast(Integer.class).retry(2).subscribe(new Action1<Integer>() {
@@ -113,7 +113,7 @@ public class ErrorHandleActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("retryWhen", new Runnable() {
+    registery.add(Constants.ErrorHandler.retryWhen, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "abc", "2")

@@ -12,7 +12,7 @@ public class MathAggregateActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("averageInteger", new Runnable() {
+    registery.add(Constants.MathAggregate.averageInteger, new Runnable() {
       @Override
       public void run() {
         MathObservable.averageInteger(Observable.just(2, 4, 1, 5))
@@ -24,19 +24,18 @@ public class MathAggregateActivity extends APIBaseActivity {
                       });
       }
     });
-    registery.add("averageLong", new Runnable() {
+    registery.add(Constants.MathAggregate.averageLong, new Runnable() {
       @Override
       public void run() {
-        MathObservable.averageInteger(Observable.just(2, 4, 1, 5))
-                      .subscribe(new Action1<Integer>() {
-                        @Override
-                        public void call(Integer integer) {
-                          log(integer);
-                        }
-                      });
+        MathObservable.averageLong(Observable.just(2L, 4L, 1L, 5L)).subscribe(new Action1<Long>() {
+          @Override
+          public void call(Long l) {
+            log(l);
+          }
+        });
       }
     });
-    registery.add("averageFloat", new Runnable() {
+    registery.add(Constants.MathAggregate.averageFloat, new Runnable() {
       @Override
       public void run() {
         MathObservable.averageFloat(Observable.just(1.0f, 2.0f, 3.0f, 4.0f))
@@ -48,7 +47,7 @@ public class MathAggregateActivity extends APIBaseActivity {
                       });
       }
     });
-    registery.add("averageDouble", new Runnable() {
+    registery.add(Constants.MathAggregate.averageDouble, new Runnable() {
       @Override
       public void run() {
         MathObservable.averageDouble(Observable.just(1.0, 2.0, 3.0, 4.0))
@@ -60,7 +59,7 @@ public class MathAggregateActivity extends APIBaseActivity {
                       });
       }
     });
-    registery.add("max", new Runnable() {
+    registery.add(Constants.MathAggregate.max, new Runnable() {
       @Override
       public void run() {
         MathObservable.max(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {
@@ -71,13 +70,13 @@ public class MathAggregateActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("maxBy", new Runnable() {
+    registery.add(Constants.MathAggregate.maxBy, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("min", new Runnable() {
+    registery.add(Constants.MathAggregate.min, new Runnable() {
       @Override
       public void run() {
         MathObservable.min(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {
@@ -88,13 +87,13 @@ public class MathAggregateActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("minBy", new Runnable() {
+    registery.add(Constants.MathAggregate.minBy, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("sumInteger", new Runnable() {
+    registery.add(Constants.MathAggregate.sumInteger, new Runnable() {
       @Override
       public void run() {
         MathObservable.sumInteger(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {
@@ -105,7 +104,7 @@ public class MathAggregateActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("sumLong", new Runnable() {
+    registery.add(Constants.MathAggregate.sumLong, new Runnable() {
       @Override
       public void run() {
         MathObservable.sumLong(Observable.just(1L, 2L, 3L)).subscribe(new Action1<Long>() {
@@ -116,7 +115,7 @@ public class MathAggregateActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("sumFloat", new Runnable() {
+    registery.add(Constants.MathAggregate.sumFloat, new Runnable() {
       @Override
       public void run() {
         MathObservable.sumFloat(Observable.just(1.0f, 2.0f, 3.0f, 4.0f))
@@ -128,7 +127,7 @@ public class MathAggregateActivity extends APIBaseActivity {
                       });
       }
     });
-    registery.add("sumDouble", new Runnable() {
+    registery.add(Constants.MathAggregate.sumDouble, new Runnable() {
       @Override
       public void run() {
         MathObservable.sumDouble(Observable.just(1.0, 2.0, 3.0, 4.0))
@@ -140,55 +139,55 @@ public class MathAggregateActivity extends APIBaseActivity {
                       });
       }
     });
-    registery.add("concat", new Runnable() {
+    registery.add(Constants.MathAggregate.concat, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("count", new Runnable() {
+    registery.add(Constants.MathAggregate.count, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("countLong", new Runnable() {
+    registery.add(Constants.MathAggregate.countLong, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("reduce", new Runnable() {
+    registery.add(Constants.MathAggregate.reduce, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("collect", new Runnable() {
+    registery.add(Constants.MathAggregate.collect, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("toList", new Runnable() {
+    registery.add(Constants.MathAggregate.toList, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("toSortedList", new Runnable() {
+    registery.add(Constants.MathAggregate.toSortedList, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("toMap", new Runnable() {
+    registery.add(Constants.MathAggregate.toMap, new Runnable() {
       @Override
       public void run() {
         logUseObservable();
       }
     });
-    registery.add("toMultiMap", new Runnable() {
+    registery.add(Constants.MathAggregate.toMultiMap, new Runnable() {
       @Override
       public void run() {
         logUseObservable();

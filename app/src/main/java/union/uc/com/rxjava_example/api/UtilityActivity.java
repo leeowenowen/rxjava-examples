@@ -23,7 +23,7 @@ public class UtilityActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("materialize", new Runnable() {
+    registery.add(Constants.Utility.materialize, new Runnable() {
       @Override
       public void run() {
         Observable o1 = Observable.range(1, 3).materialize();
@@ -43,12 +43,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    //    registery.add("dematerialize", new Runnable() {
-    //      @Override
-    //      public void run() {
-    //      }
-    //    });
-    registery.add("timestamp", new Runnable() {
+    registery.add(Constants.Utility.timestamp, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).timestamp().subscribe(new Action1<Timestamped<Integer>>() {
@@ -59,7 +54,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("serialize", new Runnable() {
+    registery.add(Constants.Utility.serialize, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 3).serialize().subscribe(new Action1<Integer>() {
@@ -70,7 +65,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("cache", new Runnable() {
+    registery.add(Constants.Utility.cache, new Runnable() {
       @Override
       public void run() {
         Observable o = Observable.range(1, 10).cache();
@@ -89,7 +84,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("observeOn", new Runnable() {
+    registery.add(Constants.Utility.observeOn, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 2).observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {
@@ -100,7 +95,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("doOnEach", new Runnable() {
+    registery.add(Constants.Utility.doOnEach, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).doOnEach(new Action1<Notification<? super Integer>>() {
@@ -116,13 +111,13 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("fromRunnable", new Runnable() {
+    registery.add(Constants.Utility.fromRunnable, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("doOnCompleted", new Runnable() {
+    registery.add(Constants.Utility.doOnCompleted, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 3).doOnCompleted(new Action0() {
@@ -138,7 +133,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("doOnError", new Runnable() {
+    registery.add(Constants.Utility.doOnError, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, "3").cast(Integer.class).doOnError(new Action1<Throwable>() {
@@ -159,7 +154,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("doOnTerminate", new Runnable() {
+    registery.add(Constants.Utility.doOnTerminate, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).doOnTerminate(new Action0() {
@@ -175,7 +170,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("doOnUnsubscribe", new Runnable() {
+    registery.add(Constants.Utility.doOnUnsubscribe, new Runnable() {
       @Override
       public void run() {
         Subscription subscription = Observable.just(1, 2).doOnSubscribe(new Action0() {
@@ -197,7 +192,7 @@ public class UtilityActivity extends APIBaseActivity {
         subscription.unsubscribe();
       }
     });
-    registery.add("finallyDo", new Runnable() {
+    registery.add(Constants.Utility.finallyDo, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).finallyDo(new Action0() {
@@ -213,7 +208,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("delay", new Runnable() {
+    registery.add(Constants.Utility.delay, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).delay(2, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {
@@ -224,7 +219,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("delaySubscription", new Runnable() {
+    registery.add(Constants.Utility.delaySubscription, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2)
@@ -237,7 +232,7 @@ public class UtilityActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("timeInterval", new Runnable() {
+    registery.add(Constants.Utility.timeInterval, new Runnable() {
       @Override
       public void run() {
         Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -261,7 +256,7 @@ public class UtilityActivity extends APIBaseActivity {
       }
     });
 
-    registery.add("using", new Runnable() {
+    registery.add(Constants.Utility.using, new Runnable() {
       @Override
       public void run() {
         Observable.using(new Func0<File>() {
@@ -304,7 +299,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("single", new Runnable() {
+    registery.add(Constants.Utility.single, new Runnable() {
       @Override
       public void run() {
         Observable.just(1).single().subscribe(new Action1<Integer>() {
@@ -315,7 +310,7 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("singleOrDefault", new Runnable() {
+    registery.add(Constants.Utility.singleOrDefault, new Runnable() {
       @Override
       public void run() {
         Observable.<Integer>empty().singleOrDefault(10).subscribe(new Action1<Integer>() {

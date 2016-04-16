@@ -15,7 +15,7 @@ public class StringActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("byLine", new Runnable() {
+    registery.add(Constants.Strings.byLine, new Runnable() {
       @Override
       public void run() {
         StringObservable.byLine(Observable.just("ab\r\ncd\r\nef", "12\r\n34"))
@@ -27,7 +27,7 @@ public class StringActivity extends APIBaseActivity {
                         });
       }
     });
-    registery.add("decode", new Runnable() {
+    registery.add(Constants.Strings.decode, new Runnable() {
       @Override
       public void run() {
         StringObservable.decode(Observable.just("ABC".getBytes(Charset.forName("UTF-8"))),
@@ -39,7 +39,7 @@ public class StringActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("encode", new Runnable() {
+    registery.add(Constants.Strings.encode, new Runnable() {
       @Override
       public void run() {
         StringObservable.encode(Observable.just("abc"), "UTF-8").subscribe(new Action1<byte[]>() {
@@ -50,7 +50,7 @@ public class StringActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("from", new Runnable() {
+    registery.add(Constants.Strings.from, new Runnable() {
       @Override
       public void run() {
         StringObservable.from(new ByteArrayInputStream("ABC".getBytes()))
@@ -62,7 +62,7 @@ public class StringActivity extends APIBaseActivity {
                         });
       }
     });
-    registery.add("join", new Runnable() {
+    registery.add(Constants.Strings.join, new Runnable() {
       @Override
       public void run() {
         StringObservable.join(Observable.just("abc", "def"), "#").subscribe(new Action1<String>() {
@@ -73,7 +73,7 @@ public class StringActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("split", new Runnable() {
+    registery.add(Constants.Strings.split, new Runnable() {
       @Override
       public void run() {
         StringObservable.split(Observable.just("ab#cd#ef"), "#").subscribe(new Action1<String>() {
@@ -84,7 +84,7 @@ public class StringActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("stringConcat", new Runnable() {
+    registery.add(Constants.Strings.stringConcat, new Runnable() {
       @Override
       public void run() {
         StringObservable.stringConcat(Observable.just("abc", "def"))

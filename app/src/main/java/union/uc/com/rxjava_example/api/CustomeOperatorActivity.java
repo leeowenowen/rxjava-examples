@@ -46,7 +46,7 @@ public class CustomeOperatorActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("customeOperator", new Runnable() {
+    registery.add(Constants.CustomerOperator.customeOperator, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10)

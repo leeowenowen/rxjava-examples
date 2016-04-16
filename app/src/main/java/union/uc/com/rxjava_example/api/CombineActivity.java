@@ -21,14 +21,14 @@ public class CombineActivity extends APIBaseActivity {
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
     //emit a specified sequence of items before beginning to emit the items from the Observable
-    registery.add("startWith", new Runnable() {
+    registery.add(Constants.Combine.startWith, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
     //combine multiple Observables into one
-    registery.add("merge", new Runnable() {
+    registery.add(Constants.Combine.merge, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2, 3)
@@ -42,14 +42,14 @@ public class CombineActivity extends APIBaseActivity {
       }
     });
     // combine multiple Observables into one, allowing error-free Observables to continue before propagating errors
-    registery.add("mergeDelayError", new Runnable() {
+    registery.add(Constants.Combine.mergeDelayError, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
     //combine sets of items emitted by two or more Observables together via a specified function and emit items based on the results of this function
-    registery.add("zip", new Runnable() {
+    registery.add(Constants.Combine.zip, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2, 3)
@@ -68,7 +68,7 @@ public class CombineActivity extends APIBaseActivity {
       }
     });
     //combine sets of items emitted by two or more Observables by means of Pattern and Plan intermediaries
-    registery.add("and then when", new Runnable() {
+    registery.add(Constants.Combine.and_then_when, new Runnable() {
       @Override
       public void run() {
         Plan0<String> p = //
@@ -105,7 +105,7 @@ public class CombineActivity extends APIBaseActivity {
     //    });
 
     //when an item is emitted by either of two Observables, combine the latest item emitted by each Observable via a specified function and emit items based on the results of this function
-    registery.add("combineLatest", new Runnable() {
+    registery.add(Constants.Combine.combineLatest, new Runnable() {
       @Override
       public void run() {
         Observable.combineLatest(Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -142,7 +142,7 @@ public class CombineActivity extends APIBaseActivity {
     });
 
     //join( ) and groupJoin( ) — combine the items emitted by two Observables whenever one item from one Observable falls within a window of duration specified by an item emitted by the other Observable
-    registery.add("join", new Runnable() {
+    registery.add(Constants.Combine.join, new Runnable() {
                     @Override
                     public void run() {
                       Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -192,7 +192,7 @@ public class CombineActivity extends APIBaseActivity {
     );
 
 
-    registery.add("groupjoin", new Runnable() {
+    registery.add(Constants.Combine.groupjoin, new Runnable() {
       @Override
       public void run() {
         Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -251,7 +251,7 @@ public class CombineActivity extends APIBaseActivity {
     });
     //convert an Observable that emits Observables into a single Observable that emits the items
     //emitted by the most-recently emitted of those Observables
-    registery.add("switchIfEmpty", new Runnable() {
+    registery.add(Constants.Combine.switchIfEmpty, new Runnable() {
                     @Override
                     public void run() {
                       Observable.<Integer>empty().switchIfEmpty(Observable.just(4, 5))
@@ -266,7 +266,7 @@ public class CombineActivity extends APIBaseActivity {
 
     );
 
-    registery.add("switchOnNext", new Runnable() {
+    registery.add(Constants.Combine.switchOnNext, new Runnable() {
                     @Override
                     public void run() {
                       logNotImplemented();

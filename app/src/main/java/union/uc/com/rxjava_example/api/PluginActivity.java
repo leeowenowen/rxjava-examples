@@ -106,7 +106,7 @@ public class PluginActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("check hook result", new Runnable() {
+    registery.add(Constants.Plugin.start_hook, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {

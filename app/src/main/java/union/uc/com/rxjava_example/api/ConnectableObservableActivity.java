@@ -15,7 +15,7 @@ public class ConnectableObservableActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("connect", new Runnable() {
+    registery.add(Constants.ConnectableObservable.connect, new Runnable() {
       @Override
       public void run() {
         Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -47,13 +47,13 @@ public class ConnectableObservableActivity extends APIBaseActivity {
         co.connect();
       }
     });
-    registery.add("publish", new Runnable() {
+    registery.add(Constants.ConnectableObservable.publish, new Runnable() {
       @Override
       public void run() {
         log("showed in connect!");
       }
     });
-    registery.add("replay", new Runnable() {
+    registery.add(Constants.ConnectableObservable.replay, new Runnable() {
       @Override
       public void run() {
         Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -85,7 +85,7 @@ public class ConnectableObservableActivity extends APIBaseActivity {
         co.connect();
       }
     });
-    registery.add("refCount", new Runnable() {
+    registery.add(Constants.ConnectableObservable.refCount, new Runnable() {
       @Override
       public void run() {
         ConnectableObservable<Integer> co =

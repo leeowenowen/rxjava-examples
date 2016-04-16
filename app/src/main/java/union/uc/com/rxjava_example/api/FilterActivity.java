@@ -20,7 +20,7 @@ public class FilterActivity extends APIBaseActivity {
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
     //filter items emitted by an Observable
-    registery.add("filter", new Runnable() {
+    registery.add(Constants.Filter.filter, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).filter(new Func1<Integer, Boolean>() {
@@ -36,7 +36,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("takeLast", new Runnable() {
+    registery.add(Constants.Filter.takeLast, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).takeLast(3).subscribe(new Action1<Integer>() {
@@ -47,7 +47,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("last", new Runnable() {
+    registery.add(Constants.Filter.last, new Runnable() {
       @Override
       public void run() {
         //normal last
@@ -71,7 +71,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("lastOrDefault", new Runnable() {
+    registery.add(Constants.Filter.lastOrDefault, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).lastOrDefault(10).subscribe(new Action1<Integer>() {
@@ -93,7 +93,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("takeLastBuffer", new Runnable() {
+    registery.add(Constants.Filter.takeLastBuffer, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10)
@@ -133,7 +133,7 @@ public class FilterActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("skip", new Runnable() {
+    registery.add(Constants.Filter.skip, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).skip(2).subscribe(new Action1<Integer>() {
@@ -144,7 +144,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("skipLast", new Runnable() {
+    registery.add(Constants.Filter.skipLast, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).skipLast(3).subscribe(new Action1<Integer>() {
@@ -155,7 +155,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("take", new Runnable() {
+    registery.add(Constants.Filter.take, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).take(3).subscribe(new Action1<Integer>() {
@@ -166,7 +166,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("first", new Runnable() {
+    registery.add(Constants.Filter.first, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).first().subscribe(new Action1<Integer>() {
@@ -177,7 +177,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("takeFirst", new Runnable() {
+    registery.add(Constants.Filter.takeFirst, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).takeFirst(new Func1<Integer, Boolean>() {
@@ -193,7 +193,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("firstOrDefault", new Runnable() {
+    registery.add(Constants.Filter.firstOrDefault, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).firstOrDefault(3).subscribe(new Action1<Integer>() {
@@ -204,7 +204,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("elementAt", new Runnable() {
+    registery.add(Constants.Filter.elementAt, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).elementAt(3).subscribe(new Action1<Integer>() {
@@ -215,7 +215,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("elementAtOrDefault", new Runnable() {
+    registery.add(Constants.Filter.elementAtOrDefault, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).elementAtOrDefault(100, 1000).subscribe(new Action1<Integer>() {
@@ -226,7 +226,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("sample", new Runnable() {
+    registery.add(Constants.Filter.sample, new Runnable() {
       @Override
       public void run() {
         final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -257,7 +257,7 @@ public class FilterActivity extends APIBaseActivity {
         }, 3, TimeUnit.SECONDS);
       }
     });
-    registery.add("throttleLast", new Runnable() {
+    registery.add(Constants.Filter.throttleLast, new Runnable() {
       @Override
       public void run() {
         final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -276,7 +276,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("throttleFirst", new Runnable() {
+    registery.add(Constants.Filter.throttleFirst, new Runnable() {
       @Override
       public void run() {
         final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -303,7 +303,7 @@ public class FilterActivity extends APIBaseActivity {
         }, 3, TimeUnit.SECONDS);
       }
     });
-    registery.add("throttleWithTimeout", new Runnable() {
+    registery.add(Constants.Filter.throttleWithTimeout, new Runnable() {
       @Override
       public void run() {
         Observable.just(1)
@@ -316,7 +316,7 @@ public class FilterActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("debounce", new Runnable() {
+    registery.add(Constants.Filter.debounce, new Runnable() {
       @Override
       public void run() {
         Observable.just(1).debounce(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {
@@ -327,7 +327,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("timeout", new Runnable() {
+    registery.add(Constants.Filter.timeout, new Runnable() {
       @Override
       public void run() {
         Observable.<Integer>never().timeout(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {
@@ -343,7 +343,7 @@ public class FilterActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("distinct", new
+    registery.add(Constants.Filter.distinct, new
 
       Runnable() {
         @Override
@@ -360,39 +360,37 @@ public class FilterActivity extends APIBaseActivity {
       }
 
     );
-    registery.add("distinctUntilChanged", new
-
-      Runnable() {
-        @Override
-        public void run() {
-          Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)
-                    .distinctUntilChanged()
-                    .subscribe(new Action1<Integer>() {
-                      @Override
-                      public void call(Integer integer) {
-                        log(integer);
-                      }
-                    });
-        }
-      }
+    registery.add(Constants.Filter.distinctUntilChanged, new Runnable() {
+                    @Override
+                    public void run() {
+                      Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)
+                                .distinctUntilChanged()
+                                .subscribe(new Action1<Integer>() {
+                                  @Override
+                                  public void call(Integer integer) {
+                                    log(integer);
+                                  }
+                                });
+                    }
+                  }
 
     );
-    registery.add("ofType", new
+    registery.add(Constants.Filter.ofType, new Runnable() {
+                    @Override
+                    public void run() {
+                      Observable.<Object>just(1, "2", new Exception("abc")).
+                                                                             ofType(Integer.class)
+                                                                           .subscribe(new Action1<Integer>() {
+                                                                             @Override
+                                                                             public void call(Integer integer) {
+                                                                               log(integer);
+                                                                             }
+                                                                           });
+                    }
+                  }
 
-      Runnable() {
-        @Override
-        public void run() {
-          Observable.<Object>just(1, "2", new Exception("abc")).
-          ofType(Integer.class).subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer integer) {
-              log(integer);
-            }
-          });
-        }
-      }
-
-    ); registery.add("ignoreElements", new
+    );
+    registery.add(Constants.Filter.ignoreElements, new
 
       Runnable() {
         @Override

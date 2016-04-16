@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -26,6 +25,8 @@ public abstract class APIBaseActivity extends AppCompatActivity {
   private TextView mLog;
   private MarkdownView mMarkdownView;
 
+  private LinearLayout mTop;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -38,30 +39,14 @@ public abstract class APIBaseActivity extends AppCompatActivity {
 
   private void setupUIComponents() {
     //top
-    LinearLayout top = new LinearLayout(this);
-    TextView description = new TextView(this);
-    description.setBackgroundColor(Color.BLUE);
-    description.setTextColor(Color.YELLOW);
-    description.setText(myDescription());
+    mTop = new LinearLayout(this);
+    mTop.setOrientation(LinearLayout.VERTICAL);
+    mMarkdownView = new MarkdownView(this);
+    mTop.addView(mMarkdownView,
+                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
 
-    final Button btnClearLog = new Button(this);
-    btnClearLog.setText("Clear Log");
-    btnClearLog.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        clearLog();
-      }
-    });
-
-    top.addView(description,
-                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-    top.addView(btnClearLog,
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                              LinearLayout.LayoutParams.WRAP_CONTENT));
-
-    // bottom
+    //bottom
     LinearLayout bottom = new LinearLayout(this);
-
     mLog = new TextView(this);
     mLog.setSingleLine(false);
     ScrollView scrollView = new ScrollView(this);
@@ -75,16 +60,11 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     bottom.addView(actionList,
                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
 
+    //container
     LinearLayout container = new LinearLayout(this);
     container.setOrientation(LinearLayout.VERTICAL);
-
-    container.addView(top,
-                      new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                                    LinearLayout.LayoutParams.WRAP_CONTENT));
-    mMarkdownView = new MarkdownView(this);
-    container.addView(mMarkdownView,
+    container.addView(mTop,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
-
     container.addView(bottom,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 3));
     setContentView(container);

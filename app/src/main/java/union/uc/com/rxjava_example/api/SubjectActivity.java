@@ -20,7 +20,7 @@ public class SubjectActivity extends APIBaseActivity {
     /* AsyncSubject caches the last value. The difference now is that it doesn't emit anything
     until the sequence completes. Its use is to emit a single value and immediately complete.
      */
-    registery.add("AsyncSubject", new Runnable() {
+    registery.add(Constants.Subject.async, new Runnable() {
       @Override
       public void run() {
         AsyncSubject<Integer> s = AsyncSubject.create();
@@ -40,7 +40,7 @@ public class SubjectActivity extends APIBaseActivity {
     buffer of size 1. An initial value can be provided on creation, therefore guaranteeing that
      a value always will be available immediately on subscription.
     */
-    registery.add("BehaviorSubject", new Runnable() {
+    registery.add(Constants.Subject.behavior, new Runnable() {
       @Override
       public void run() {
         BehaviorSubject<Integer> s = BehaviorSubject.create();
@@ -55,7 +55,7 @@ public class SubjectActivity extends APIBaseActivity {
         s.onNext(3);
       }
     });
-    registery.add("BehaviorSubject with init value", new Runnable() {
+    registery.add(Constants.Subject.behavior_with_init_value, new Runnable() {
       @Override
       public void run() {
         BehaviorSubject<Integer> s = BehaviorSubject.create(0);
@@ -73,7 +73,7 @@ public class SubjectActivity extends APIBaseActivity {
      When a value is pushed into a PublishSubject, the subject pushes
      it to every subscriber that is subscribed to it at that moment.
      */
-    registery.add("PublishSubject", new Runnable() {
+    registery.add(Constants.Subject.publish, new Runnable() {
       @Override
       public void run() {
         PublishSubject<Integer> subject = PublishSubject.create();
@@ -93,7 +93,7 @@ public class SubjectActivity extends APIBaseActivity {
       subscription is made, the event sequence is replayed from the start for the new subscriber.
       After catching up, every subscriber receives new events as they come.
       */
-    registery.add("ReplaySubject.create", new Runnable() {
+    registery.add(Constants.Subject.replay, new Runnable() {
       @Override
       public void run() {
         ReplaySubject<Integer> subject = ReplaySubject.create();
@@ -115,7 +115,7 @@ public class SubjectActivity extends APIBaseActivity {
         subject.onNext(4);
       }
     });
-    registery.add("ReplaySubject.createWithTime", new Runnable() {
+    registery.add(Constants.Subject.replay_create_with_time, new Runnable() {
       @Override
       public void run() {
         try {

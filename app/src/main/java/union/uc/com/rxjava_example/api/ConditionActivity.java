@@ -16,7 +16,7 @@ public class ConditionActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("amb", new Runnable() {
+    registery.add(Constants.Condition.amb, new Runnable() {
       @Override
       public void run() {
         Observable.amb(Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -53,7 +53,7 @@ public class ConditionActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("defaultIfEmpty", new Runnable() {
+    registery.add(Constants.Condition.defaultIfEmpty, new Runnable() {
       @Override
       public void run() {
         Observable.<Integer>empty().defaultIfEmpty(3).subscribe(new Action1<Integer>() {
@@ -64,19 +64,19 @@ public class ConditionActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("doWhile", new Runnable() {
+    registery.add(Constants.Condition.doWhile, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("ifThen", new Runnable() {
+    registery.add(Constants.Condition.ifThen, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("skipUtil", new Runnable() {
+    registery.add(Constants.Condition.skipUtil, new Runnable() {
       @Override
       public void run() {
         Observable.create(new Observable.OnSubscribe<Integer>() {
@@ -99,7 +99,7 @@ public class ConditionActivity extends APIBaseActivity {
                   });
       }
     });
-    registery.add("skipWhile", new Runnable() {
+    registery.add(Constants.Condition.skipWhile, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).skipWhile(new Func1<Integer, Boolean>() {
@@ -115,13 +115,13 @@ public class ConditionActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("switchcase", new Runnable() {
+    registery.add(Constants.Condition.switchcase, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("takeUntil", new Runnable() {
+    registery.add(Constants.Condition.takeUntil, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).takeUntil(new Func1<Integer, Boolean>() {
@@ -137,7 +137,7 @@ public class ConditionActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("takeWhile", new Runnable() {
+    registery.add(Constants.Condition.takeWhile, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).takeWhile(new Func1<Integer, Boolean>() {
@@ -153,13 +153,13 @@ public class ConditionActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("takeWhileWithIndex", new Runnable() {
+    registery.add(Constants.Condition.takeWhileWithIndex, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();
       }
     });
-    registery.add("WhileDo", new Runnable() {
+    registery.add(Constants.Condition.WhileDo, new Runnable() {
       @Override
       public void run() {
         logNotImplemented();

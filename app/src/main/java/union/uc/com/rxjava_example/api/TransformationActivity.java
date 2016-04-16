@@ -19,7 +19,7 @@ public class TransformationActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add("map", new Runnable() {
+    registery.add(Constants.Transformation.map, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).map(new Func1<Integer, Integer>() {
@@ -35,7 +35,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("flatMap", new Runnable() {
+    registery.add(Constants.Transformation.flatMap, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).flatMap(new Func1<Integer, Observable<Integer>>() {
@@ -57,7 +57,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("concatMap", new Runnable() {
+    registery.add(Constants.Transformation.concatMap, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).concatMap(new Func1<Integer, Observable<Integer>>() {
@@ -73,7 +73,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("flatMapIterable", new Runnable() {
+    registery.add(Constants.Transformation.flatMapIterable, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).flatMapIterable(new Func1<Integer, Iterable<String>>() {
@@ -89,7 +89,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("switchMap", new Runnable() {
+    registery.add(Constants.Transformation.switchMap, new Runnable() {
       @Override
       public void run() {
         Observable.just(1, 2).switchMap(new Func1<Integer, Observable<Integer>>() {
@@ -105,7 +105,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("scan", new Runnable() {
+    registery.add(Constants.Transformation.scan, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).scan(new Func2<Integer, Integer, Integer>() {
@@ -121,7 +121,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("groupBy", new Runnable() {
+    registery.add(Constants.Transformation.groupBy, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).groupBy(new Func1<Integer, String>() {
@@ -143,7 +143,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("buffer", new Runnable() {
+    registery.add(Constants.Transformation.buffer, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).buffer(3).subscribe(new Action1<List<Integer>>() {
@@ -158,7 +158,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("window", new Runnable() {
+    registery.add(Constants.Transformation.window, new Runnable() {
       @Override
       public void run() {
         Observable.range(1, 10).window(3).subscribe(new Action1<Observable<Integer>>() {
@@ -174,7 +174,7 @@ public class TransformationActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add("cast", new Runnable() {
+    registery.add(Constants.Transformation.cast, new Runnable() {
       @Override
       public void run() {
         Observable.<Object>just(1, 2, 3).
