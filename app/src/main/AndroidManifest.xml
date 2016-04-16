@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="union.uc.com.rxjava_example"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".AutoCompleteActivity"/>
+        <activity android:name=".ConditionActivity"/>
+        <activity android:name=".RWFileActivity"/>
+        <activity android:name=".AdFetchActivity"/>
+        <activity android:name=".GroupByActivity"/>
+        <activity android:name=".BufferActivity"/>
+        <activity android:name=".OtherAPIActivity"/>
+        <activity android:name=".api.AsyncActivity"/>
+        <activity android:name=".api.BlockingObservableActivity"/>
+        <activity android:name=".api.CombineActivity"/>
+        <activity android:name=".api.ConditionActivity"/>
+        <activity android:name=".api.ConnectableObservableActivity"/>
+        <activity android:name=".api.CustomeOperatorActivity"/>
+        <activity android:name=".api.ErrorHandleActivity"/>
+        <activity android:name=".api.FilterActivity"/>
+        <activity android:name=".api.MathAggregateActivity"/>
+        <activity android:name=".api.ObservableCreateActivity"/>
+        <activity android:name=".api.PluginActivity"/>
+        <activity android:name=".api.SchedulerActivity"/>
+        <activity android:name=".api.StringActivity"/>
+        <activity android:name=".api.SubjectActivity"/>
+        <activity android:name=".api.TransformationActivity"/>
+        <activity android:name=".api.UtilityActivity"/>
+        <activity android:name=".api.ReactiveStreamActivity"/>
+    </application>
+
+</manifest>
