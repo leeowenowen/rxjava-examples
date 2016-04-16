@@ -14,6 +14,7 @@ import rx.schedulers.Schedulers;
 import rx.util.async.Async;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
 import union.uc.com.rxjava_example.base.AsyncExecutor;
+import union.uc.com.rxjava_example.contants.Constants;
 
 /**
  * Created by wangli on 4/12/16.

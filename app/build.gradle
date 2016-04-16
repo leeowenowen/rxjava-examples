@@ -36,6 +36,7 @@ dependencies {
     compile 'io.reactivex:rxjava-computation-expressions:0.+'
     androidTestCompile 'junit:junit:4.12'
     compile 'us.feras.mdv:markdownview:1.1.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
 task showMeCache << {
     configurations.compile.each { println it }

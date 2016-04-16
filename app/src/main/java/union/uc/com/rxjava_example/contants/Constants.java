@@ -1,4 +1,4 @@
-package union.uc.com.rxjava_example.api;
+package union.uc.com.rxjava_example.contants;
 
 /**
  * Created by wangli on 4/16/16.
@@ -28,7 +28,6 @@ public class Constants {
     public static final String cache = "cache";
     public static final String observeOn = "observeOn";
     public static final String doOnEach = "doOnEach";
-    public static final String fromRunnable = "fromRunnable";
     public static final String doOnCompleted = "doOnCompleted";
     public static final String doOnError = "doOnError";
     public static final String doOnTerminate = "doOnTerminate";
@@ -157,7 +156,6 @@ public class Constants {
   }
 
   public static final class ErrorHandler {
-    public static final String doOnError = "doOnError";
     public static final String onErrorResumeNext = "onErrorResumeNext";
     public static final String onErrorReturn = "onErrorReturn";
     public static final String onExceptionResumeNext = "onExceptionResumeNext";

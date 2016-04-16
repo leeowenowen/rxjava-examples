@@ -15,12 +15,12 @@ import rx.schedulers.Schedulers;
 import rx.schedulers.TimeInterval;
 import rx.schedulers.Timestamped;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
+import union.uc.com.rxjava_example.contants.Constants;
 
 /**
  * Created by wangli on 4/12/16.
  */
 public class UtilityActivity extends APIBaseActivity {
-
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
     registery.add(Constants.Utility.materialize, new Runnable() {
@@ -109,12 +109,6 @@ public class UtilityActivity extends APIBaseActivity {
             log(integer);
           }
         });
-      }
-    });
-    registery.add(Constants.Utility.fromRunnable, new Runnable() {
-      @Override
-      public void run() {
-        logNotImplemented();
       }
     });
     registery.add(Constants.Utility.doOnCompleted, new Runnable() {

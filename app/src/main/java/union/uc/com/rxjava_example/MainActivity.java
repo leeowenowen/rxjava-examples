@@ -3,7 +3,6 @@ package union.uc.com.rxjava_example;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import union.uc.com.rxjava_example.api.AsyncActivity;
 import union.uc.com.rxjava_example.api.BlockingObservableActivity;
@@ -79,21 +76,6 @@ public class MainActivity extends AppCompatActivity {
     mListAdapter.register("Utility", UtilityActivity.class);
     mListAdapter.register("ReactiveStream", ReactiveStreamActivity.class);
     mListView.setAdapter(mListAdapter);
-
-    Pattern p = Pattern.compile("" +
-                                "(?:\\n\\n|\\A)" +
-                                "((?:" +
-                                "(?:[ ]{4})" +
-                                ".*\\n+" +
-                                ")+" +
-                                ")" +
-                                "((?=^[ ]{0,4}\\S)|\\Z)", Pattern.MULTILINE);
-    String s = "\n\npublic int foo(){\n" +
-               "return 1;\n" +
-               "}\n\n";
-    Matcher matcher = p.matcher(s);
-    boolean mat = matcher.find();
-    Log.d("xxx", "" + mat);
   }
 
   private class ActivityAdapter extends BaseAdapter {

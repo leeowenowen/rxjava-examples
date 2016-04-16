@@ -6,6 +6,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.internal.operators.OperatorMap;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
+import union.uc.com.rxjava_example.contants.Constants;
 
 /**
  * Created by wangli on 4/12/16.

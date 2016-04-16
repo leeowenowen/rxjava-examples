@@ -13,6 +13,7 @@ import rx.functions.Action1;
 import rx.functions.Func0;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
 import union.uc.com.rxjava_example.base.AsyncExecutor;
+import union.uc.com.rxjava_example.contants.Constants;
 
 /**
  * Created by wangli on 4/12/16.

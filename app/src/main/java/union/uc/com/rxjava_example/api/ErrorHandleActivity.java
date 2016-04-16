@@ -6,6 +6,7 @@ import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
+import union.uc.com.rxjava_example.contants.Constants;
 
 /**
  * Created by wangli on 4/12/16.
@@ -14,27 +15,6 @@ public class ErrorHandleActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    registery.add(Constants.ErrorHandler.doOnError, new Runnable() {
-      @Override
-      public void run() {
-        Observable.just(1, "abc").cast(Integer.class).doOnError(new Action1<Throwable>() {
-          @Override
-          public void call(Throwable throwable) {
-            log("doOnError:" + throwable);
-          }
-        }).subscribe(new Action1<Integer>() {
-          @Override
-          public void call(Integer integer) {
-            log(integer);
-          }
-        }, new Action1<Throwable>() {
-          @Override
-          public void call(Throwable throwable) {
-            log(throwable);
-          }
-        });
-      }
-    });
     registery.add(Constants.ErrorHandler.onErrorResumeNext, new Runnable() {
       @Override
       public void run() {

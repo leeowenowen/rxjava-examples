@@ -16,15 +16,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import us.feras.mdv.MarkdownView;
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.internal.util.SubscriptionList;
+import union.uc.com.rxjava_example.plugin.DisplayPluginManager;
 
 /**
  * Created by wangli on 4/12/16.
  */
 public abstract class APIBaseActivity extends AppCompatActivity {
   private TextView mLog;
-  private MarkdownView mMarkdownView;
-
   private LinearLayout mTop;
 
   @Override
@@ -41,10 +43,6 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     //top
     mTop = new LinearLayout(this);
     mTop.setOrientation(LinearLayout.VERTICAL);
-    mMarkdownView = new MarkdownView(this);
-    mTop.addView(mMarkdownView,
-                 new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
-
     //bottom
     LinearLayout bottom = new LinearLayout(this);
     mLog = new TextView(this);
@@ -63,7 +61,10 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     //container
     LinearLayout container = new LinearLayout(this);
     container.setOrientation(LinearLayout.VERTICAL);
-    container.addView(mTop,
+    ScrollView topScrollView = new ScrollView(this);
+    topScrollView.addView(mTop);
+    scrollView.setBackgroundColor(Color.LTGRAY);
+    container.addView(topScrollView,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
     container.addView(bottom,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 3));
@@ -118,7 +119,7 @@ public abstract class APIBaseActivity extends AppCompatActivity {
   private ActionAdapter mActionAdapter = new ActionAdapter();
 
   private class ActionItem {
-    public String name;
+    public String key;
     public String code;
     public Runnable action;
   }
@@ -133,9 +134,9 @@ public abstract class APIBaseActivity extends AppCompatActivity {
 
     //from ActionRegistery
     @Override
-    public void add(String name, String code, Runnable action) {
+    public void add(String key, String code, Runnable action) {
       ActionItem item = new ActionItem();
-      item.name = name;
+      item.key = key;
       item.code = code;
       item.action = action;
       mActions.add(item);
@@ -167,21 +168,36 @@ public abstract class APIBaseActivity extends AppCompatActivity {
       }
       final ActionItem item = (ActionItem) getItem(position);
       tv.setPadding(20, 20, 20, 10);
-      tv.setText(item.name);
+      tv.setText(item.key);
       tv.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           clearLog();
-
-          TextView tv = (TextView) v;
-          log(tv.getText().toString());
-          log("----------");
-          // mMarkdownView.loadMarkdown("```\n\n" + item.code + "\n\n```");
-          mMarkdownView.loadMarkdown("\n\n" + process(code));
+          refreshDispalyArea(item.key);
           item.action.run();
         }
       });
       return tv;
+    }
+  }
+
+  private SubscriptionList mLastSubscriptionList = new SubscriptionList();
+
+  private void refreshDispalyArea(String key) {
+    mLastSubscriptionList.unsubscribe();
+    mTop.removeAllViews();
+    List<DisplayPluginManager.Plugin> plugins = DisplayPluginManager.singleton().getAll();
+    for (int i = 0; i < plugins.size(); ++i) {
+      final int index = i;
+      DisplayPluginManager.Plugin plugin = plugins.get(index);
+      Observable<View> o = plugin.getView(this, key);
+      Subscription s = o.subscribe(new Action1<View>() {
+        @Override
+        public void call(View view) {
+          mTop.addView(view, index);
+        }
+      });
+      mLastSubscriptionList.add(s);
     }
   }
 
