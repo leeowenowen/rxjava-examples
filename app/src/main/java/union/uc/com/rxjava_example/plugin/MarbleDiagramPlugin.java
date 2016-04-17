@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -26,66 +27,69 @@ import union.uc.com.rxjava_example.contants.Constants;
 public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
   @Override
   public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
-    final ImageView imageView = new ImageView(context);
-    final Reference<ImageView> ref = new WeakReference<>(imageView);
+    final LinearLayout linearLayout = new LinearLayout(context);
+    linearLayout.setOrientation(LinearLayout.VERTICAL);
+    final Reference<LinearLayout> ref = new WeakReference<>(linearLayout);
     Observable<View> o = Observable.just(key)
                                    //  .observeOn(Schedulers.io())
-                                   .map(new Func1<String, String>() {
+                                   .map(new Func1<String, String[]>() {
                                      @Override
-                                     public String call(String s) {
+                                     public String[] call(String s) {
                                        if (mKeyToUrl == null) {
                                          load();
                                        }
                                        return mKeyToUrl.get(s);
                                      }
-                                   }).flatMap(new Func1<String, Observable<View>>() {
+                                   }).flatMap(new Func1<String[], Observable<View>>() {
         @Override
-        public Observable<View> call(String s) {
-          final PublishSubject subject = PublishSubject.create();
-          ImageLoader.getInstance().loadImage(s, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-              ImageView iv = ref.get();
-              if (iv != null) {
-                iv.setImageBitmap(loadedImage);
-                subject.onNext(imageView);
+        public Observable<View> call(String[] urls) {
+          final PublishSubject<View> subject = PublishSubject.create();
+          for (int i = 0; i < urls.length; ++i) {
+            String url = urls[i];
+            ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
+              @Override
+              public void onLoadingStarted(String imageUri, View view) {
               }
-              subject.onCompleted();
-            }
 
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
+              @Override
+              public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+              }
 
-            }
-          });
+              @Override
+              public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                LinearLayout ll = ref.get();
+                if (ll != null) {
+                  ImageView imageView = new ImageView(context);
+                  imageView.setImageBitmap(loadedImage);
+                  ll.addView(imageView);
+                }
+                subject.onNext(ll);
+              }
+
+              @Override
+              public void onLoadingCancelled(String imageUri, View view) {
+              }
+            });
+          }
           return subject;
         }
       });
 
-    return new Tuple.Tuple2<>(o, (View) imageView);
+    return new Tuple.Tuple2<>(o, (View) linearLayout);
   }
 
-  private Map<String, String> mKeyToUrl;
+  private Map<String, String[]> mKeyToUrl;
 
-  private void add(String key, String url) {
-    mKeyToUrl.put(key, url);
+  private void add(String key, String... urls) {
+    mKeyToUrl.put(key, urls);
   }
 
   private void load() {
     mKeyToUrl = new HashMap<>();
     //Utility
     add(Constants.Utility.materialize,
-        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/materialize.png");
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/materialize.png",
+        "http://reactivex.io/documentation/operators/images/dematerialize.c.png");
     add(Constants.Utility.timestamp,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/timestamp.png");
     add(Constants.Utility.serialize,
