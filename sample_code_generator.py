@@ -11,8 +11,6 @@ def CountStartSpaceNum(line):
         raise Exception('count should not < 4!')
       return count - 4
 
-
-
 def Stringlize(lines):
   ret = ''
   startSpaceCount = CountStartSpaceNum(lines[0])
@@ -77,23 +75,17 @@ def CheckFile(file,codes):
         block.append(line)
   return codes
 
-#key = FindKey('registery.add(Constants.Async.toAsync, new Runnable() {')
-#print key
 #find all java files
 codes = {}
-sb = False
 for root,dirs, files in os.walk('.'):
-  if sb:
-    break
   for file in files:
-    if sb:
-      break
     if file.endswith('java') and root.find('api') >= 0:
         codes = CheckFile(os.path.join(root,file), codes)
-        sb = True
+
 dest = os.path.join('app','src','main','java','union','uc','com','rxjava_example','plugin')
 if not os.path.exists(dest):
   os.path.makedirs(dest)
+
 with open(os.path.join(dest,'SampleCode.java'),'w') as output:
   header = '''
 package union.uc.com.rxjava_example.plugin;
