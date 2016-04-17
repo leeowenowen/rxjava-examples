@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">RxJava Example</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="communicate">Communication</string>
+    <string name="action_share">Share</string>
+    <string name="action_send">Send Example APK</string>
+    <string name="api">API Example</string>
+    <string name="sample">Case Example</string>
+    <string name="source_code">源码：https://github.com/leeowenowen/rxjava-examples.git</string>
+    <string name="dev_by">开发者：Lee Wang (leeowenowen@gmail.com)</string>
+</resources>

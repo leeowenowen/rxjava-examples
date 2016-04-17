@@ -14,12 +14,12 @@ public class SeperatorView extends View {
 
   public SeperatorView(Context context, int mode) {
     super(context);
-    int len = (int) Utils.dipToPixels(context, 1);
+    int len = (int) Utils.dipToPixels(context, 2);
     if (MODE_HORIZENTAL == mode) {
       setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, len));
     } else {
       setLayoutParams(new ViewGroup.LayoutParams(len, ViewGroup.LayoutParams.MATCH_PARENT));
     }
-    setBackgroundColor(Color.YELLOW);
+    setBackgroundColor(Color.DKGRAY);
   }
 }
