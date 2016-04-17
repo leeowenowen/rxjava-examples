@@ -20,7 +20,9 @@ import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.internal.util.SubscriptionList;
+import rx.schedulers.Schedulers;
 import union.uc.com.rxjava_example.plugin.DisplayPluginManager;
+import union.uc.com.rxjava_example.ui.SeperatorView;
 
 /**
  * Created by wangli on 4/12/16.
@@ -48,13 +50,13 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     mLog = new TextView(this);
     mLog.setSingleLine(false);
     ScrollView scrollView = new ScrollView(this);
-    scrollView.setBackgroundColor(Color.GRAY);
     scrollView.addView(mLog);
     bottom.addView(scrollView,
                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
     ListView actionList = new ListView(this);
     onRegisterAction(mActionAdapter);
     actionList.setAdapter(mActionAdapter);
+    bottom.addView(new SeperatorView(this, SeperatorView.MODE_VERTICAL));
     bottom.addView(actionList,
                    new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
 
@@ -63,9 +65,10 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     container.setOrientation(LinearLayout.VERTICAL);
     ScrollView topScrollView = new ScrollView(this);
     topScrollView.addView(mTop);
-    scrollView.setBackgroundColor(Color.LTGRAY);
+    topScrollView.setBackgroundColor(Color.WHITE);
     container.addView(topScrollView,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
+    container.addView(new SeperatorView(this, SeperatorView.MODE_HORIZENTAL));
     container.addView(bottom,
                       new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 3));
     setContentView(container);
@@ -184,39 +187,49 @@ public abstract class APIBaseActivity extends AppCompatActivity {
   private SubscriptionList mLastSubscriptionList = new SubscriptionList();
 
   private void refreshDispalyArea(String key) {
-    mLastSubscriptionList.unsubscribe();
     mTop.removeAllViews();
     List<DisplayPluginManager.Plugin> plugins = DisplayPluginManager.singleton().getAll();
     for (int i = 0; i < plugins.size(); ++i) {
       final int index = i;
       DisplayPluginManager.Plugin plugin = plugins.get(index);
-      Observable<View> o = plugin.getView(this, key);
-      Subscription s = o.subscribe(new Action1<View>() {
-        @Override
-        public void call(View view) {
-          mTop.addView(view, index);
-        }
-      });
+      Tuple.Tuple2<Observable<View>, View> t = plugin.getView(this, key);
+      Observable<View> o = t.item1;
+      Subscription s = o.observeOn(Schedulers.from(UIThreadExecutor.SINGLETON)).
+        subscribe(new Action1<View>() {
+          @Override
+          public void call(View view) {
+            view.setVisibility(View.VISIBLE);
+
+            //            for (int i = 0; i < mTop.getChildCount(); ++i) {
+            //              View v = mTop.getChildAt(i);
+            //              v.clearAnimation();
+            //              if (v.equals(view)) {//in
+            //                //YoYo.with(Techniques.ZoomInDown).duration(2000).playOn(v);
+            //                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              -view.getHeight(),
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0);
+            //                t.setDuration(1000);
+            //                v.setAnimation(t);
+            //                t.start();
+            //              } else {//out
+            //              //  YoYo.with(Techniques.SlideInDown).duration(2000).playOn(v);
+            //              }
+            //            }
+
+          }
+        });
+
+      View v = t.item2;
+      v.setVisibility(View.GONE);
+      mTop.addView(v);
+
       mLastSubscriptionList.add(s);
     }
-  }
-
-  private final String code = "" +
-                              "        Observable.just(\"a\", \"b\")\n" +
-                              "                  .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))\n" +
-                              "                  .subscribe(new Action1<String>() {\n" +
-                              "                    @Override\n" +
-                              "                    public void call(String s) {\n" +
-                              "                      log(s + \" on \" + Thread.currentThread().getName());\n" +
-                              "                    }\n" +
-                              "                  });\n";
-
-  private String process(String s) {
-    return s;
-  }
-
-  protected String myDescription() {
-    return "";
   }
 
   protected interface ActionRegistery {

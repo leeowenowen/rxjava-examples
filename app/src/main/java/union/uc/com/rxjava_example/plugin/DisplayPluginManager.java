@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import union.uc.com.rxjava_example.base.Tuple;
 import union.uc.com.rxjava_example.base.UIThreadExecutor;
 
 /**
@@ -22,7 +23,7 @@ public class DisplayPluginManager {
   }
 
   public interface Plugin {
-    Observable<View> getView(Context context, String key);
+    Tuple.Tuple2<Observable<View>, View> getView(Context context, String key);
   }
 
   public void register(final Plugin plugin) {

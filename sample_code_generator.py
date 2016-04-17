@@ -20,7 +20,7 @@ def Stringlize(lines):
     l = l[startSpaceCount:]
     l = l.replace('\"', '\\\"')
     s = "" if i == len(lines) -1 else "+"
-    l = '\n\"' + l + '\"' + s 
+    l = '\n\"' + l + '\\n\"' + s 
     ret = ret + l
   return ret
 

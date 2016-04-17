@@ -26,6 +26,6 @@ public class App extends Application {
     dpm.register(new MarbleDiagramPlugin());
     dpm.register(new SampleCodePlugin());
 
-    
+
   }
 }

@@ -1,16 +1,23 @@
 package union.uc.com.rxjava_example.plugin;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
 import rx.functions.Func1;
+import rx.subjects.PublishSubject;
+import union.uc.com.rxjava_example.base.Tuple;
 import union.uc.com.rxjava_example.contants.Constants;
 
 /**
@@ -18,27 +25,54 @@ import union.uc.com.rxjava_example.contants.Constants;
  */
 public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
   @Override
-  public Observable<View> getView(final Context context, String key) {
-    return Observable.just(key)
-                     //  .observeOn(Schedulers.io())
-                     .map(new Func1<String, String>() {
-                       @Override
-                       public String call(String s) {
-                         if (mKeyToUrl == null) {
-                           load();
-                         }
-                         return mKeyToUrl.get(s);
-                       }
-                     })
-                     // .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))
-                     .map(new Func1<String, View>() {
-                       @Override
-                       public View call(String s) {
-                         ImageView imageView = new ImageView(context);
-                         ImageLoader.getInstance().displayImage(s, imageView);
-                         return imageView;
-                       }
-                     });
+  public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
+    final ImageView imageView = new ImageView(context);
+    final Reference<ImageView> ref = new WeakReference<>(imageView);
+    Observable<View> o = Observable.just(key)
+                                   //  .observeOn(Schedulers.io())
+                                   .map(new Func1<String, String>() {
+                                     @Override
+                                     public String call(String s) {
+                                       if (mKeyToUrl == null) {
+                                         load();
+                                       }
+                                       return mKeyToUrl.get(s);
+                                     }
+                                   }).flatMap(new Func1<String, Observable<View>>() {
+        @Override
+        public Observable<View> call(String s) {
+          final PublishSubject subject = PublishSubject.create();
+          ImageLoader.getInstance().loadImage(s, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+              ImageView iv = ref.get();
+              if (iv != null) {
+                iv.setImageBitmap(loadedImage);
+                subject.onNext(imageView);
+              }
+              subject.onCompleted();
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+            }
+          });
+          return subject;
+        }
+      });
+
+    return new Tuple.Tuple2<>(o, (View) imageView);
   }
 
   private Map<String, String> mKeyToUrl;

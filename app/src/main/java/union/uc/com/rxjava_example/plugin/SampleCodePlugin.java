@@ -3,8 +3,14 @@ package union.uc.com.rxjava_example.plugin;
 import android.content.Context;
 import android.view.View;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+
 import rx.Observable;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+import union.uc.com.rxjava_example.base.Tuple;
+import union.uc.com.rxjava_example.base.UIThreadExecutor;
 import us.feras.mdv.MarkdownView;
 
 /**
@@ -12,24 +18,29 @@ import us.feras.mdv.MarkdownView;
  */
 public class SampleCodePlugin implements DisplayPluginManager.Plugin {
   @Override
-  public Observable<View> getView(final Context context, String key) {
-    return Observable.just(key)
-                     // .observeOn(Schedulers.io())
-                     .map(new Func1<String, String>() {
-                       @Override
-                       public String call(String s) {
-                         return mSampleCode.get(s);
-                       }
-                     })
-                     // .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))
-                     .map(new Func1<String, View>() {
-                       @Override
-                       public View call(String s) {
-                         MarkdownView markdownView = new MarkdownView(context);
-                         markdownView.loadMarkdown(s);
-                         return markdownView;
-                       }
-                     });
+  public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
+    MarkdownView markdownView = new MarkdownView(context);
+    final Reference<MarkdownView> ref = new WeakReference<>(markdownView);
+    Observable<View> o = Observable.just(key)
+                                   // .observeOn(Schedulers.io())
+                                   .map(new Func1<String, String>() {
+                                     @Override
+                                     public String call(String s) {
+                                       return mSampleCode.get(s);
+                                     }
+                                   })
+                                   .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))
+                                   .map(new Func1<String, View>() {
+                                     @Override
+                                     public View call(String s) {
+                                       MarkdownView mv = ref.get();
+                                       if (mv != null) {
+                                         mv.loadMarkdown(s);
+                                       }
+                                       return mv;
+                                     }
+                                   });
+    return new Tuple.Tuple2<>(o, (View) markdownView);
   }
 
   private SampleCode mSampleCode = new SampleCode();

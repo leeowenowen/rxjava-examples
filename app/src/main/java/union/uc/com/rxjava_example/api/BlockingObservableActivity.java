@@ -162,7 +162,7 @@ public class BlockingObservableActivity extends APIBaseActivity {
         log(i);
       }
     });
-    registery.add("toFuture", new Runnable() {
+    registery.add(Constants.BlockingObservable.toFuture, new Runnable() {
       @Override
       public void run() {
         Future<Integer> future = Observable.create(new Observable.OnSubscribe<Integer>() {
