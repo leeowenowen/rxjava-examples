@@ -67,10 +67,10 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     topScrollView.addView(mTop);
     topScrollView.setBackgroundColor(Color.WHITE);
     container.addView(topScrollView,
-                      new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
+                      new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 3));
     container.addView(new SeperatorView(this, SeperatorView.MODE_HORIZENTAL));
     container.addView(bottom,
-                      new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 3));
+                      new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 2));
     setContentView(container);
   }
 
