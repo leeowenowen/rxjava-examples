@@ -13,4 +13,178 @@
 
     <string name="source_code">源码：https://github.com/leeowenowen/rxjava-examples.git</string>
     <string name="dev_by">开发者：王利 leeowenowen@gmail.com</string>
+
+
+    <string name="desc_utility_materialize"></string>
+    <string name="desc_utility_timestamp"></string>
+    <string name="desc_utility_serialize"></string>
+    <string name="desc_utility_cache"></string>
+    <string name="desc_utility_observeOn"></string>
+    <string name="desc_utility_doOnEach"></string>
+    <string name="desc_utility_doOnCompleted"></string>
+    <string name="desc_utility_doOnError"></string>
+    <string name="desc_utility_doOnTerminate"></string>
+    <string name="desc_utility_doOnUnsubscribe"></string>
+    <string name="desc_utility_finallyDo"></string>
+    <string name="desc_utility_delay"></string>
+    <string name="desc_utility_delaySubscription"></string>
+    <string name="desc_utility_timeInterval"></string>
+    <string name="desc_utility_using"></string>
+    <string name="desc_utility_single"></string>
+    <string name="desc_utility_singleOrDefault"></string>
+
+    <string name="desc_transformation_map"></string>
+    <string name="desc_transformation_flatMap"></string>
+    <string name="desc_transformation_concatMap"></string>
+    <string name="desc_transformation_flatMapIterable"></string>
+    <string name="desc_transformation_switchMap"></string>
+    <string name="desc_transformation_scan"></string>
+    <string name="desc_transformation_groupBy"></string>
+    <string name="desc_transformation_buffer"></string>
+    <string name="desc_transformation_window"></string>
+    <string name="desc_transformation_cast"></string>
+
+    <string name="desc_subject_async"></string>
+    <string name="desc_subject_behavior"></string>
+    <string name="desc_subject_behavior_with_init_value"></string>
+    <string name="desc_subject_publish"></string>
+    <string name="desc_subject_replay"></string>
+    <string name="desc_subject_replay_create_with_time"></string>
+
+
+    <string name="desc_string_byline"></string>
+    <string name="desc_string_decode"></string>
+    <string name="desc_string_encode"></string>
+    <string name="desc_string_from"></string>
+    <string name="desc_string_join"></string>
+    <string name="desc_string_split"></string>
+    <string name="desc_string_stringConcat"></string>
+
+    <string name="desc_scheduler_io"></string>
+    <string name="desc_scheduler_compute"></string>
+    <string name="desc_scheduler_immediate"></string>
+    <string name="desc_scheduler_self_define"></string>
+
+
+    <string name="desc_reactive_stream_materialize"></string>
+    <string name="desc_plugin_start_hook"></string>
+
+    <string name="desc_observable_create_just"></string>
+    <string name="desc_observable_create_from_future"></string>
+    <string name="desc_observable_create_from_iterable"></string>
+    <string name="desc_observable_create_repeat"></string>
+    <string name="desc_observable_create_repeatWhen"></string>
+    <string name="desc_observable_create_create"></string>
+    <string name="desc_observable_create_defer"></string>
+    <string name="desc_observable_create_range"></string>
+    <string name="desc_observable_create_interval"></string>
+    <string name="desc_observable_create_timer"></string>
+    <string name="desc_observable_create_empty"></string>
+    <string name="desc_observable_create_error"></string>
+    <string name="desc_observable_create_never"></string>
+
+    <string name="desc_math_averageInteger"></string>
+    <string name="desc_math_averageLong"></string>
+    <string name="desc_math_averageFloat"></string>
+    <string name="desc_math_averageDouble"></string>
+    <string name="desc_math_max"></string>
+    <string name="desc_math_maxBy"></string>
+    <string name="desc_math_min"></string>
+    <string name="desc_math_minBy"></string>
+    <string name="desc_math_sumInteger"></string>
+    <string name="desc_math_sumLong"></string>
+    <string name="desc_math_sumFloat"></string>
+    <string name="desc_math_sumDouble"></string>
+    <string name="desc_math_concat"></string>
+    <string name="desc_math_count"></string>
+    <string name="desc_math_countLong"></string>
+    <string name="desc_math_reduce"></string>
+    <string name="desc_math_collect"></string>
+    <string name="desc_math_toList"></string>
+    <string name="desc_math_toSortedList"></string>
+    <string name="desc_math_toMap"></string>
+    <string name="desc_math_toMultiMap"></string>
+
+    <string name="desc_filter_filter"></string>
+    <string name="desc_filter_takeLast"></string>
+    <string name="desc_filter_last"></string>
+    <string name="desc_filter_lastOrDefault"></string>
+    <string name="desc_filter_takeLastBuffer"></string>
+    <string name="desc_filter_skip"></string>
+    <string name="desc_filter_skipLast"></string>
+    <string name="desc_filter_take"></string>
+    <string name="desc_filter_first"></string>
+    <string name="desc_filter_takeFirst"></string>
+    <string name="desc_filter_firstOrDefault"></string>
+    <string name="desc_filter_elementAt"></string>
+    <string name="desc_filter_elementAtOrDefault"></string>
+    <string name="desc_filter_sample"></string>
+    <string name="desc_filter_throttleLast"></string>
+    <string name="desc_filter_throttleFirst"></string>
+    <string name="desc_filter_throttleWithTimeout"></string>
+    <string name="desc_filter_debounce"></string>
+    <string name="desc_filter_timeout"></string>
+    <string name="desc_filter_distinct"></string>
+    <string name="desc_filter_distinctUntilChanged"></string>
+    <string name="desc_filter_ofType"></string>
+    <string name="desc_filter_ignoreElements"></string>
+
+    <string name="desc_error_handler_onErrorResumeNext"></string>
+    <string name="desc_error_handler_onErrorReturn"></string>
+    <string name="desc_error_handler_onExceptionResumeNext"></string>
+    <string name="desc_error_handler_retry"></string>
+    <string name="desc_error_handler_retryWhen"></string>
+
+    <string name="desc_custormer_operator_customeOperator"></string>
+    <string name="desc_connectable_obervable_connect"></string>
+    <string name="desc_connectable_obervable_publish"></string>
+    <string name="desc_connectable_obervable_replay"></string>
+    <string name="desc_connectable_obervable_refCount"></string>
+
+    <string name="desc_condition_amb"></string>
+    <string name="desc_condition_defaultIfEmpty"></string>
+    <string name="desc_condition_doWhile"></string>
+    <string name="desc_condition_ifThen"></string>
+    <string name="desc_condition_skipUtil"></string>
+    <string name="desc_condition_skipWhile"></string>
+    <string name="desc_condition_switchcase"></string>
+    <string name="desc_condition_takeUntil"></string>
+    <string name="desc_condition_takeWhile"></string>
+    <string name="desc_condition_takeWhileWithIndex"></string>
+    <string name="desc_condition_WhileDo"></string>
+    <string name="desc_combine_startWith"></string>
+    <string name="desc_combine_merge"></string>
+    <string name="desc_combine_mergeDelayError"></string>
+    <string name="desc_combine_zip"></string>
+    <string name="desc_combine_and_then_when"></string>
+    <string name="desc_combine_combineLatest"></string>
+    <string name="desc_combine_join"></string>
+    <string name="desc_combine_groupjoin"></string>
+    <string name="desc_combine_switchIfEmpty"></string>
+    <string name="desc_combine_switchOnNext"></string>
+
+    <string name="desc_blocking_observable_forEach"></string>
+    <string name="desc_blocking_observable_first"></string>
+    <string name="desc_blocking_observable_firstOrDefault"></string>
+    <string name="desc_blocking_observable_last"></string>
+    <string name="desc_blocking_observable_lastOrDefault"></string>
+    <string name="desc_blocking_observable_mostRecent"></string>
+    <string name="desc_blocking_observable_next"></string>
+    <string name="desc_blocking_observable_latest"></string>
+    <string name="desc_blocking_observable_single"></string>
+    <string name="desc_blocking_observable_singleOrDefault"></string>
+    <string name="desc_blocking_observable_toFuture"></string>
+    <string name="desc_blocking_observable_toIterable"></string>
+    <string name="desc_blocking_observable_getIterator"></string>
+
+
+    <string name="desc_async_start">adsfadslfkjasdlfkjas</string>
+    <string name="desc_async_toAsync"></string>
+    <string name="desc_async_startFuture"></string>
+    <string name="desc_async_deferFuture"></string>
+    <string name="desc_async_forEachFuture"></string>
+    <string name="desc_async_fromAction"></string>
+    <string name="desc_async_fromCallable"></string>
+    <string name="desc_async_fromRunnable"></string>
+    <string name="desc_async_runAsync"></string>
 </resources>

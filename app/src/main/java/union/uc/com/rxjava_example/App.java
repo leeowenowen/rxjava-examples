@@ -5,6 +5,7 @@ import android.app.Application;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import union.uc.com.rxjava_example.plugin.DescriptionPlugin;
 import union.uc.com.rxjava_example.plugin.DisplayPluginManager;
 import union.uc.com.rxjava_example.plugin.MarbleDiagramPlugin;
 import union.uc.com.rxjava_example.plugin.SampleCodePlugin;
@@ -25,7 +26,6 @@ public class App extends Application {
     DisplayPluginManager dpm = DisplayPluginManager.singleton();
     dpm.register(new MarbleDiagramPlugin());
     dpm.register(new SampleCodePlugin());
-
-
+    dpm.register(new DescriptionPlugin());
   }
 }
