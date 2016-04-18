@@ -8,6 +8,7 @@ def CountStartSpaceNum(line):
       count = count + 1 
     else:
       if count < 4:
+        print line
         raise Exception('count should not < 4!')
       return count - 4
 
@@ -63,6 +64,8 @@ def CheckFile(file,codes):
     block = []
     find_registery = False
     for line in input:
+      if len(line.strip()) == 0:
+        continue
       if line.find('registery.add(Constants.') >= 0:
         find_registery = True
         if len(block) > 0:
@@ -73,6 +76,9 @@ def CheckFile(file,codes):
         key = FindKey(line)
       elif find_registery:
         block.append(line)
+    if find_registery and len(block) > 0:
+      code= ProcessRegisterBlock(block)
+      codes[key] = code
   return codes
 
 #find all java files

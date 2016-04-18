@@ -200,26 +200,36 @@ public abstract class APIBaseActivity extends AppCompatActivity {
           public void call(View view) {
             view.setVisibility(View.VISIBLE);
 
-            //            for (int i = 0; i < mTop.getChildCount(); ++i) {
-            //              View v = mTop.getChildAt(i);
-            //              v.clearAnimation();
-            //              if (v.equals(view)) {//in
-            //                //YoYo.with(Techniques.ZoomInDown).duration(2000).playOn(v);
-            //                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-            //                                                              0,
-            //                                                              Animation.RELATIVE_TO_SELF,
-            //                                                              0,
-            //                                                              Animation.RELATIVE_TO_SELF,
-            //                                                              -view.getHeight(),
-            //                                                              Animation.RELATIVE_TO_SELF,
-            //                                                              0);
-            //                t.setDuration(1000);
-            //                v.setAnimation(t);
-            //                t.start();
-            //              } else {//out
-            //              //  YoYo.with(Techniques.SlideInDown).duration(2000).playOn(v);
-            //              }
-            //            }
+//            for (int i = 0; i < mTop.getChildCount(); ++i) {
+//              View v = mTop.getChildAt(i);
+//              v.clearAnimation();
+//              log(v.getHeight());
+//              if (v.equals(view)) {//in
+//                //YoYo.with(Techniques.ZoomInDown).duration(2000).playOn(v);
+//                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+//                                                              0,
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              0,
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              -view.getHeight(),
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              0);
+//                t.setDuration(2000);
+//                v.startAnimation(t);
+//              } else {//out
+//                //  YoYo.with(Techniques.SlideInDown).duration(2000).playOn(v);
+//                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+//                                                              0,
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              0,
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              0,
+//                                                              Animation.RELATIVE_TO_SELF,
+//                                                              v.getHeight());
+//                t.setDuration(2000);
+//                v.startAnimation(t);
+//              }
+//            }
 
           }
         });
