@@ -18,9 +18,6 @@ public class SubjectActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    /* AsyncSubject caches the last value. The difference now is that it doesn't emit anything
-    until the sequence completes. Its use is to emit a single value and immediately complete.
-     */
     registery.add(Constants.Subject.async, new Runnable() {
       @Override
       public void run() {
@@ -37,10 +34,6 @@ public class SubjectActivity extends APIBaseActivity {
         s.onCompleted();
       }
     });
-    /*BehaviorSubject only remembers the last value. It is similar to a ReplaySubject with a
-    buffer of size 1. An initial value can be provided on creation, therefore guaranteeing that
-     a value always will be available immediately on subscription.
-    */
     registery.add(Constants.Subject.behavior, new Runnable() {
       @Override
       public void run() {
@@ -69,11 +62,6 @@ public class SubjectActivity extends APIBaseActivity {
         s.onNext(1);
       }
     });
-    /*
-    PublishSubject is the most straight-forward kind of subject.
-     When a value is pushed into a PublishSubject, the subject pushes
-     it to every subscriber that is subscribed to it at that moment.
-     */
     registery.add(Constants.Subject.publish, new Runnable() {
       @Override
       public void run() {
@@ -90,10 +78,6 @@ public class SubjectActivity extends APIBaseActivity {
         subject.onNext(4);
       }
     });
-    /*ReplaySubject has the special feature of caching all the values pushed to it. When a new
-      subscription is made, the event sequence is replayed from the start for the new subscriber.
-      After catching up, every subscriber receives new events as they come.
-      */
     registery.add(Constants.Subject.replay, new Runnable() {
       @Override
       public void run() {

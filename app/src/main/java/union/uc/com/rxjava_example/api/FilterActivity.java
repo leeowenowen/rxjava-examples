@@ -20,7 +20,6 @@ public class FilterActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    //filter items emitted by an Observable
     registery.add(Constants.Filter.filter, new Runnable() {
       @Override
       public void run() {

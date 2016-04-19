@@ -22,8 +22,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
 
   @Override
   protected void onRegisterAction(ActionRegistery registery) {
-    //[just] convert an object or several objects into an Observable that emits that object or
-    // those objects
     registery.add(Constants.ObservableCreate.just, new Runnable() {
       @Override
       public void run() {
@@ -35,7 +33,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
         });
       }
     });
-    //[from] convert an Iterable, a Future, or an Array into an Observable
     registery.add(Constants.ObservableCreate.from_future, new Runnable() {
       @Override
       public void run() {
@@ -52,7 +49,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
         });
       }
     });
-    //[from] convert an Iterable, a Future, or an Array into an Observable
     registery.add(Constants.ObservableCreate.from_iterable, new Runnable() {
       @Override
       public void run() {
@@ -65,7 +61,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   });
       }
     });
-    //[repeat]create an Observable that emits a particular item or sequence of items repeatedly
     registery.add(Constants.ObservableCreate.repeat, new Runnable() {
                     @Override
                     public void run() {
@@ -74,7 +69,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[repeatWhen]create an Observable that emits a particular item or sequence of items repeatedly, depending on the emissions of a second Observable
     registery.add(Constants.ObservableCreate.repeatWhen, new Runnable() {
                     @Override
                     public void run() {
@@ -83,7 +77,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[create] create an Observable from scratch by means of a function
     registery.add(Constants.ObservableCreate.create, new Runnable() {
                     @Override
                     public void run() {
@@ -104,8 +97,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[defer] do not create the Observable until a Subscriber subscribes; create a fresh Observable
-    // on each subscription
     registery.add(Constants.ObservableCreate.defer, new Runnable() {
                     @Override
                     public void run() {
@@ -137,7 +128,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[range] create an Observable that emits a range of sequential integers
     registery.add(Constants.ObservableCreate.range, new Runnable() {
                     @Override
                     public void run() {
@@ -151,7 +141,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[interval]  create an Observable that emits a sequence of integers spaced by a given time interval
     registery.add(Constants.ObservableCreate.interval, new Runnable() {
                     @Override
                     public void run() {
@@ -174,22 +163,19 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[timer] create an Observable that emits a single item after a given delay
     registery.add(Constants.ObservableCreate.timer, new Runnable() {
                     @Override
                     public void run() {
-                      final Subscription subscription =
-                        Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
-                          @Override
-                          public void call(Long aLong) {
-                            log(aLong);
-                          }
-                        });
+                      Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+                        @Override
+                        public void call(Long aLong) {
+                          log(aLong);
+                        }
+                      });
                     }
                   }
 
     );
-    //[empty] create an Observable that emits nothing and then completes
     registery.add(Constants.ObservableCreate.empty, new Runnable() {
                     @Override
                     public void run() {
@@ -213,7 +199,6 @@ public class ObservableCreateActivity extends APIBaseActivity {
                   }
 
     );
-    //[error] create an Observable that emits nothing and then signals an error
     registery.add(Constants.ObservableCreate.error, new Runnable() {
                     @Override
                     public void run() {

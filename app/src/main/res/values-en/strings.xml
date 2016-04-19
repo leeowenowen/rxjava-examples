@@ -47,12 +47,24 @@
     <string name="desc_transformation_window">periodically subdivide items from an Observable into Observable windows and emit these windows rather than emitting the items one at a time</string>
     <string name="desc_transformation_cast">cast all items from the source Observable into a particular type before reemitting them</string>
 
-    <string name="desc_subject_async"></string>
-    <string name="desc_subject_behavior"></string>
-    <string name="desc_subject_behavior_with_init_value"></string>
-    <string name="desc_subject_publish"></string>
-    <string name="desc_subject_replay"></string>
-    <string name="desc_subject_replay_create_with_time"></string>
+    <string name="desc_subject_async">AsyncSubject caches the last value. The difference now is
+        that it doesn\'t emit anything
+    until the sequence completes. Its use is to emit a single value and immediately complete.</string>
+    <string name="desc_subject_behavior">BehaviorSubject only remembers the last value. It is similar to a ReplaySubject with a
+    buffer of size 1. An initial value can be provided on creation, therefore guaranteeing that
+     a value always will be available immediately on subscription.</string>
+    <string name="desc_subject_behavior_with_init_value">BehaviorSubject only remembers the last value. It is similar to a ReplaySubject with a
+    buffer of size 1. An initial value can be provided on creation, therefore guaranteeing that
+     a value always will be available immediately on subscription.</string>
+    <string name="desc_subject_publish">PublishSubject is the most straight-forward kind of subject.
+     When a value is pushed into a PublishSubject, the subject pushes
+     it to every subscriber that is subscribed to it at that moment.</string>
+    <string name="desc_subject_replay">ReplaySubject has the special feature of caching all the values pushed to it. When a new
+      subscription is made, the event sequence is replayed from the start for the new subscriber.
+      After catching up, every subscriber receives new events as they come.</string>
+    <string name="desc_subject_replay_create_with_time">ReplaySubject has the special feature of caching all the values pushed to it. When a new
+      subscription is made, the event sequence is replayed from the start for the new subscriber.
+      After catching up, every subscriber receives new events as they come.</string>
 
 
     <string name="desc_string_byline">converts an Observable of Strings into an Observable of Lines by treating the source sequence as a stream and splitting it on line-endings</string>

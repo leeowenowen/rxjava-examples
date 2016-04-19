@@ -84,9 +84,7 @@ mCodes.put(Constants.Combine.groupjoin,
 "                    }\n"+
 "                  });\n"+
 "                }\n"+
-"  }\n"+
-"//convert an Observable that emits Observables into a single Observable that emits the items\n"+
-"//emitted by the most-recently emitted of those Observables\n");
+"  }\n");
 mCodes.put(Constants.BlockingObservable.firstOrDefault,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -161,8 +159,7 @@ mCodes.put(Constants.ObservableCreate.from_iterable,
 "                public void call(String s) {\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n"+
-"//[repeat]create an Observable that emits a particular item or sequence of items repeatedly\n");
+"  }\n");
 mCodes.put(Constants.Subject.behavior,
 "    BehaviorSubject<Integer> s = BehaviorSubject.create();\n"+
 "    s.onNext(1);\n"+
@@ -293,8 +290,23 @@ mCodes.put(Constants.ObservableCreate.interval,
 "    }, 10, TimeUnit.SECONDS);\n"+
 "  }\n"+
 "}\n"+
+"\n");
+mCodes.put(Constants.Condition.sequenceEqual,
+"    Observable.sequenceEqual(Observable.just(1, 2, 3),\n"+
+"                             Observable.range(1, 3),\n"+
+"                             new Func2<Integer, Integer, Boolean>() {\n"+
+"                               @Override\n"+
+"                               public Boolean call(Integer integer1, Integer integer2) {\n"+
+"                                 return integer1 == integer2;\n"+
+"                               }\n"+
+"                             }).subscribe(new Action1<Boolean>() {\n"+
+"      @Override\n"+
+"      public void call(Boolean aBoolean) {\n"+
+"        log(aBoolean);\n"+
+"      }\n"+
+"  }\n"+
 "\n"+
-"te an Observable that emits a single item after a given delay\n");
+"\n");
 mCodes.put(Constants.Transformation.flatMapIterable,
 "    Observable.just(1, 2).flatMapIterable(new Func1<Integer, Iterable<String>>() {\n"+
 "      @Override\n"+
@@ -630,8 +642,7 @@ mCodes.put(Constants.ObservableCreate.from_future,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n"+
-"//[from] convert an Iterable, a Future, or an Array into an Observable\n");
+"  }\n");
 mCodes.put(Constants.ConnectableObservable.publish,
 "    log(\"showed in connect!\");\n"+
 "  }\n");
@@ -641,8 +652,7 @@ mCodes.put(Constants.ObservableCreate.just,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"//[from] convert an Iterable, a Future, or an Array into an Observable\n");
+"  }\n");
 mCodes.put(Constants.ObservableCreate.error,
 "    Observable.error(new Exception(\"abc\")).subscribe(new Action1<Object>() {\n"+
 "      @Override\n"+
@@ -675,8 +685,7 @@ mCodes.put(Constants.ObservableCreate.repeat,
 "    log(\"RxJava not implemented!\");\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"create an Observable that emits a particular item or sequence of items repeatedly, depending on the emissions of a second Observable\n");
+"\n");
 mCodes.put(Constants.MathAggregate.min,
 "    MathObservable.min(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -724,8 +733,7 @@ mCodes.put(Constants.Combine.zip,
 "                public void call(String s) {\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n"+
-"//combine sets of items emitted by two or more Observables by means of Pattern and Plan intermediaries\n");
+"  }\n");
 mCodes.put(Constants.BlockingObservable.single,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -825,9 +833,7 @@ mCodes.put(Constants.ObservableCreate.create,
 "      }\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"ot create the Observable until a Subscriber subscribes; create a fresh Observable\n"+
-"scription\n");
+"\n");
 mCodes.put(Constants.Filter.timeout,
 "    Observable.<Integer>never().timeout(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -845,6 +851,13 @@ mCodes.put(Constants.Condition.switchcase,
 "  }\n");
 mCodes.put(Constants.Condition.ifThen,
 "    logNotImplemented();\n"+
+"  }\n");
+mCodes.put(Constants.Condition.contains,
+"    Observable.range(1, 10).contains(3).subscribe(new Action1<Boolean>() {\n"+
+"      @Override\n"+
+"      public void call(Boolean aBoolean) {\n"+
+"        log(aBoolean);\n"+
+"      }\n"+
 "  }\n");
 mCodes.put(Constants.Utility.doOnCompleted,
 "    Observable.range(1, 3).doOnCompleted(new Action0() {\n"+
@@ -973,15 +986,13 @@ mCodes.put(Constants.ObservableCreate.empty,
 "      }\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"te an Observable that emits nothing and then signals an error\n");
+"\n");
 mCodes.put(Constants.MathAggregate.toList,
 "    logUseObservable();\n"+
 "  }\n");
 mCodes.put(Constants.Combine.mergeDelayError,
 "    logNotImplemented();\n"+
-"  }\n"+
-"//combine sets of items emitted by two or more Observables together via a specified function and emit items based on the results of this function\n");
+"  }\n");
 mCodes.put(Constants.BlockingObservable.getIterator,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1011,6 +1022,18 @@ mCodes.put(Constants.ErrorHandler.onExceptionResumeNext,
 "                  log(throwable);\n"+
 "                }\n"+
 "  }\n");
+mCodes.put(Constants.Utility.doOnSubscribe,
+"    Observable.just(1, 2).doOnSubscribe(new Action0() {\n"+
+"      @Override\n"+
+"      public void call() {\n"+
+"        log(\"OnSubscribe\");\n"+
+"      }\n"+
+"    }).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
+"  }\n");
 mCodes.put(Constants.Utility.finallyDo,
 "    Observable.just(1, 2).finallyDo(new Action0() {\n"+
 "      @Override\n"+
@@ -1035,12 +1058,7 @@ mCodes.put(Constants.ObservableCreate.never,
 "\n"+
 "\n");
 mCodes.put(Constants.Utility.doOnUnsubscribe,
-"    Subscription subscription = Observable.just(1, 2).doOnSubscribe(new Action0() {\n"+
-"      @Override\n"+
-"      public void call() {\n"+
-"        log(\"OnSubscribe\");\n"+
-"      }\n"+
-"    }).doOnUnsubscribe(new Action0() {\n"+
+"    Subscription subscription = Observable.just(1, 2).doOnUnsubscribe(new Action0() {\n"+
 "      @Override\n"+
 "      public void call() {\n"+
 "        log(\"OnUnSubscribe\");\n"+
@@ -1082,12 +1100,7 @@ mCodes.put(Constants.Subject.behavior_with_init_value,
 "        log(\"\" + integer);\n"+
 "      }\n"+
 "    s.onNext(1);\n"+
-"  }\n"+
-"/*\n"+
-"PublishSubject is the most straight-forward kind of subject.\n"+
-" When a value is pushed into a PublishSubject, the subject pushes\n"+
-" it to every subscriber that is subscribed to it at that moment.\n"+
-" */\n");
+"  }\n");
 mCodes.put(Constants.Scheduler.io,
 "    Observable.just(\"a\", \"b\").observeOn(Schedulers.io()).subscribe(new Action1<String>() {\n"+
 "      @Override\n"+
@@ -1193,15 +1206,12 @@ mCodes.put(Constants.Async.startFuture,
 "  }\n");
 mCodes.put(Constants.Condition.WhileDo,
 "    logNotImplemented();\n"+
-"  }\n"+
-"\n"+
-"\n");
+"  }\n");
 mCodes.put(Constants.ObservableCreate.repeatWhen,
 "    log(\"RxJava not implemented!\");\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"ate an Observable from scratch by means of a function\n");
+"\n");
 mCodes.put(Constants.Filter.skip,
 "    Observable.range(1, 10).skip(2).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -1274,8 +1284,19 @@ mCodes.put(Constants.Combine.combineLatest,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n"+
-"//join( ) and groupJoin( ) — combine the items emitted by two Observables whenever one item from one Observable falls within a window of duration specified by an item emitted by the other Observable\n");
+"  }\n");
+mCodes.put(Constants.Condition.exists,
+"    Observable.just(1, 2, 3).exists(new Func1<Integer, Boolean>() {\n"+
+"      @Override\n"+
+"      public Boolean call(Integer integer) {\n"+
+"        return integer > 3;\n"+
+"      }\n"+
+"    }).subscribe(new Action1<Boolean>() {\n"+
+"      @Override\n"+
+"      public void call(Boolean aBoolean) {\n"+
+"        log(aBoolean);\n"+
+"      }\n"+
+"  }\n");
 mCodes.put(Constants.Transformation.switchMap,
 "    Observable.just(1, 2).switchMap(new Func1<Integer, Observable<Integer>>() {\n"+
 "      @Override\n"+
@@ -1329,6 +1350,18 @@ mCodes.put(Constants.Transformation.window,
 "        });\n"+
 "      }\n"+
 "  }\n");
+mCodes.put(Constants.Condition.all,
+"    Observable.just(2, 4, 6).all(new Func1<Integer, Boolean>() {\n"+
+"      @Override\n"+
+"      public Boolean call(Integer integer) {\n"+
+"        return integer % 2 == 0;\n"+
+"      }\n"+
+"    }).subscribe(new Action1<Boolean>() {\n"+
+"      @Override\n"+
+"      public void call(Boolean aBoolean) {\n"+
+"        log(aBoolean);\n"+
+"      }\n"+
+"  }\n");
 mCodes.put(Constants.Combine.merge,
 "    Observable.just(1, 2, 3)\n"+
 "              .mergeWith(Observable.just(4, 5, 6))\n"+
@@ -1337,8 +1370,7 @@ mCodes.put(Constants.Combine.merge,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n"+
-"// combine multiple Observables into one, allowing error-free Observables to continue before propagating errors\n");
+"  }\n");
 mCodes.put(Constants.MathAggregate.reduce,
 "    logUseObservable();\n"+
 "  }\n");
@@ -1360,11 +1392,7 @@ mCodes.put(Constants.Subject.publish,
 "    subject.onNext(2);\n"+
 "    subject.onNext(3);\n"+
 "    subject.onNext(4);\n"+
-"  }\n"+
-"/*ReplaySubject has the special feature of caching all the values pushed to it. When a new\n"+
-"  subscription is made, the event sequence is replayed from the start for the new subscriber.\n"+
-"  After catching up, every subscriber receives new events as they come.\n"+
-"  */\n");
+"  }\n");
 mCodes.put(Constants.Strings.from,
 "    StringObservable.from(new ByteArrayInputStream(\"ABC\".getBytes()))\n"+
 "                    .subscribe(new Action1<byte[]>() {\n"+
@@ -1438,6 +1466,13 @@ mCodes.put(Constants.MathAggregate.toMultiMap,
 "  }\n"+
 "\n"+
 "\n");
+mCodes.put(Constants.Condition.isEmpty,
+"    Observable.empty().isEmpty().subscribe(new Action1<Boolean>() {\n"+
+"      @Override\n"+
+"      public void call(Boolean aBoolean) {\n"+
+"        log(aBoolean);\n"+
+"      }\n"+
+"  }\n");
 mCodes.put(Constants.Async.fromAction,
 "    Async.fromAction(new Action0() {\n"+
 "      @Override\n"+
@@ -1455,8 +1490,7 @@ mCodes.put(Constants.MathAggregate.toSortedList,
 "  }\n");
 mCodes.put(Constants.Combine.startWith,
 "    logNotImplemented();\n"+
-"  }\n"+
-"//combine multiple Observables into one\n");
+"  }\n");
 mCodes.put(Constants.Scheduler.immediate,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.immediate())\n"+
@@ -1464,6 +1498,24 @@ mCodes.put(Constants.Scheduler.immediate,
 "                @Override\n"+
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
+"                }\n"+
+"  }\n");
+mCodes.put(Constants.Utility.subscribeOn,
+"    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        subscriber.onNext(0);\n"+
+"        subscriber.onNext(1);\n"+
+"        subscriber.onCompleted();\n"+
+"        log(\"here in: \" + Thread.currentThread().getName());\n"+
+"      }\n"+
+"    })\n"+
+"              .subscribeOn(Schedulers.computation())\n"+
+"              .observeOn(Schedulers.io())\n"+
+"              .subscribe(new Action1<Integer>() {\n"+
+"                @Override\n"+
+"                public void call(Integer integer) {\n"+
+"                  log(\"\" + integer + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
 "  }\n");
 mCodes.put(Constants.BlockingObservable.toIterable,
@@ -1486,8 +1538,7 @@ mCodes.put(Constants.ObservableCreate.range,
 "      }\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"create an Observable that emits a sequence of integers spaced by a given time interval\n");
+"\n");
 mCodes.put(Constants.Filter.throttleFirst,
 "    final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1525,16 +1576,14 @@ mCodes.put(Constants.MathAggregate.averageLong,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.ObservableCreate.timer,
-"    final Subscription subscription =\n"+
-"      Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {\n"+
-"        @Override\n"+
-"        public void call(Long aLong) {\n"+
-"          log(aLong);\n"+
-"        }\n"+
+"    Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {\n"+
+"      @Override\n"+
+"      public void call(Long aLong) {\n"+
+"        log(aLong);\n"+
+"      }\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"te an Observable that emits nothing and then completes\n");
+"\n");
 mCodes.put(Constants.Filter.throttleWithTimeout,
 "    Observable.just(1)\n"+
 "              .throttleWithTimeout(2, TimeUnit.SECONDS)\n"+
@@ -1561,18 +1610,7 @@ mCodes.put(Constants.Combine.and_then_when,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"    });\n"+
-"  }\n"+
-"});\n"+
-"//    registery.add(\"then\", new Runnable() {\n"+
-"//      @Override\n"+
-"//\n"+
-"//      }\n"+
-"//    registery.add(\"when\", new Runnable() {\n"+
-"//      @Override\n"+
-"//\n"+
-"//      }\n"+
-"//when an item is emitted by either of two Observables, combine the latest item emitted by each Observable via a specified function and emit items based on the results of this function\n");
+"  }\n");
 mCodes.put(Constants.Subject.async,
 "    AsyncSubject<Integer> s = AsyncSubject.create();\n"+
 "    s.subscribe(new Action1<Integer>() {\n"+
@@ -1584,11 +1622,7 @@ mCodes.put(Constants.Subject.async,
 "    s.onNext(1);\n"+
 "    s.onNext(2);\n"+
 "    s.onCompleted();\n"+
-"  }\n"+
-"/*BehaviorSubject only remembers the last value. It is similar to a ReplaySubject with a\n"+
-"buffer of size 1. An initial value can be provided on creation, therefore guaranteeing that\n"+
-" a value always will be available immediately on subscription.\n"+
-"*/\n");
+"  }\n");
 mCodes.put(Constants.BlockingObservable.first,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1784,8 +1818,7 @@ mCodes.put(Constants.ObservableCreate.defer,
 "      }\n"+
 "  }\n"+
 "}\n"+
-"\n"+
-"te an Observable that emits a range of sequential integers\n");
+"\n");
 mCodes.put(Constants.ConnectableObservable.connect,
 "    Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
