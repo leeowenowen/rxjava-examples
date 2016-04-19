@@ -14,34 +14,38 @@
     <string name="source_code">源码：https://github.com/leeowenowen/rxjava-examples.git</string>
     <string name="dev_by">开发者：Lee Wang (leeowenowen@gmail.com)</string>
 
-    <string name="desc_utility_materialize"></string>
-    <string name="desc_utility_timestamp"></string>
-    <string name="desc_utility_serialize"></string>
-    <string name="desc_utility_cache"></string>
-    <string name="desc_utility_observeOn"></string>
-    <string name="desc_utility_doOnEach"></string>
-    <string name="desc_utility_doOnCompleted"></string>
-    <string name="desc_utility_doOnError"></string>
-    <string name="desc_utility_doOnTerminate"></string>
-    <string name="desc_utility_doOnUnsubscribe"></string>
-    <string name="desc_utility_finallyDo"></string>
-    <string name="desc_utility_delay"></string>
-    <string name="desc_utility_delaySubscription"></string>
-    <string name="desc_utility_timeInterval"></string>
-    <string name="desc_utility_using"></string>
-    <string name="desc_utility_single"></string>
-    <string name="desc_utility_singleOrDefault"></string>
+    <string name="desc_utility_materialize">convert an Observable into a list of
+        Notifications, [dematerialize:convert a materialized Observable back into its
+        non-materialized form]</string>
+    <string name="desc_utility_timestamp">attach a timestamp to every item emitted by an Observable</string>
+    <string name="desc_utility_serialize">force an Observable to make serialized calls and to be well-behaved</string>
+    <string name="desc_utility_cache">remember the sequence of items emitted by the Observable and emit the same sequence to future Subscribers</string>
+    <string name="desc_utility_observeOn">specify on which Scheduler a Subscriber should observe the Observable</string>
+    <string name="desc_utility_subscribeOn"> specify which Scheduler an Observable should use when its subscription is invoked</string>
+    <string name="desc_utility_doOnEach">register an action to take whenever an Observable emits an item</string>
+    <string name="desc_utility_doOnCompleted"> register an action to take when an Observable completes successfully</string>
+    <string name="desc_utility_doOnError">register an action to take when an Observable completes with an error</string>
+    <string name="desc_utility_doOnTerminate">register an action to take when an Observable completes, either successfully or with an error</string>
+    <string name="desc_utility_doOnSubscribe">register an action to take when an observer subscribes to an Observable</string>
+    <string name="desc_utility_doOnUnsubscribe"> register an action to take when an observer subscribes to an Observable</string>
+    <string name="desc_utility_finallyDo"> register an action to take when an Observable completes</string>
+    <string name="desc_utility_delay"> shift the emissions from an Observable forward in time by a specified amount</string>
+    <string name="desc_utility_delaySubscription"> hold an Subscriber's subscription request for a specified amount of time before passing it on to the source Observable</string>
+    <string name="desc_utility_timeInterval"> emit the time lapsed between consecutive emissions of a source Observable</string>
+    <string name="desc_utility_using">create a disposable resource that has the same lifespan as an Observable</string>
+    <string name="desc_utility_single"> if the Observable completes after emitting a single item, return that item, otherwise throw an exception</string>
+    <string name="desc_utility_singleOrDefault"> if the Observable completes after emitting a single item, return that item, otherwise return a default item</string>
 
-    <string name="desc_transformation_map"></string>
-    <string name="desc_transformation_flatMap"></string>
-    <string name="desc_transformation_concatMap"></string>
-    <string name="desc_transformation_flatMapIterable"></string>
-    <string name="desc_transformation_switchMap"></string>
-    <string name="desc_transformation_scan"></string>
-    <string name="desc_transformation_groupBy"></string>
-    <string name="desc_transformation_buffer"></string>
-    <string name="desc_transformation_window"></string>
-    <string name="desc_transformation_cast"></string>
+    <string name="desc_transformation_map"> transform the items emitted by an Observable by applying a function to each of them</string>
+    <string name="desc_transformation_flatMap">transform the items emitted by an Observable into Observables (or Iterables), then flatten this into a single Observable</string>
+    <string name="desc_transformation_concatMap">transform the items emitted by an Observable into Observables (or Iterables), then flatten this into a single Observable</string>
+    <string name="desc_transformation_flatMapIterable">transform the items emitted by an Observable into Observables (or Iterables), then flatten this into a single Observable</string>
+    <string name="desc_transformation_switchMap">transform the items emitted by an Observable into Observables, and mirror those items emitted by the most-recently transformed Observable</string>
+    <string name="desc_transformation_scan">apply a function to each item emitted by an Observable, sequentially, and emit each successive value</string>
+    <string name="desc_transformation_groupBy"> divide an Observable into a set of Observables that emit groups of items from the original Observable, organized by key</string>
+    <string name="desc_transformation_buffer"> periodically gather items from an Observable into bundles and emit these bundles rather than emitting the items one at a time</string>
+    <string name="desc_transformation_window">periodically subdivide items from an Observable into Observable windows and emit these windows rather than emitting the items one at a time</string>
+    <string name="desc_transformation_cast">cast all items from the source Observable into a particular type before reemitting them</string>
 
     <string name="desc_subject_async"></string>
     <string name="desc_subject_behavior"></string>
@@ -51,13 +55,13 @@
     <string name="desc_subject_replay_create_with_time"></string>
 
 
-    <string name="desc_string_byline"></string>
-    <string name="desc_string_decode"></string>
-    <string name="desc_string_encode"></string>
-    <string name="desc_string_from"></string>
-    <string name="desc_string_join"></string>
-    <string name="desc_string_split"></string>
-    <string name="desc_string_stringConcat"></string>
+    <string name="desc_string_byline">converts an Observable of Strings into an Observable of Lines by treating the source sequence as a stream and splitting it on line-endings</string>
+    <string name="desc_string_decode">convert a stream of multibyte characters into an Observable that emits byte arrays that respect character boundaries</string>
+    <string name="desc_string_encode"> transform an Observable that emits strings into an Observable that emits byte arrays that respect character boundaries of multibyte characters in the original strings</string>
+    <string name="desc_string_from">convert a stream of characters or a Reader into an Observable that emits byte arrays or Strings</string>
+    <string name="desc_string_join">converts an Observable that emits a sequence of strings into an Observable that emits a single string that concatenates them all, separating them by a specified string</string>
+    <string name="desc_string_split">converts an Observable of Strings into an Observable of Strings that treats the source sequence as a stream and splits it on a specified regex boundary</string>
+    <string name="desc_string_stringConcat">converts an Observable that emits a sequence of strings into an Observable that emits a single string that concatenates them all</string>
 
     <string name="desc_scheduler_io"></string>
     <string name="desc_scheduler_compute"></string>
@@ -68,19 +72,19 @@
     <string name="desc_reactive_stream_materialize"></string>
     <string name="desc_plugin_start_hook"></string>
 
-    <string name="desc_observable_create_just"></string>
-    <string name="desc_observable_create_from_future"></string>
-    <string name="desc_observable_create_from_iterable"></string>
-    <string name="desc_observable_create_repeat"></string>
-    <string name="desc_observable_create_repeatWhen"></string>
-    <string name="desc_observable_create_create"></string>
-    <string name="desc_observable_create_defer"></string>
-    <string name="desc_observable_create_range"></string>
-    <string name="desc_observable_create_interval"></string>
-    <string name="desc_observable_create_timer"></string>
-    <string name="desc_observable_create_empty"></string>
-    <string name="desc_observable_create_error"></string>
-    <string name="desc_observable_create_never"></string>
+    <string name="desc_observable_create_just">convert an object or several objects into an Observable that emits that object or those objects</string>
+    <string name="desc_observable_create_from_future">convert a Future, into an Observable</string>
+    <string name="desc_observable_create_from_iterable">convert an Iterable into an Observable</string>
+    <string name="desc_observable_create_repeat">create an Observable that emits a particular item or sequence of items repeatedly</string>
+    <string name="desc_observable_create_repeatWhen">create an Observable that emits a particular item or sequence of items repeatedly, depending on the emissions of a second Observable</string>
+    <string name="desc_observable_create_create">create an Observable from scratch by means of a function</string>
+    <string name="desc_observable_create_defer">do not create the Observable until a Subscriber subscribes; create a fresh Observable on each subscription</string>
+    <string name="desc_observable_create_range">create an Observable that emits a range of sequential integers</string>
+    <string name="desc_observable_create_interval">create an Observable that emits a sequence of integers spaced by a given time interval</string>
+    <string name="desc_observable_create_timer">create an Observable that emits a single item after a given delay</string>
+    <string name="desc_observable_create_empty">create an Observable that emits nothing and then completes</string>
+    <string name="desc_observable_create_error">create an Observable that emits nothing and then signals an error</string>
+    <string name="desc_observable_create_never">create an Observable that emits nothing at all</string>
 
     <string name="desc_math_averageInteger"></string>
     <string name="desc_math_averageLong"></string>
