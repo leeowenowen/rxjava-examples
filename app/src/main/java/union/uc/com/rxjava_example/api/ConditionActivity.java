@@ -6,6 +6,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 import union.uc.com.rxjava_example.base.APIBaseActivity;
 import union.uc.com.rxjava_example.contants.Constants;
@@ -164,6 +165,78 @@ public class ConditionActivity extends APIBaseActivity {
       @Override
       public void run() {
         logNotImplemented();
+      }
+    });
+    registery.add(Constants.Condition.all, new Runnable() {
+      @Override
+      public void run() {
+        Observable.just(2, 4, 6).all(new Func1<Integer, Boolean>() {
+          @Override
+          public Boolean call(Integer integer) {
+            return integer % 2 == 0;
+          }
+        }).subscribe(new Action1<Boolean>() {
+          @Override
+          public void call(Boolean aBoolean) {
+            log(aBoolean);
+          }
+        });
+      }
+    });
+    registery.add(Constants.Condition.contains, new Runnable() {
+      @Override
+      public void run() {
+        Observable.range(1, 10).contains(3).subscribe(new Action1<Boolean>() {
+          @Override
+          public void call(Boolean aBoolean) {
+            log(aBoolean);
+          }
+        });
+      }
+    });
+    registery.add(Constants.Condition.exists, new Runnable() {
+      @Override
+      public void run() {
+        Observable.just(1, 2, 3).exists(new Func1<Integer, Boolean>() {
+          @Override
+          public Boolean call(Integer integer) {
+            return integer > 3;
+          }
+        }).subscribe(new Action1<Boolean>() {
+          @Override
+          public void call(Boolean aBoolean) {
+            log(aBoolean);
+          }
+        });
+      }
+    });
+    registery.add(Constants.Condition.isEmpty, new Runnable() {
+      @Override
+      public void run() {
+        Observable.empty().isEmpty().subscribe(new Action1<Boolean>() {
+          @Override
+          public void call(Boolean aBoolean) {
+            log(aBoolean);
+          }
+        });
+      }
+    });
+    registery.add(Constants.Condition.sequenceEqual, new Runnable() {
+      @Override
+      public void run() {
+        Observable.sequenceEqual(Observable.just(1, 2, 3),
+                                 Observable.range(1, 3),
+                                 new Func2<Integer, Integer, Boolean>() {
+                                   @Override
+                                   public Boolean call(Integer integer1, Integer integer2) {
+                                     return integer1 == integer2;
+                                   }
+                                 }).subscribe(new Action1<Boolean>() {
+          @Override
+          public void call(Boolean aBoolean) {
+            log(aBoolean);
+          }
+        });
       }
     });
   }

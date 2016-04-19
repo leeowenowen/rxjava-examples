@@ -165,6 +165,12 @@
     <string name="desc_combine_switchIfEmpty"></string>
     <string name="desc_combine_switchOnNext"></string>
 
+    <string name="desc_condition_all"></string>
+    <string name="desc_condition_contains"></string>
+    <string name="desc_condition_exits"></string>
+    <string name="desc_condition_isEmpty"></string>
+    <string name="desc_condition_sequenceEqual"></string>
+
     <string name="desc_blocking_observable_forEach"></string>
     <string name="desc_blocking_observable_first"></string>
     <string name="desc_blocking_observable_firstOrDefault"></string>

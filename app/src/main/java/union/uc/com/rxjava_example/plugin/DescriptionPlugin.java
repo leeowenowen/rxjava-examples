@@ -204,6 +204,12 @@ public class DescriptionPlugin implements DisplayPluginManager.Plugin {
     add(Constants.Condition.takeWhileWithIndex, R.string.desc_condition_takeWhileWithIndex);
     add(Constants.Condition.WhileDo, R.string.desc_condition_WhileDo);
 
+    add(Constants.Condition.all, R.string.desc_condition_all);
+    add(Constants.Condition.contains, R.string.desc_condition_contains);
+    add(Constants.Condition.exists, R.string.desc_condition_exists);
+    add(Constants.Condition.isEmpty, R.string.desc_condition_isEmpty);
+    add(Constants.Condition.sequenceEqual, R.string.desc_condition_sequenceEqual);
+
     //Combine
     add(Constants.Combine.startWith, R.string.desc_combine_startWith);
     add(Constants.Combine.merge, R.string.desc_combine_merge);

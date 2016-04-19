@@ -339,6 +339,17 @@ public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
     add(Constants.Condition.WhileDo,
         "http://reactivex.io/documentation/operators/images/whileDo.png");
 
+    add(Constants.Condition.all,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/all.png");
+    add(Constants.Condition.contains,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/contains.png");
+    add(Constants.Condition.exists,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/exists.png");
+    add(Constants.Condition.isEmpty,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/isEmpty.png");
+    add(Constants.Condition.sequenceEqual,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/sequenceEqual.png");
+
     //Combine
     add(Constants.Combine.startWith,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/startWith.o.png");

@@ -156,6 +156,14 @@
     <string name="desc_condition_takeWhile">emit items emitted by an Observable as long as a specified condition is true, then skip the remainder</string>
     <string name="desc_condition_takeWhileWithIndex">emit items emitted by an Observable as long as a specified condition is true, then skip the remainder</string>
     <string name="desc_condition_WhileDo">if a condition is true, emit the source Observable\'s sequence and then repeat the sequence as long as the condition remains true</string>
+
+    <string name="desc_condition_all">determine whether all items emitted by an Observable meet some criteria</string>
+    <string name="desc_condition_contains">determine whether an Observable emits a particular item or not</string>
+    <string name="desc_condition_exists">determine whether an Observable emits any items or
+        not</string>
+    <string name="desc_condition_isEmpty">determine whether an Observable emits any items or not</string>
+    <string name="desc_condition_sequenceEqual"> test the equality of the sequences emitted by two Observables</string>
+
     <string name="desc_combine_startWith">emit a specified sequence of items before beginning to emit the items from the Observable</string>
     <string name="desc_combine_merge">combine multiple Observables into one</string>
     <string name="desc_combine_mergeDelayError">combine multiple Observables into one, allowing error-free Observables to continue before propagating errors</string>

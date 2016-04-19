@@ -188,6 +188,12 @@ public class Constants {
     public static final String takeWhile = "takeWhile";
     public static final String takeWhileWithIndex = "takeWhileWithIndex";
     public static final String WhileDo = "WhileDo";
+
+    public static final String all = "all";
+    public static final String contains = "contains";
+    public static final String exists = "exists";
+    public static final String isEmpty = "isEmpty";
+    public static final String sequenceEqual = "sequenceEqual";
   }
 
   public static final class Combine {
