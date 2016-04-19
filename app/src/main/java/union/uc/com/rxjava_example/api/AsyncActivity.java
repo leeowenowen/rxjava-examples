@@ -29,6 +29,7 @@ public class AsyncActivity extends APIBaseActivity {
         Async.start(new Func0<Integer>() {
           @Override
           public Integer call() {
+            log("action run on " + Thread.currentThread().getName());
             return 3;
           }
         }).subscribe(new Action1<Integer>() {
@@ -45,6 +46,15 @@ public class AsyncActivity extends APIBaseActivity {
         Async.<Integer>toAsync(new Action0() {
           @Override
           public void call() {
+            log("action run on " + Thread.currentThread().getName());
+            log("Action0.call ...on subscribe");
+          }
+        }).call();
+        logLineSeperator();
+        Async.<Integer>toAsync(new Action0() {
+          @Override
+          public void call() {
+            log("action run on " + Thread.currentThread().getName());
             log("Action0.call");
           }
         }).call().subscribe(new Action1<Void>() {
@@ -120,6 +130,7 @@ public class AsyncActivity extends APIBaseActivity {
         Async.fromAction(new Action0() {
           @Override
           public void call() {
+            log("action run on " + Thread.currentThread().getName());
             log("Action0.call");
           }
         }, 3).subscribe(new Action1<Integer>() {
@@ -136,6 +147,7 @@ public class AsyncActivity extends APIBaseActivity {
         Async.fromCallable(new Callable<Integer>() {
           @Override
           public Integer call() throws Exception {
+            log("action run on " + Thread.currentThread().getName());
             return 3;
           }
         }).subscribe(new Action1<Integer>() {
@@ -152,7 +164,7 @@ public class AsyncActivity extends APIBaseActivity {
         Async.fromRunnable(new Runnable() {
           @Override
           public void run() {
-            log("Runnable.run");
+            log("Runnable.run on " + Thread.currentThread().getName());
           }
         }, 3).subscribe(new Action1<Integer>() {
           @Override
@@ -168,6 +180,7 @@ public class AsyncActivity extends APIBaseActivity {
         Async.runAsync(Schedulers.io(), new Action2<Observer<? super Integer>, Subscription>() {
           @Override
           public void call(Observer<? super Integer> observer, Subscription subscription) {
+            log("Action2 run on " + Thread.currentThread().getName());
             observer.onNext(1);
             observer.onNext(2);
             observer.onCompleted();

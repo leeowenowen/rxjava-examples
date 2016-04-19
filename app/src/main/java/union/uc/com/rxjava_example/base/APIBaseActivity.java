@@ -90,6 +90,10 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     log("error:" + throwable.getMessage());
   }
 
+  protected void logLineSeperator(){
+    log("------------------");
+  }
+
   protected void log(final String tipLine) {
     //ensure log on ui thread
     runOnUiThread(new Runnable() {

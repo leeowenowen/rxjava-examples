@@ -120,6 +120,15 @@ mCodes.put(Constants.Async.toAsync,
 "    Async.<Integer>toAsync(new Action0() {\n"+
 "      @Override\n"+
 "      public void call() {\n"+
+"        log(\"action run on \" + Thread.currentThread().getName());\n"+
+"        log(\"Action0.call ...on subscribe\");\n"+
+"      }\n"+
+"    }).call();\n"+
+"    logLineSeperator();\n"+
+"    Async.<Integer>toAsync(new Action0() {\n"+
+"      @Override\n"+
+"      public void call() {\n"+
+"        log(\"action run on \" + Thread.currentThread().getName());\n"+
 "        log(\"Action0.call\");\n"+
 "      }\n"+
 "    }).call().subscribe(new Action1<Void>() {\n"+
@@ -1437,6 +1446,7 @@ mCodes.put(Constants.Async.fromCallable,
 "    Async.fromCallable(new Callable<Integer>() {\n"+
 "      @Override\n"+
 "      public Integer call() throws Exception {\n"+
+"        log(\"action run on \" + Thread.currentThread().getName());\n"+
 "        return 3;\n"+
 "      }\n"+
 "    }).subscribe(new Action1<Integer>() {\n"+
@@ -1477,6 +1487,7 @@ mCodes.put(Constants.Async.fromAction,
 "    Async.fromAction(new Action0() {\n"+
 "      @Override\n"+
 "      public void call() {\n"+
+"        log(\"action run on \" + Thread.currentThread().getName());\n"+
 "        log(\"Action0.call\");\n"+
 "      }\n"+
 "    }, 3).subscribe(new Action1<Integer>() {\n"+
@@ -1677,6 +1688,7 @@ mCodes.put(Constants.Async.runAsync,
 "    Async.runAsync(Schedulers.io(), new Action2<Observer<? super Integer>, Subscription>() {\n"+
 "      @Override\n"+
 "      public void call(Observer<? super Integer> observer, Subscription subscription) {\n"+
+"        log(\"Action2 run on \" + Thread.currentThread().getName());\n"+
 "        observer.onNext(1);\n"+
 "        observer.onNext(2);\n"+
 "        observer.onCompleted();\n"+
@@ -1886,6 +1898,7 @@ mCodes.put(Constants.Async.start,
 "    Async.start(new Func0<Integer>() {\n"+
 "      @Override\n"+
 "      public Integer call() {\n"+
+"        log(\"action run on \" + Thread.currentThread().getName());\n"+
 "        return 3;\n"+
 "      }\n"+
 "    }).subscribe(new Action1<Integer>() {\n"+
@@ -1934,7 +1947,7 @@ mCodes.put(Constants.Filter.lastOrDefault,
 mCodes.put(Constants.Async.fromRunnable,
 "    Async.fromRunnable(new Runnable() {\n"+
 "      @Override\n"+
-"        log(\"Runnable.run\");\n"+
+"        log(\"Runnable.run on \" + Thread.currentThread().getName());\n"+
 "      }\n"+
 "    }, 3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+

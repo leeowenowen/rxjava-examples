@@ -186,13 +186,15 @@
     <string name="desc_blocking_observable_getIterator"></string>
 
 
-    <string name="desc_async_start">adsfadslfkjasdlfkjas</string>
-    <string name="desc_async_toAsync"></string>
-    <string name="desc_async_startFuture"></string>
-    <string name="desc_async_deferFuture"></string>
-    <string name="desc_async_forEachFuture"></string>
-    <string name="desc_async_fromAction"></string>
-    <string name="desc_async_fromCallable"></string>
-    <string name="desc_async_fromRunnable"></string>
-    <string name="desc_async_runAsync"></string>
+    <string name="desc_async_start">从一个Action创建Observable，它执行这个函数并发射函数的返回值
+        </string>
+    <string name="desc_async_toAsync">将一个Function或者Action转换为Observable，它执行这个函数并发射函数的返回值(注意：其返回值是一个Func0)</string>
+    <string name="desc_async_startFuture">将一个返回Future的函数转换为一个Observable，它发射Future的返回值</string>
+    <string name="desc_async_deferFuture">将一个返回Observable的Future转换为一个Observable，但是并不尝试获取这个Future返回的Observable，直到有订阅者订阅它</string>
+    <string name="desc_async_forEachFuture">传递Subscriber方法给一个Observable，但是同时表现得像一个Future
+        一样阻塞直到它完成</string>
+    <string name="desc_async_fromAction">将一个Action转换为Observable，当一个订阅者订阅时，它执行这个action并发射它的返回值</string>
+    <string name="desc_async_fromCallable">将一个Callable转换为Observable，当一个订阅者订阅时，它执行这个Callable并发射Callable的返回值，或者发射异常</string>
+    <string name="desc_async_fromRunnable">将一个Runnable转换为Observable，当一个订阅者订阅时，它执行这个Runnable并发射Runnable的返回值</string>
+    <string name="desc_async_runAsync">返回一个StoppableObservable，它发射某个Scheduler上指定的Action生成的多个actions</string>
 </resources>
