@@ -98,6 +98,8 @@ public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/cache.png");
     add(Constants.Utility.observeOn,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/observeOn.png");
+    add(Constants.Utility.subscribeOn,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/subscribeOn.png");
     add(Constants.Utility.doOnEach,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/doOnEach.png");
     add(Constants.Utility.doOnCompleted,
@@ -106,6 +108,8 @@ public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/doOnError.png");
     add(Constants.Utility.doOnTerminate,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/doOnTerminate.png");
+    add(Constants.Utility.doOnSubscribe,
+        "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/doOnSubscribe.png");
     add(Constants.Utility.doOnUnsubscribe,
         "https://raw.github.com/wiki/ReactiveX/RxJava/images/rx-operators/doOnUnsubscribe.png");
     add(Constants.Utility.finallyDo,

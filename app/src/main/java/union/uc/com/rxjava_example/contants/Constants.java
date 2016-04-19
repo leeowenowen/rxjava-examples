@@ -27,10 +27,12 @@ public class Constants {
     public static final String serialize = "serialize";
     public static final String cache = "cache";
     public static final String observeOn = "observeOn";
+    public static final String subscribeOn = "subscribeOn";
     public static final String doOnEach = "doOnEach";
     public static final String doOnCompleted = "doOnCompleted";
     public static final String doOnError = "doOnError";
     public static final String doOnTerminate = "doOnTerminate";
+    public static final String doOnSubscribe = "doOnSubscribe";
 
     public static final String doOnUnsubscribe = "doOnUnsubscribe";
     public static final String finallyDo = "finallyDo";

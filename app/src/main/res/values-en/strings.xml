@@ -30,7 +30,7 @@
     <string name="desc_utility_doOnUnsubscribe"> register an action to take when an observer subscribes to an Observable</string>
     <string name="desc_utility_finallyDo"> register an action to take when an Observable completes</string>
     <string name="desc_utility_delay"> shift the emissions from an Observable forward in time by a specified amount</string>
-    <string name="desc_utility_delaySubscription"> hold an Subscriber's subscription request for a specified amount of time before passing it on to the source Observable</string>
+    <string name="desc_utility_delaySubscription"> hold an Subscriber\'s subscription request for a specified amount of time before passing it on to the source Observable</string>
     <string name="desc_utility_timeInterval"> emit the time lapsed between consecutive emissions of a source Observable</string>
     <string name="desc_utility_using">create a disposable resource that has the same lifespan as an Observable</string>
     <string name="desc_utility_single"> if the Observable completes after emitting a single item, return that item, otherwise throw an exception</string>
@@ -147,15 +147,15 @@
 
     <string name="desc_condition_amb"> given two or more source Observables, emits all of the items from the first of these Observables to emit an item</string>
     <string name="desc_condition_defaultIfEmpty">emit items from the source Observable, or emit a default item if the source Observable completes after emitting no items</string>
-    <string name="desc_condition_doWhile">emit the source Observable's sequence, and then repeat the sequence as long as a condition remains true</string>
-    <string name="desc_condition_ifThen">only emit the source Observable's sequence if a condition is true, otherwise emit an empty or default sequence</string>
-    <string name="desc_condition_skipUtil">discard items emitted by a source Observable until a second Observable emits an item, then emit the remainder of the source Observable's items</string>
+    <string name="desc_condition_doWhile">emit the source Observable\'s sequence, and then repeat the sequence as long as a condition remains true</string>
+    <string name="desc_condition_ifThen">only emit the source Observable\'s sequence if a condition is true, otherwise emit an empty or default sequence</string>
+    <string name="desc_condition_skipUtil">discard items emitted by a source Observable until a second Observable emits an item, then emit the remainder of the source Observable\'s items</string>
     <string name="desc_condition_skipWhile"> discard items emitted by an Observable until a specified condition is false, then emit the remainder</string>
     <string name="desc_condition_switchcase"> emit the sequence from a particular Observable based on the results of an evaluation</string>
     <string name="desc_condition_takeUntil">emits the items from the source Observable until a second Observable emits an item or issues a notification</string>
     <string name="desc_condition_takeWhile">emit items emitted by an Observable as long as a specified condition is true, then skip the remainder</string>
     <string name="desc_condition_takeWhileWithIndex">emit items emitted by an Observable as long as a specified condition is true, then skip the remainder</string>
-    <string name="desc_condition_WhileDo">if a condition is true, emit the source Observable's sequence and then repeat the sequence as long as the condition remains true</string>
+    <string name="desc_condition_WhileDo">if a condition is true, emit the source Observable\'s sequence and then repeat the sequence as long as the condition remains true</string>
     <string name="desc_combine_startWith">emit a specified sequence of items before beginning to emit the items from the Observable</string>
     <string name="desc_combine_merge">combine multiple Observables into one</string>
     <string name="desc_combine_mergeDelayError">combine multiple Observables into one, allowing error-free Observables to continue before propagating errors</string>
@@ -184,7 +184,7 @@
 
     <string name="desc_async_start"> create an Observable that emits the return value of a function</string>
     <string name="desc_async_toAsync">convert a function or Action into an Observable that executes the function and emits its return value</string>
-    <string name="desc_async_startFuture">convert a function that returns Future into an Observable that emits that Future's return value</string>
+    <string name="desc_async_startFuture">convert a function that returns Future into an Observable that emits that Future\'s return value</string>
     <string name="desc_async_deferFuture">convert a Future that returns an Observable into an Observable, but do not attempt to get the Observable that the Future returns until a Subscriber subscribes</string>
     <string name="desc_async_forEachFuture">pass Subscriber methods to an Observable but also have it behave like a Future that blocks until it completes</string>
     <string name="desc_async_fromAction"> convert an Action into an Observable that invokes the action and emits its result when a Subscriber subscribes</string>

@@ -95,6 +95,28 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
+    registery.add(Constants.Utility.subscribeOn, new Runnable() {
+      @Override
+      public void run() {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+          @Override
+          public void call(Subscriber<? super Integer> subscriber) {
+            subscriber.onNext(0);
+            subscriber.onNext(1);
+            subscriber.onCompleted();
+            log("here in: " + Thread.currentThread().getName());
+          }
+        })
+                  .subscribeOn(Schedulers.computation())
+                  .observeOn(Schedulers.io())
+                  .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                      log("" + integer + " on " + Thread.currentThread().getName());
+                    }
+                  });
+      }
+    });
     registery.add(Constants.Utility.doOnEach, new Runnable() {
       @Override
       public void run() {
@@ -164,15 +186,26 @@ public class UtilityActivity extends APIBaseActivity {
         });
       }
     });
-    registery.add(Constants.Utility.doOnUnsubscribe, new Runnable() {
+    registery.add(Constants.Utility.doOnSubscribe, new Runnable() {
       @Override
       public void run() {
-        Subscription subscription = Observable.just(1, 2).doOnSubscribe(new Action0() {
+        Observable.just(1, 2).doOnSubscribe(new Action0() {
           @Override
           public void call() {
             log("OnSubscribe");
           }
-        }).doOnUnsubscribe(new Action0() {
+        }).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log(integer);
+          }
+        });
+      }
+    });
+    registery.add(Constants.Utility.doOnUnsubscribe, new Runnable() {
+      @Override
+      public void run() {
+        Subscription subscription = Observable.just(1, 2).doOnUnsubscribe(new Action0() {
           @Override
           public void call() {
             log("OnUnSubscribe");

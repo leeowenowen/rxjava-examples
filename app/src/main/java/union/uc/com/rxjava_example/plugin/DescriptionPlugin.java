@@ -58,10 +58,12 @@ public class DescriptionPlugin implements DisplayPluginManager.Plugin {
     add(Constants.Utility.serialize, R.string.desc_utility_serialize);
     add(Constants.Utility.cache, R.string.desc_utility_cache);
     add(Constants.Utility.observeOn, R.string.desc_utility_observeOn);
+    add(Constants.Utility.subscribeOn, R.string.desc_utility_subscribeOn);
     add(Constants.Utility.doOnEach, R.string.desc_utility_doOnEach);
     add(Constants.Utility.doOnCompleted, R.string.desc_utility_doOnCompleted);
     add(Constants.Utility.doOnError, R.string.desc_utility_doOnError);
     add(Constants.Utility.doOnTerminate, R.string.desc_utility_doOnTerminate);
+    add(Constants.Utility.doOnSubscribe, R.string.desc_utility_doOnSubscribe);
     add(Constants.Utility.doOnUnsubscribe, R.string.desc_utility_doOnUnsubscribe);
     add(Constants.Utility.finallyDo, R.string.desc_utility_finallyDo);
     add(Constants.Utility.delay, R.string.desc_utility_delay);

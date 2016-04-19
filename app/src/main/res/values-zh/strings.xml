@@ -20,10 +20,12 @@
     <string name="desc_utility_serialize"></string>
     <string name="desc_utility_cache"></string>
     <string name="desc_utility_observeOn"></string>
+    <string name="desc_utility_subscribeOn"></string>
     <string name="desc_utility_doOnEach"></string>
     <string name="desc_utility_doOnCompleted"></string>
     <string name="desc_utility_doOnError"></string>
     <string name="desc_utility_doOnTerminate"></string>
+    <string name="desc_utility_doOnSubscribe"></string>
     <string name="desc_utility_doOnUnsubscribe"></string>
     <string name="desc_utility_finallyDo"></string>
     <string name="desc_utility_delay"></string>
