@@ -555,7 +555,18 @@ mCodes.put(Constants.MathAggregate.averageInteger,
 "                    }\n"+
 "  }\n");
 mCodes.put(Constants.Condition.doWhile,
-"    logNotImplemented();\n"+
+"    Statement.doWhile(Observable.range(1, 10), new Func0<Boolean>() {\n"+
+"      boolean r = false;\n"+
+"      @Override\n"+
+"      public Boolean call() {\n"+
+"        r = !r;\n"+
+"        return r;\n"+
+"      }\n"+
+"    }).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
 "  }\n");
 mCodes.put(Constants.Filter.takeFirst,
 "    Observable.range(1, 10).takeFirst(new Func1<Integer, Boolean>() {\n"+
@@ -856,10 +867,36 @@ mCodes.put(Constants.Filter.timeout,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Condition.switchcase,
-"    logNotImplemented();\n"+
+"    Observable<Integer> source1 = Observable.just(1, 2, 3);\n"+
+"    Observable<Integer> source2 = Observable.just(4, 5, 6);\n"+
+"    Map<Integer, Observable<Integer>> map = new HashMap<Integer, Observable<Integer>>();\n"+
+"    map.put(1, source1);\n"+
+"    map.put(2, source2);\n"+
+"    Statement.switchCase(new Func0<Integer>() {\n"+
+"      int count = 1;\n"+
+"      @Override\n"+
+"      public Integer call() {\n"+
+"        return count++;\n"+
+"      }\n"+
+"    }, map).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
 "  }\n");
 mCodes.put(Constants.Condition.ifThen,
-"    logNotImplemented();\n"+
+"    Statement.ifThen(new Func0<Boolean>() {\n"+
+"      boolean r = false;\n"+
+"      @Override\n"+
+"      public Boolean call() {\n"+
+"        r = !r;\n"+
+"        return r;\n"+
+"      }\n"+
+"    }, Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
 "  }\n");
 mCodes.put(Constants.Condition.contains,
 "    Observable.range(1, 10).contains(3).subscribe(new Action1<Boolean>() {\n"+
@@ -1214,7 +1251,17 @@ mCodes.put(Constants.Async.startFuture,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Condition.WhileDo,
-"    logNotImplemented();\n"+
+"    Statement.whileDo(Observable.just(1, 2, 3), new Func0<Boolean>() {\n"+
+"      int count = 2;\n"+
+"      @Override\n"+
+"      public Boolean call() {\n"+
+"        return count-- > 0;\n"+
+"      }\n"+
+"    }).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
 "  }\n");
 mCodes.put(Constants.ObservableCreate.repeatWhen,
 "    log(\"RxJava not implemented!\");\n"+

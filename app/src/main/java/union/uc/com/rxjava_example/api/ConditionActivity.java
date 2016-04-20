@@ -1,10 +1,14 @@
 package union.uc.com.rxjava_example.api;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Statement;
 import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.functions.Func2;
 import rx.schedulers.Schedulers;
@@ -69,13 +73,39 @@ public class ConditionActivity extends APIBaseActivity {
     registery.add(Constants.Condition.doWhile, new Runnable() {
       @Override
       public void run() {
-        logNotImplemented();
+        Statement.doWhile(Observable.range(1, 10), new Func0<Boolean>() {
+          boolean r = false;
+
+          @Override
+          public Boolean call() {
+            r = !r;
+            return r;
+          }
+        }).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log(integer);
+          }
+        });
       }
     });
     registery.add(Constants.Condition.ifThen, new Runnable() {
       @Override
       public void run() {
-        logNotImplemented();
+        Statement.ifThen(new Func0<Boolean>() {
+          boolean r = false;
+
+          @Override
+          public Boolean call() {
+            r = !r;
+            return r;
+          }
+        }, Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log(integer);
+          }
+        });
       }
     });
     registery.add(Constants.Condition.skipUtil, new Runnable() {
@@ -120,7 +150,26 @@ public class ConditionActivity extends APIBaseActivity {
     registery.add(Constants.Condition.switchcase, new Runnable() {
       @Override
       public void run() {
-        logNotImplemented();
+        Observable<Integer> source1 = Observable.just(1, 2, 3);
+        Observable<Integer> source2 = Observable.just(4, 5, 6);
+
+        Map<Integer, Observable<Integer>> map = new HashMap<Integer, Observable<Integer>>();
+        map.put(1, source1);
+        map.put(2, source2);
+
+        Statement.switchCase(new Func0<Integer>() {
+          int count = 1;
+
+          @Override
+          public Integer call() {
+            return count++;
+          }
+        }, map).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log(integer);
+          }
+        });
       }
     });
     registery.add(Constants.Condition.takeUntil, new Runnable() {
@@ -164,7 +213,19 @@ public class ConditionActivity extends APIBaseActivity {
     registery.add(Constants.Condition.WhileDo, new Runnable() {
       @Override
       public void run() {
-        logNotImplemented();
+        Statement.whileDo(Observable.just(1, 2, 3), new Func0<Boolean>() {
+          int count = 2;
+
+          @Override
+          public Boolean call() {
+            return count-- > 0;
+          }
+        }).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log(integer);
+          }
+        });
       }
     });
     registery.add(Constants.Condition.all, new Runnable() {
