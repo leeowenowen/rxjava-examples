@@ -1,23 +1,14 @@
 package union.uc.com.rxjava_example.plugin;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
-import rx.functions.Func1;
-import rx.subjects.PublishSubject;
 import union.uc.com.rxjava_example.base.Tuple;
 import union.uc.com.rxjava_example.contants.Constants;
 
@@ -25,59 +16,77 @@ import union.uc.com.rxjava_example.contants.Constants;
  * Created by wangli on 4/16/16.
  */
 public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
+  private MarbleDiagram mMarbleDiagram = new MarbleDiagram();
+
   @Override
   public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
+    Integer[] ids = mMarbleDiagram.get(key);
+    if (ids == null) {
+      return new Tuple.Tuple2<>(Observable.<View>empty(), null);
+    }
     final LinearLayout linearLayout = new LinearLayout(context);
     linearLayout.setOrientation(LinearLayout.VERTICAL);
-    final Reference<LinearLayout> ref = new WeakReference<>(linearLayout);
-    Observable<View> o = Observable.just(key)
-                                   //  .observeOn(Schedulers.io())
-                                   .map(new Func1<String, String[]>() {
-                                     @Override
-                                     public String[] call(String s) {
-                                       if (mKeyToUrl == null) {
-                                         load();
-                                       }
-                                       return mKeyToUrl.get(s);
-                                     }
-                                   }).flatMap(new Func1<String[], Observable<View>>() {
-        @Override
-        public Observable<View> call(String[] urls) {
-          final PublishSubject<View> subject = PublishSubject.create();
-          for (int i = 0; i < urls.length; ++i) {
-            String url = urls[i];
-            ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
-              @Override
-              public void onLoadingStarted(String imageUri, View view) {
-              }
-
-              @Override
-              public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-              }
-
-              @Override
-              public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                LinearLayout ll = ref.get();
-                if (ll != null) {
-                  ImageView imageView = new ImageView(context);
-                  imageView.setImageBitmap(loadedImage);
-                  ll.addView(imageView);
-                }
-                subject.onNext(ll);
-              }
-
-              @Override
-              public void onLoadingCancelled(String imageUri, View view) {
-              }
-            });
-          }
-          return subject;
-        }
-      });
-
-    return new Tuple.Tuple2<>(o, (View) linearLayout);
+    for (Integer id : ids) {
+      ImageView imageView = new ImageView(context);
+      imageView.setImageResource(id);
+      linearLayout.addView(imageView);
+    }
+    return new Tuple.Tuple2<>(Observable.just((View) linearLayout), (View) linearLayout);
   }
 
+  //  @Override
+  //  public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
+  //    final LinearLayout linearLayout = new LinearLayout(context);
+  //    linearLayout.setOrientation(LinearLayout.VERTICAL);
+  //    final Reference<LinearLayout> ref = new WeakReference<>(linearLayout);
+  //    Observable<View> o = Observable.just(key)
+  //                                   //  .observeOn(Schedulers.io())
+  //                                   .map(new Func1<String, String[]>() {
+  //                                     @Override
+  //                                     public String[] call(String s) {
+  //                                       if (mKeyToUrl == null) {
+  //                                         load();
+  //                                       }
+  //                                       return mKeyToUrl.get(s);
+  //                                     }
+  //                                   }).flatMap(new Func1<String[], Observable<View>>() {
+  //        @Override
+  //        public Observable<View> call(String[] urls) {
+  //          final PublishSubject<View> subject = PublishSubject.create();
+  //          for (int i = 0; i < urls.length; ++i) {
+  //            String url = urls[i];
+  //            ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
+  //              @Override
+  //              public void onLoadingStarted(String imageUri, View view) {
+  //              }
+  //
+  //              @Override
+  //              public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+  //              }
+  //
+  //              @Override
+  //              public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+  //                LinearLayout ll = ref.get();
+  //                if (ll != null) {
+  //                  ImageView imageView = new ImageView(context);
+  //                  imageView.setImageBitmap(loadedImage);
+  //                  ll.addView(imageView);
+  //                }
+  //                subject.onNext(ll);
+  //              }
+  //
+  //              @Override
+  //              public void onLoadingCancelled(String imageUri, View view) {
+  //              }
+  //            });
+  //          }
+  //          return subject;
+  //        }
+  //      });
+  //
+  //    return new Tuple.Tuple2<>(o, (View) linearLayout);
+  //  }
+  //
   private Map<String, String[]> mKeyToUrl;
 
   private void add(String key, String... urls) {

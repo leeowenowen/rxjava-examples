@@ -90,7 +90,7 @@ public abstract class APIBaseActivity extends AppCompatActivity {
     log("error:" + throwable.getMessage());
   }
 
-  protected void logLineSeperator(){
+  protected void logLineSeperator() {
     log("------------------");
   }
 
@@ -204,43 +204,45 @@ public abstract class APIBaseActivity extends AppCompatActivity {
           public void call(View view) {
             view.setVisibility(View.VISIBLE);
 
-//            for (int i = 0; i < mTop.getChildCount(); ++i) {
-//              View v = mTop.getChildAt(i);
-//              v.clearAnimation();
-//              log(v.getHeight());
-//              if (v.equals(view)) {//in
-//                //YoYo.with(Techniques.ZoomInDown).duration(2000).playOn(v);
-//                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-//                                                              0,
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              0,
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              -view.getHeight(),
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              0);
-//                t.setDuration(2000);
-//                v.startAnimation(t);
-//              } else {//out
-//                //  YoYo.with(Techniques.SlideInDown).duration(2000).playOn(v);
-//                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-//                                                              0,
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              0,
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              0,
-//                                                              Animation.RELATIVE_TO_SELF,
-//                                                              v.getHeight());
-//                t.setDuration(2000);
-//                v.startAnimation(t);
-//              }
-//            }
+            //            for (int i = 0; i < mTop.getChildCount(); ++i) {
+            //              View v = mTop.getChildAt(i);
+            //              v.clearAnimation();
+            //              log(v.getHeight());
+            //              if (v.equals(view)) {//in
+            //                //YoYo.with(Techniques.ZoomInDown).duration(2000).playOn(v);
+            //                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              -view.getHeight(),
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0);
+            //                t.setDuration(2000);
+            //                v.startAnimation(t);
+            //              } else {//out
+            //                //  YoYo.with(Techniques.SlideInDown).duration(2000).playOn(v);
+            //                TranslateAnimation t = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              0,
+            //                                                              Animation.RELATIVE_TO_SELF,
+            //                                                              v.getHeight());
+            //                t.setDuration(2000);
+            //                v.startAnimation(t);
+            //              }
+            //            }
 
           }
         });
 
       View v = t.item2;
-      v.setVisibility(View.GONE);
-      mTop.addView(v);
+      if (v != null) {
+        v.setVisibility(View.GONE);
+        mTop.addView(v);
+      }
 
       mLastSubscriptionList.add(s);
     }
