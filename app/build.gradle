@@ -29,7 +29,7 @@ dependencies {
 //    compile 'io.reactivex:rxjava-file-utils:0.+'
 //    compile 'io.reactivex:rxjava-debug:1.+'
 //    compile 'io.reactivex:rxjava-guava:1.+'
-//    compile 'io.reactivex:rxjava-reactive-streams:1.+'
+    compile 'io.reactivex:rxjava-reactive-streams:1.+'
     compile 'io.reactivex:rxjava-joins:0.+'
     compile 'io.reactivex:rxjava-math:1.+'
     compile 'io.reactivex:rxjava-async-util:0.+'
