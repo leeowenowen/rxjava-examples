@@ -1,4 +1,4 @@
-package union.uc.com.rxjava_example;
+package union.uc.com.rxjava_example.sample;
 
 import android.graphics.Color;
 import android.view.View;

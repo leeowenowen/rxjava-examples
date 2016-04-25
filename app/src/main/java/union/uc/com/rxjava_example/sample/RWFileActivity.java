@@ -1,4 +1,4 @@
-package union.uc.com.rxjava_example;
+package union.uc.com.rxjava_example.sample;
 
 import android.os.Bundle;
 import android.view.View;

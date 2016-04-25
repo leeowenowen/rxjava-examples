@@ -25,7 +25,8 @@ public class App extends Application {
     //init DisplayPluginManager
     DisplayPluginManager dpm = DisplayPluginManager.singleton();
     dpm.register(new MarbleDiagramPlugin());
-    dpm.register(new SampleCodePlugin());
     dpm.register(new DescriptionPlugin());
+    dpm.register(new SampleCodePlugin());
+
   }
 }
