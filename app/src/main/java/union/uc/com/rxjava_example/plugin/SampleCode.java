@@ -450,6 +450,16 @@ mCodes.put(Constants.Filter.ignoreElements,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
+"    }, new Action1<Throwable>() {\n"+
+"      @Override\n"+
+"      public void call(Throwable throwable) {\n"+
+"        log(throwable);\n"+
+"      }\n"+
+"    }, new Action0() {\n"+
+"      @Override\n"+
+"      public void call() {\n"+
+"        log(\"onComplete\");\n"+
+"      }\n"+
 "    });\n");
 mCodes.put(Constants.Filter.takeLastBuffer,
 "    Observable.range(1, 10)\n"+

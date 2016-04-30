@@ -139,8 +139,7 @@
     <string name="desc_filter_distinct">过滤掉重复的数据项</string>
     <string name="desc_filter_distinctUntilChanged">过滤掉连续相同的重复的数据项</string>
     <string name="desc_filter_ofType">发射Observable中某个特定类型的数据项</string>
-    <string name="desc_filter_ignoreElements">不发射任何数据，只发射Observable的终止通知(此API似乎有bug,
-        并没有接收到onComplete事件)</string>
+    <string name="desc_filter_ignoreElements">不发射任何数据，只发射Observable的终止通知</string>
 
     <string name="desc_error_handler_onErrorResumeNext">发生错误时，切换到一个备用的Observable继续发射数据</string>
     <string name="desc_error_handler_onErrorReturn">发生错误时，发射指定值</string>
