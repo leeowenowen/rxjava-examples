@@ -75,11 +75,14 @@
     <string name="desc_string_split">converts an Observable of Strings into an Observable of Strings that treats the source sequence as a stream and splits it on a specified regex boundary</string>
     <string name="desc_string_stringConcat">converts an Observable that emits a sequence of strings into an Observable that emits a single string that concatenates them all</string>
 
-    <string name="desc_scheduler_io"></string>
-    <string name="desc_scheduler_compute"></string>
-    <string name="desc_scheduler_immediate"></string>
-    <string name="desc_scheduler_self_define"></string>
-
+    <string name="desc_scheduler_io">exectute task on  io  thread</string>
+    <string name="desc_scheduler_compute">exectute   task    on  compute  thread</string>
+    <string name="desc_scheduler_immediate">exectute   task  immediately  on  current
+        thread</string>
+    <string name="desc_scheduler_self_define">exectute   task    on  io  thread</string>
+    <string name="desc_scheduler_new_thread">exectute task on a new thread</string>
+    <string name="desc_scheduler_trampoline">push   the task to the end of  the current
+        thread  task    queue</string>
 
     <string name="desc_reactive_stream_materialize"></string>
     <string name="desc_plugin_start_hook"></string>

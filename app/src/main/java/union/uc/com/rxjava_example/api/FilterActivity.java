@@ -306,8 +306,19 @@ public class FilterActivity extends APIBaseActivity {
     registery.add(Constants.Filter.throttleWithTimeout, new Runnable() {
       @Override
       public void run() {
-        Observable.just(1)
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+          @Override
+          public void call(Subscriber<? super Integer> subscriber) {
+            for (int i = 0; i < 10; i++) {
+              subscriber.onNext(i);
+              sleep(500);
+            }
+            subscriber.onCompleted();
+          }
+        })
+                  .subscribeOn(Schedulers.newThread())
                   .throttleWithTimeout(2, TimeUnit.SECONDS)
+                  .observeOn(Schedulers.newThread())
                   .subscribe(new Action1<Integer>() {
                     @Override
                     public void call(Integer integer) {
@@ -319,12 +330,27 @@ public class FilterActivity extends APIBaseActivity {
     registery.add(Constants.Filter.debounce, new Runnable() {
       @Override
       public void run() {
-        Observable.just(1).debounce(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
           @Override
-          public void call(Integer integer) {
-            log(integer);
+          public void call(Subscriber<? super Integer> subscriber) {
+            subscriber.onNext(1);
+            sleep(500);
+            subscriber.onNext(2);
+            sleep(1000);
+            subscriber.onNext(3);
+            sleep(2000);
+            subscriber.onNext(4);
+            subscriber.onCompleted();
           }
-        });
+        })
+                  .subscribeOn(Schedulers.newThread())
+                  .debounce(1, TimeUnit.SECONDS)
+                  .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                      log(integer);
+                    }
+                  });
       }
     });
     registery.add(Constants.Filter.timeout, new Runnable() {
@@ -378,14 +404,15 @@ public class FilterActivity extends APIBaseActivity {
     registery.add(Constants.Filter.ofType, new Runnable() {
                     @Override
                     public void run() {
-                      Observable.<Object>just(1, "2", new Exception("abc")).
-                                                                             ofType(Integer.class)
-                                                                           .subscribe(new Action1<Integer>() {
-                                                                             @Override
-                                                                             public void call(Integer integer) {
-                                                                               log(integer);
-                                                                             }
-                                                                           });
+                      Observable.<Object>//
+                                           just(1, "2", //
+                                                new Exception("abc")).
+                                           ofType(Integer.class).subscribe(new Action1<Integer>() {
+                        @Override
+                        public void call(Integer integer) {
+                          log(integer);
+                        }
+                      });
                     }
                   }
 
@@ -395,7 +422,14 @@ public class FilterActivity extends APIBaseActivity {
       Runnable() {
         @Override
         public void run() {
-          Observable.just(1, 2, 3).ignoreElements().subscribe(new Action1<Integer>() {
+          Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+              subscriber.onNext(1);
+              subscriber.onNext(2);
+              subscriber.onCompleted();
+            }
+          }).ignoreElements().subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
               log(integer);

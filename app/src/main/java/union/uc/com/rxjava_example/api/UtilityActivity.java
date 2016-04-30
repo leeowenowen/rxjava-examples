@@ -57,10 +57,48 @@ public class UtilityActivity extends APIBaseActivity {
     registery.add(Constants.Utility.serialize, new Runnable() {
       @Override
       public void run() {
-        Observable.range(1, 3).serialize().subscribe(new Action1<Integer>() {
+        Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {
+          @Override
+          public void call(Subscriber<? super Integer> subscriber) {
+            for (int i = 0; i < 3; i++) {
+              subscriber.onNext(i);
+              sleep(1000);
+            }
+            subscriber.onError(new Exception("xx"));
+            subscriber.onCompleted();
+          }
+        }).subscribeOn(Schedulers.newThread());
+        o.observeOn(Schedulers.computation()).subscribe(new Action1<Integer>() {
           @Override
           public void call(Integer integer) {
-            log(integer);
+            log("no serialize1 on compute:" + integer);
+          }
+        }, new Action1<Throwable>() {
+          @Override
+          public void call(Throwable throwable) {
+            log("Exception no serialize1 on compute:" + throwable.getMessage());
+          }
+        });
+        o.observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log("no serialize1 on io:" + integer);
+          }
+        }, new Action1<Throwable>() {
+          @Override
+          public void call(Throwable throwable) {
+            log("Exception no serialize1 on io:" + throwable.getMessage());
+          }
+        });
+        o.serialize().subscribe(new Action1<Integer>() {
+          @Override
+          public void call(Integer integer) {
+            log("serialize:" + integer);
+          }
+        }, new Action1<Throwable>() {
+          @Override
+          public void call(Throwable throwable) {
+            log("Exception serialize1:" + throwable.getMessage());
           }
         });
       }

@@ -38,6 +38,33 @@ public class SchedulerActivity extends APIBaseActivity {
                   });
       }
     });
+    registery.add(Constants.Scheduler.new_thread, new Runnable() {
+      @Override
+      public void run() {
+        Observable.just("a", "b")
+                  .observeOn(Schedulers.newThread())
+                  .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                      log(s + " on " + Thread.currentThread().getName());
+                    }
+                  });
+      }
+    });
+    registery.add(Constants.Scheduler.trampoline, new Runnable() {
+      @Override
+      public void run() {
+        Observable.just("a", "b")
+                  .observeOn(Schedulers.trampoline())
+                  .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                      log(s + " on " + Thread.currentThread().getName());
+                    }
+                  });
+        log("i'm on thread " + Thread.currentThread().getName());
+      }
+    });
     registery.add(Constants.Scheduler.immediate, new Runnable() {
       @Override
       public void run() {
@@ -49,6 +76,7 @@ public class SchedulerActivity extends APIBaseActivity {
                       log(s + " on " + Thread.currentThread().getName());
                     }
                   });
+        log("i'm on thread " + Thread.currentThread().getName());
       }
     });
     registery.add(Constants.Scheduler.self_define, new Runnable() {

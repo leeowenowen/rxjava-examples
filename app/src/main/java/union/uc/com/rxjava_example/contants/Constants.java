@@ -80,6 +80,8 @@ public class Constants {
     public static final String io = "io";
     public static final String compute = "compute";
     public static final String immediate = "immediate";
+    public static final String new_thread = "new_thread";
+    public static final String trampoline = "trampoline";
     public static final String self_define = "self_define";
   }
 

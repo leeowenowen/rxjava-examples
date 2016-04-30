@@ -93,10 +93,27 @@ public class TransformationActivity extends APIBaseActivity {
     registery.add(Constants.Transformation.switchMap, new Runnable() {
       @Override
       public void run() {
-        Observable.just(1, 2).switchMap(new Func1<Integer, Observable<Integer>>() {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
           @Override
-          public Observable<Integer> call(Integer integer) {
-            return Observable.just(integer);
+          public void call(Subscriber<? super Integer> subscriber) {
+            for (int i = 0; i < 3; ++i) {
+              subscriber.onNext(i);
+              sleep(500);
+            }
+            subscriber.onCompleted();
+          }
+        }).subscribeOn(Schedulers.newThread()).switchMap(new Func1<Integer, Observable<Integer>>() {
+          @Override
+          public Observable<Integer> call(final Integer integer) {
+            return Observable.create(new Observable.OnSubscribe<Integer>() {
+              @Override
+              public void call(Subscriber<? super Integer> subscriber) {
+                subscriber.onNext(integer);
+                sleep(500);
+                subscriber.onNext(integer);
+                subscriber.onCompleted();
+              }
+            }).subscribeOn(Schedulers.newThread());
           }
         }).subscribe(new Action1<Integer>() {
           @Override
