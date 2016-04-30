@@ -11,8 +11,9 @@
     <string name="action_send">Send Example APK</string>
     <string name="api">API Example</string>
     <string name="sample">Case Example</string>
-    <string name="source_code">源码：https://github.com/leeowenowen/rxjava-examples.git</string>
-    <string name="dev_by">开发者：Lee Wang (leeowenowen@gmail.com)</string>
+    <string name="source_code">SourceCode：https://github.com/leeowenowen/rxjava-examples
+        .git</string>
+    <string name="dev_by">Developer：Lee Wang (leeowenowen@gmail.com)</string>
 
     <string name="desc_utility_materialize">convert an Observable into a list of
         Notifications, [dematerialize:convert a materialized Observable back into its

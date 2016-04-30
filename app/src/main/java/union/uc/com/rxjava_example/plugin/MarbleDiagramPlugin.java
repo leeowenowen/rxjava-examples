@@ -1,7 +1,6 @@
 package union.uc.com.rxjava_example.plugin;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +29,6 @@ public class MarbleDiagramPlugin implements DisplayPluginManager.Plugin {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         for (Integer id : ids) {
             ImageView imageView = new ImageView(context);
-            imageView.setBackgroundColor(Color.GREEN);
             imageView.setImageResource(id);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Utils.dipToPixels(context, 200)));
             linearLayout.addView(imageView);

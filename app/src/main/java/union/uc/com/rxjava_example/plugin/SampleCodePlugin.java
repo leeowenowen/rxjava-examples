@@ -1,6 +1,7 @@
 package union.uc.com.rxjava_example.plugin;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -27,6 +28,7 @@ public class SampleCodePlugin implements DisplayPluginManager.Plugin {
         return super.onTouchEvent(event);
       }
     };
+    markdownView.setBackgroundColor(Color.LTGRAY);
     final Reference<MarkdownView> ref = new WeakReference<>(markdownView);
     Observable<View> o = Observable.just(key)
                                    // .observeOn(Schedulers.io())
