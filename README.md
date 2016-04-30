@@ -11,6 +11,8 @@ Show how to use RxJava API, you can install the [Demo APK]() on your android pho
 can learn RxJava API everywhere!
 
 click the api name, and you can see the source code, output and relevant marble diagram at the same time.
+all the source codes show on the sample gui are generated from my project source, and all the marble diagram is loaded from 
+load.
 
 [Download APK](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/apk/app-debug.apk)
 
