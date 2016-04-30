@@ -1,6 +1,7 @@
 package union.uc.com.rxjava_example.plugin;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.lang.ref.Reference;
@@ -19,7 +20,13 @@ import us.feras.mdv.MarkdownView;
 public class SampleCodePlugin implements DisplayPluginManager.Plugin {
   @Override
   public Tuple.Tuple2<Observable<View>, View> getView(final Context context, String key) {
-    MarkdownView markdownView = new MarkdownView(context);
+    MarkdownView markdownView = new MarkdownView(context){
+      @Override
+      public boolean onTouchEvent(MotionEvent event) {
+        requestDisallowInterceptTouchEvent(true);
+        return super.onTouchEvent(event);
+      }
+    };
     final Reference<MarkdownView> ref = new WeakReference<>(markdownView);
     Observable<View> o = Observable.just(key)
                                    // .observeOn(Schedulers.io())
