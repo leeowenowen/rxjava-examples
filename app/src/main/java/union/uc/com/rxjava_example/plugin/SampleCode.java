@@ -390,13 +390,14 @@ mCodes.put(Constants.ReactiveStream.materialize,
 "}\n"+
 "\n");
 mCodes.put(Constants.Filter.ofType,
-"    Observable.<Object>just(1, \"2\", new Exception(\"abc\")).\n"+
-"                                                           ofType(Integer.class)\n"+
-"                                                         .subscribe(new Action1<Integer>() {\n"+
-"                                                           @Override\n"+
-"                                                           public void call(Integer integer) {\n"+
-"                                                             log(integer);\n"+
-"                                                           }\n"+
+"    Observable.<Object>//\n"+
+"                         just(1, \"2\", //\n"+
+"                              new Exception(\"abc\")).\n"+
+"                         ofType(Integer.class).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(integer);\n"+
+"      }\n"+
 "  }\n"+
 "}\n"+
 "\n");
@@ -458,7 +459,13 @@ mCodes.put(Constants.ErrorHandler.retry,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Filter.ignoreElements,
-"    Observable.just(1, 2, 3).ignoreElements().subscribe(new Action1<Integer>() {\n"+
+"    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        subscriber.onNext(1);\n"+
+"        subscriber.onNext(2);\n"+
+"        subscriber.onCompleted();\n"+
+"      }\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
@@ -1006,6 +1013,16 @@ mCodes.put(Constants.ErrorHandler.onErrorReturn,
 "                  log(throwable);\n"+
 "                }\n"+
 "  }\n");
+mCodes.put(Constants.Scheduler.trampoline,
+"    Observable.just(\"a\", \"b\")\n"+
+"              .observeOn(Schedulers.trampoline())\n"+
+"              .subscribe(new Action1<String>() {\n"+
+"                @Override\n"+
+"                public void call(String s) {\n"+
+"                  log(s + \" on \" + Thread.currentThread().getName());\n"+
+"                }\n"+
+"    log(\"i'm on thread \" + Thread.currentThread().getName());\n"+
+"  }\n");
 mCodes.put(Constants.BlockingObservable.last,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1053,6 +1070,15 @@ mCodes.put(Constants.BlockingObservable.getIterator,
 "  }\n"+
 "\n"+
 "\n");
+mCodes.put(Constants.Scheduler.new_thread,
+"    Observable.just(\"a\", \"b\")\n"+
+"              .observeOn(Schedulers.newThread())\n"+
+"              .subscribe(new Action1<String>() {\n"+
+"                @Override\n"+
+"                public void call(String s) {\n"+
+"                  log(s + \" on \" + Thread.currentThread().getName());\n"+
+"                }\n"+
+"  }\n");
 mCodes.put(Constants.ErrorHandler.onExceptionResumeNext,
 "    Observable.just(1, \"abc\", \"2\")\n"+
 "              .cast(Integer.class)\n"+
@@ -1167,11 +1193,26 @@ mCodes.put(Constants.Filter.filter,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Filter.debounce,
-"    Observable.just(1).debounce(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {\n"+
+"    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
-"      public void call(Integer integer) {\n"+
-"        log(integer);\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        subscriber.onNext(1);\n"+
+"        sleep(500);\n"+
+"        subscriber.onNext(2);\n"+
+"        sleep(1000);\n"+
+"        subscriber.onNext(3);\n"+
+"        sleep(2000);\n"+
+"        subscriber.onNext(4);\n"+
+"        subscriber.onCompleted();\n"+
 "      }\n"+
+"    })\n"+
+"              .subscribeOn(Schedulers.newThread())\n"+
+"              .debounce(1, TimeUnit.SECONDS)\n"+
+"              .subscribe(new Action1<Integer>() {\n"+
+"                @Override\n"+
+"                public void call(Integer integer) {\n"+
+"                  log(integer);\n"+
+"                }\n"+
 "  }\n");
 mCodes.put(Constants.Strings.stringConcat,
 "    StringObservable.stringConcat(Observable.just(\"abc\", \"def\"))\n"+
@@ -1354,10 +1395,27 @@ mCodes.put(Constants.Condition.exists,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Transformation.switchMap,
-"    Observable.just(1, 2).switchMap(new Func1<Integer, Observable<Integer>>() {\n"+
+"    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
-"      public Observable<Integer> call(Integer integer) {\n"+
-"        return Observable.just(integer);\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        for (int i = 0; i < 3; ++i) {\n"+
+"          subscriber.onNext(i);\n"+
+"          sleep(500);\n"+
+"        }\n"+
+"        subscriber.onCompleted();\n"+
+"      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).switchMap(new Func1<Integer, Observable<Integer>>() {\n"+
+"      @Override\n"+
+"      public Observable<Integer> call(final Integer integer) {\n"+
+"        return Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
+"          @Override\n"+
+"          public void call(Subscriber<? super Integer> subscriber) {\n"+
+"            subscriber.onNext(integer);\n"+
+"            sleep(500);\n"+
+"            subscriber.onNext(integer);\n"+
+"            subscriber.onCompleted();\n"+
+"          }\n"+
+"        }).subscribeOn(Schedulers.newThread());\n"+
 "      }\n"+
 "    }).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -1557,6 +1615,7 @@ mCodes.put(Constants.Scheduler.immediate,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
+"    log(\"i'm on thread \" + Thread.currentThread().getName());\n"+
 "  }\n");
 mCodes.put(Constants.Utility.subscribeOn,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
@@ -1643,8 +1702,19 @@ mCodes.put(Constants.ObservableCreate.timer,
 "}\n"+
 "\n");
 mCodes.put(Constants.Filter.throttleWithTimeout,
-"    Observable.just(1)\n"+
+"    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        for (int i = 0; i < 10; i++) {\n"+
+"          subscriber.onNext(i);\n"+
+"          sleep(500);\n"+
+"        }\n"+
+"        subscriber.onCompleted();\n"+
+"      }\n"+
+"    })\n"+
+"              .subscribeOn(Schedulers.newThread())\n"+
 "              .throttleWithTimeout(2, TimeUnit.SECONDS)\n"+
+"              .observeOn(Schedulers.newThread())\n"+
 "              .subscribe(new Action1<Integer>() {\n"+
 "                @Override\n"+
 "                public void call(Integer integer) {\n"+
@@ -1788,10 +1858,48 @@ mCodes.put(Constants.Strings.join,
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Utility.serialize,
-"    Observable.range(1, 3).serialize().subscribe(new Action1<Integer>() {\n"+
+"    Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Subscriber<? super Integer> subscriber) {\n"+
+"        for (int i = 0; i < 3; i++) {\n"+
+"          subscriber.onNext(i);\n"+
+"          sleep(1000);\n"+
+"        }\n"+
+"        subscriber.onError(new Exception(\"xx\"));\n"+
+"        subscriber.onCompleted();\n"+
+"      }\n"+
+"    }).subscribeOn(Schedulers.newThread());\n"+
+"    o.observeOn(Schedulers.computation()).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
-"        log(integer);\n"+
+"        log(\"no serialize1 on compute:\" + integer);\n"+
+"      }\n"+
+"    }, new Action1<Throwable>() {\n"+
+"      @Override\n"+
+"      public void call(Throwable throwable) {\n"+
+"        log(\"Exception no serialize1 on compute:\" + throwable.getMessage());\n"+
+"      }\n"+
+"    });\n"+
+"    o.observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(\"no serialize1 on io:\" + integer);\n"+
+"      }\n"+
+"    }, new Action1<Throwable>() {\n"+
+"      @Override\n"+
+"      public void call(Throwable throwable) {\n"+
+"        log(\"Exception no serialize1 on io:\" + throwable.getMessage());\n"+
+"      }\n"+
+"    });\n"+
+"    o.serialize().subscribe(new Action1<Integer>() {\n"+
+"      @Override\n"+
+"      public void call(Integer integer) {\n"+
+"        log(\"serialize:\" + integer);\n"+
+"      }\n"+
+"    }, new Action1<Throwable>() {\n"+
+"      @Override\n"+
+"      public void call(Throwable throwable) {\n"+
+"        log(\"Exception serialize1:\" + throwable.getMessage());\n"+
 "      }\n"+
 "  }\n");
 mCodes.put(Constants.Transformation.flatMap,
