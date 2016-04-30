@@ -2,7 +2,7 @@
 
 讲解ＲxJava如何使用的示例工程，你可以将它安装在android手机上，然后就可以随手学习ＲxJava的api了．
 点击API名称，可以看到源码，源码输出以及对应的marble-diagram.
-
+>API描述目前支持中文和英文两种语言, 如果你的Android设备使用的是中文,那么你看到的API描述会跟我如下的截图有所不同.
 
 # rxjava-examples
 rxjava-example android project
