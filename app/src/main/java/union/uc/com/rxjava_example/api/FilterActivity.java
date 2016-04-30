@@ -383,24 +383,20 @@ public class FilterActivity extends APIBaseActivity {
                       }
                     });
         }
-      }
-
-    );
+      });
     registery.add(Constants.Filter.distinctUntilChanged, new Runnable() {
+      @Override
+      public void run() {
+        Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)
+                  .distinctUntilChanged()
+                  .subscribe(new Action1<Integer>() {
                     @Override
-                    public void run() {
-                      Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)
-                                .distinctUntilChanged()
-                                .subscribe(new Action1<Integer>() {
-                                  @Override
-                                  public void call(Integer integer) {
-                                    log(integer);
-                                  }
-                                });
+                    public void call(Integer integer) {
+                      log(integer);
                     }
-                  }
-
-    );
+                  });
+      }
+    });
     registery.add(Constants.Filter.ofType, new Runnable() {
                     @Override
                     public void run() {
@@ -417,26 +413,24 @@ public class FilterActivity extends APIBaseActivity {
                   }
 
     );
-    registery.add(Constants.Filter.ignoreElements, new
-
-      Runnable() {
-        @Override
-        public void run() {
-          Observable.create(new Observable.OnSubscribe<Integer>() {
-            @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-              subscriber.onNext(1);
-              subscriber.onNext(2);
-              subscriber.onCompleted();
-            }
-          }).ignoreElements().subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer integer) {
-              log(integer);
-            }
-          });
-        }
-      }
+    registery.add(Constants.Filter.ignoreElements, new Runnable() {
+                    @Override
+                    public void run() {
+                      Observable.create(new Observable.OnSubscribe<Integer>() {
+                        @Override
+                        public void call(Subscriber<? super Integer> subscriber) {
+                          subscriber.onNext(1);
+                          subscriber.onNext(2);
+                          subscriber.onCompleted();
+                        }
+                      }).ignoreElements().subscribe(new Action1<Integer>() {
+                        @Override
+                        public void call(Integer integer) {
+                          log(integer);
+                        }
+                      });
+                    }
+                  }
 
     );
   }

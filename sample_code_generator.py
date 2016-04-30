@@ -38,19 +38,27 @@ def RemoveHeader(lines):
 
 def RemoveFooter(lines):
   ret = []
-  end_lines = ['})','}']
-  find_footer_end = False
+  findComma1 = False
+  findComma2 = False
   for i in range(len(lines)-1, -1, -1):
     l = lines[i]
-    if len(end_lines) > 0 and l.find(end_lines[0]) >=0:
-      end_lines.pop()
-    else:
-      ret.insert(0,l) 
+    if len(l) > 0:
+      if findComma2:
+        ret.insert(0,l)
+      elif findComma1:
+        if l.find(';') >= 0:
+          findComma2 = True
+          ret.insert(0,l)
+      else:
+        if l.find(';') >= 0:
+          findComma1 = True
   return ret
 
 def ProcessRegisterBlock(lines):
   lines = RemoveHeader(lines)
   lines = RemoveFooter(lines)
+  if len(lines) == 0:
+    return "\"\""
   return Stringlize(lines)
 
 def FindKey(line):

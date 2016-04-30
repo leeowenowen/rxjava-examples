@@ -15,8 +15,8 @@ mCodes.put(Constants.BlockingObservable.singleOrDefault,
 "      public void call(Subscriber<? super Integer> subscriber) {\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().singleOrDefault(3000);\n"+
+"    log(i);\n");
 mCodes.put(Constants.ErrorHandler.onErrorResumeNext,
 "    Observable.just(1, \"abc\")\n"+
 "              .cast(Integer.class)\n"+
@@ -31,7 +31,7 @@ mCodes.put(Constants.ErrorHandler.onErrorResumeNext,
 "                public void call(Throwable throwable) {\n"+
 "                  log(throwable);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Combine.groupjoin,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -84,15 +84,15 @@ mCodes.put(Constants.Combine.groupjoin,
 "                    }\n"+
 "                  });\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.BlockingObservable.firstOrDefault,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Subscriber<? super Integer> subscriber) {\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().firstOrDefault(5000);\n"+
+"    log(i);\n");
 mCodes.put(Constants.CustomerOperator.customeOperator,
 "    Observable.range(1, 10)\n"+
 "              .lift(new OperatorMapInterceptor<Integer, Integer>(new Func1<Integer, Integer>() {\n"+
@@ -106,16 +106,14 @@ mCodes.put(Constants.CustomerOperator.customeOperator,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.Filter.firstOrDefault,
 "    Observable.range(1, 10).firstOrDefault(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Async.toAsync,
 "    Async.<Integer>toAsync(new Action0() {\n"+
 "      @Override\n"+
@@ -136,7 +134,7 @@ mCodes.put(Constants.Async.toAsync,
 "      public void call(Void aVoid) {\n"+
 "        log(\"Action1.call\");\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.cache,
 "    Observable o = Observable.range(1, 10).cache();\n"+
 "    o.subscribe(new Action1<Integer>() {\n"+
@@ -150,17 +148,16 @@ mCodes.put(Constants.Utility.cache,
 "      public void call(Integer integer) {\n"+
 "        log(\"s2:\" + integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.delay,
 "    Observable.just(1, 2).delay(2, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.maxBy,
-"    logNotImplemented();\n"+
-"  }\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.ObservableCreate.from_iterable,
 "    Observable.from(Arrays.asList(new String[] {\"s1\", \"s2\", \"s3\"}))\n"+
 "              .subscribe(new Action1<String>() {\n"+
@@ -168,7 +165,7 @@ mCodes.put(Constants.ObservableCreate.from_iterable,
 "                public void call(String s) {\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Subject.behavior,
 "    BehaviorSubject<Integer> s = BehaviorSubject.create();\n"+
 "    s.onNext(1);\n"+
@@ -178,8 +175,8 @@ mCodes.put(Constants.Subject.behavior,
 "      public void call(Integer integer) {\n"+
 "        log(\"\" + integer);\n"+
 "      }\n"+
-"    s.onNext(3);\n"+
-"  }\n");
+"    });\n"+
+"    s.onNext(3);\n");
 mCodes.put(Constants.Transformation.map,
 "    Observable.range(1, 10).map(new Func1<Integer, Integer>() {\n"+
 "      @Override\n"+
@@ -191,14 +188,14 @@ mCodes.put(Constants.Transformation.map,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.single,
 "    Observable.just(1).single().subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.sumDouble,
 "    MathObservable.sumDouble(Observable.just(1.0, 2.0, 3.0, 4.0))\n"+
 "                  .subscribe(new Action1<Double>() {\n"+
@@ -206,7 +203,7 @@ mCodes.put(Constants.MathAggregate.sumDouble,
 "                    public void call(Double f) {\n"+
 "                      log(f);\n"+
 "                    }\n"+
-"  }\n");
+"                  });\n");
 mCodes.put(Constants.BlockingObservable.forEach,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -220,10 +217,9 @@ mCodes.put(Constants.BlockingObservable.forEach,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.takeWhileWithIndex,
-"    logNotImplemented();\n"+
-"  }\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.BlockingObservable.next,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -232,13 +228,11 @@ mCodes.put(Constants.BlockingObservable.next,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().next().iterator();\n"+
 "    while (itr.hasNext()) {\n"+
-"      log(itr.next());\n"+
-"    }\n"+
-"  }\n");
+"      log(itr.next());\n");
 mCodes.put(Constants.MathAggregate.count,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.ConnectableObservable.refCount,
 "    ConnectableObservable<Integer> co =\n"+
 "      Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
@@ -271,18 +265,15 @@ mCodes.put(Constants.ConnectableObservable.refCount,
 "      public void call(Integer integer) {\n"+
 "        log(\"obs:\" + integer);\n"+
 "      }\n"+
+"    });\n"+
 "    sleep(1000);\n"+
 "    log(\"begin connect!\");\n"+
 "    co.connect();\n"+
 "    s1.unsubscribe();\n"+
 "    s2.unsubscribe();\n"+
-"    log(\"both disconnected!\");\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    log(\"both disconnected!\");\n");
 mCodes.put(Constants.MathAggregate.countLong,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.ObservableCreate.interval,
 "    final Subscription subscription =\n"+
 "      Observable.interval(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {\n"+
@@ -290,16 +281,14 @@ mCodes.put(Constants.ObservableCreate.interval,
 "        public void call(Long aLong) {\n"+
 "          log(aLong);\n"+
 "        }\n"+
+"      });\n"+
 "    AsyncExecutor.SINGLETON.schedule(new Runnable() {\n"+
 "      @Override\n"+
 "        if (!subscription.isUnsubscribed()) {\n"+
 "          subscription.unsubscribe();\n"+
 "        }\n"+
 "      }\n"+
-"    }, 10, TimeUnit.SECONDS);\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    }, 10, TimeUnit.SECONDS);\n");
 mCodes.put(Constants.Condition.sequenceEqual,
 "    Observable.sequenceEqual(Observable.just(1, 2, 3),\n"+
 "                             Observable.range(1, 3),\n"+
@@ -313,9 +302,7 @@ mCodes.put(Constants.Condition.sequenceEqual,
 "      public void call(Boolean aBoolean) {\n"+
 "        log(aBoolean);\n"+
 "      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Transformation.flatMapIterable,
 "    Observable.just(1, 2).flatMapIterable(new Func1<Integer, Iterable<String>>() {\n"+
 "      @Override\n"+
@@ -327,14 +314,14 @@ mCodes.put(Constants.Transformation.flatMapIterable,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Strings.split,
 "    StringObservable.split(Observable.just(\"ab#cd#ef\"), \"#\").subscribe(new Action1<String>() {\n"+
 "      @Override\n"+
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.using,
 "    Observable.using(new Func0<File>() {\n"+
 "      @Override\n"+
@@ -372,7 +359,7 @@ mCodes.put(Constants.Utility.using,
 "      public void call(Throwable throwable) {\n"+
 "        log(throwable);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.takeWhile,
 "    Observable.range(1, 10).takeWhile(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -384,11 +371,8 @@ mCodes.put(Constants.Condition.takeWhile,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
-mCodes.put(Constants.ReactiveStream.materialize,
-"    }\n"+
-"}\n"+
-"\n");
+"    });\n");
+mCodes.put(Constants.ReactiveStream.materialize,"");
 mCodes.put(Constants.Filter.ofType,
 "    Observable.<Object>//\n"+
 "                         just(1, \"2\", //\n"+
@@ -398,9 +382,7 @@ mCodes.put(Constants.Filter.ofType,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Utility.doOnError,
 "    Observable.just(1, \"3\").cast(Integer.class).doOnError(new Action1<Throwable>() {\n"+
 "      @Override\n"+
@@ -417,7 +399,7 @@ mCodes.put(Constants.Utility.doOnError,
 "      public void call(Throwable throwable) {\n"+
 "        log(throwable);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Subject.replay_create_with_time,
 "    try {\n"+
 "      ReplaySubject<Integer> subject =\n"+
@@ -432,20 +414,17 @@ mCodes.put(Constants.Subject.replay_create_with_time,
 "        public void call(Integer integer) {\n"+
 "          log(\"\" + integer);\n"+
 "        }\n"+
+"      });\n"+
 "      subject.onNext(4);\n"+
 "    } catch (InterruptedException e) {\n"+
-"      log(\"error:\" + e.getMessage());\n"+
-"    }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"      log(\"error:\" + e.getMessage());\n");
 mCodes.put(Constants.Condition.defaultIfEmpty,
 "    Observable.<Integer>empty().defaultIfEmpty(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ErrorHandler.retry,
 "    Observable.just(1, \"abc\", 2).cast(Integer.class).retry(2).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -457,7 +436,7 @@ mCodes.put(Constants.ErrorHandler.retry,
 "      public void call(Throwable throwable) {\n"+
 "        log(throwable);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.ignoreElements,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -466,15 +445,12 @@ mCodes.put(Constants.Filter.ignoreElements,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).ignoreElements().subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Filter.takeLastBuffer,
 "    Observable.range(1, 10)\n"+
 "              .subscribeOn(Schedulers.newThread())\n"+
@@ -509,7 +485,7 @@ mCodes.put(Constants.Filter.takeLastBuffer,
 "                  }\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Combine.join,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -545,14 +521,13 @@ mCodes.put(Constants.Combine.join,
 "                public String call(Integer integer, String s) {\n"+
 "                  return \" \" + integer + \" \" + s;\n"+
 "                }\n"+
+"              })\n"+
 "              .subscribe(new Action1<String>() {\n"+
 "                @Override\n"+
 "                public void call(String s) {\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.MathAggregate.averageInteger,
 "    MathObservable.averageInteger(Observable.just(2, 4, 1, 5))\n"+
 "                  .subscribe(new Action1<Integer>() {\n"+
@@ -560,7 +535,7 @@ mCodes.put(Constants.MathAggregate.averageInteger,
 "                    public void call(Integer integer) {\n"+
 "                      log(integer);\n"+
 "                    }\n"+
-"  }\n");
+"                  });\n");
 mCodes.put(Constants.Condition.doWhile,
 "    Statement.doWhile(Observable.range(1, 10), new Func0<Boolean>() {\n"+
 "      boolean r = false;\n"+
@@ -574,7 +549,7 @@ mCodes.put(Constants.Condition.doWhile,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.takeFirst,
 "    Observable.range(1, 10).takeFirst(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -586,7 +561,7 @@ mCodes.put(Constants.Filter.takeFirst,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.throttleLast,
 "    final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -601,7 +576,7 @@ mCodes.put(Constants.Filter.throttleLast,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.skipUtil,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -620,7 +595,7 @@ mCodes.put(Constants.Condition.skipUtil,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Transformation.concatMap,
 "    Observable.just(1, 2).concatMap(new Func1<Integer, Observable<Integer>>() {\n"+
 "      @Override\n"+
@@ -632,14 +607,14 @@ mCodes.put(Constants.Transformation.concatMap,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.skipLast,
 "    Observable.range(1, 10).skipLast(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Subject.replay,
 "    ReplaySubject<Integer> subject = ReplaySubject.create();\n"+
 "    subject.onNext(1);\n"+
@@ -656,8 +631,8 @@ mCodes.put(Constants.Subject.replay,
 "      public void call(Integer integer) {\n"+
 "        log(\"Subscriber2:\" + integer);\n"+
 "      }\n"+
-"    subject.onNext(4);\n"+
-"  }\n");
+"    });\n"+
+"    subject.onNext(4);\n");
 mCodes.put(Constants.ObservableCreate.from_future,
 "    Observable.from(AsyncExecutor.SINGLETON.submit(new Callable<String>() {\n"+
 "      @Override\n"+
@@ -669,17 +644,16 @@ mCodes.put(Constants.ObservableCreate.from_future,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ConnectableObservable.publish,
-"    log(\"showed in connect!\");\n"+
-"  }\n");
+"    log(\"showed in connect!\");\n");
 mCodes.put(Constants.ObservableCreate.just,
 "    Observable.just(1, 2, 3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ObservableCreate.error,
 "    Observable.error(new Exception(\"abc\")).subscribe(new Action1<Object>() {\n"+
 "      @Override\n"+
@@ -696,9 +670,7 @@ mCodes.put(Constants.ObservableCreate.error,
 "      public void call() {\n"+
 "        log(\"onComplete\");\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Utility.delaySubscription,
 "    Observable.just(1, 2)\n"+
 "              .delaySubscription(2, TimeUnit.SECONDS)\n"+
@@ -707,19 +679,16 @@ mCodes.put(Constants.Utility.delaySubscription,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.ObservableCreate.repeat,
-"    log(\"RxJava not implemented!\");\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    log(\"RxJava not implemented!\");\n");
 mCodes.put(Constants.MathAggregate.min,
 "    MathObservable.min(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.distinctUntilChanged,
 "    Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)\n"+
 "              .distinctUntilChanged()\n"+
@@ -728,25 +697,21 @@ mCodes.put(Constants.Filter.distinctUntilChanged,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.Utility.singleOrDefault,
 "    Observable.<Integer>empty().singleOrDefault(10).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Filter.elementAtOrDefault,
 "    Observable.range(1, 10).elementAtOrDefault(100, 1000).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Combine.zip,
 "    Observable.just(1, 2, 3)\n"+
 "              .zipWith(Observable.just(\"a\", \"b\", \"c\"), new Func2<Integer, String, String>() {\n"+
@@ -760,7 +725,7 @@ mCodes.put(Constants.Combine.zip,
 "                public void call(String s) {\n"+
 "                  log(s);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.BlockingObservable.single,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -768,8 +733,8 @@ mCodes.put(Constants.BlockingObservable.single,
 "        subscriber.onNext(1);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().single();\n"+
+"    log(i);\n");
 mCodes.put(Constants.Condition.skipWhile,
 "    Observable.range(1, 10).skipWhile(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -781,7 +746,7 @@ mCodes.put(Constants.Condition.skipWhile,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.averageFloat,
 "    MathObservable.averageFloat(Observable.just(1.0f, 2.0f, 3.0f, 4.0f))\n"+
 "                  .subscribe(new Action1<Float>() {\n"+
@@ -789,7 +754,7 @@ mCodes.put(Constants.MathAggregate.averageFloat,
 "                    public void call(Float f) {\n"+
 "                      log(f);\n"+
 "                    }\n"+
-"  }\n");
+"                  });\n");
 mCodes.put(Constants.Transformation.buffer,
 "    Observable.range(1, 10).buffer(3).subscribe(new Action1<List<Integer>>() {\n"+
 "      @Override\n"+
@@ -800,7 +765,7 @@ mCodes.put(Constants.Transformation.buffer,
 "        }\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Scheduler.compute,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.computation())\n"+
@@ -809,16 +774,14 @@ mCodes.put(Constants.Scheduler.compute,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Plugin.start_hook,
 "    Observable.range(1, 10).observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Utility.timeInterval,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -837,7 +800,7 @@ mCodes.put(Constants.Utility.timeInterval,
 "                  log(\"\" + integerTimeInterval.getValue() + \" \" +\n"+
 "                      integerTimeInterval.getIntervalInMilliseconds());\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.MathAggregate.sumFloat,
 "    MathObservable.sumFloat(Observable.just(1.0f, 2.0f, 3.0f, 4.0f))\n"+
 "                  .subscribe(new Action1<Float>() {\n"+
@@ -845,7 +808,7 @@ mCodes.put(Constants.MathAggregate.sumFloat,
 "                    public void call(Float f) {\n"+
 "                      log(f);\n"+
 "                    }\n"+
-"  }\n");
+"                  });\n");
 mCodes.put(Constants.ObservableCreate.create,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -854,13 +817,12 @@ mCodes.put(Constants.ObservableCreate.create,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Filter.timeout,
 "    Observable.<Integer>never().timeout(1, TimeUnit.SECONDS).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -872,7 +834,7 @@ mCodes.put(Constants.Filter.timeout,
 "      public void call(Throwable throwable) {\n"+
 "        log(throwable);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.switchcase,
 "    Observable<Integer> source1 = Observable.just(1, 2, 3);\n"+
 "    Observable<Integer> source2 = Observable.just(4, 5, 6);\n"+
@@ -890,7 +852,7 @@ mCodes.put(Constants.Condition.switchcase,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.ifThen,
 "    Statement.ifThen(new Func0<Boolean>() {\n"+
 "      boolean r = false;\n"+
@@ -904,14 +866,14 @@ mCodes.put(Constants.Condition.ifThen,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.contains,
 "    Observable.range(1, 10).contains(3).subscribe(new Action1<Boolean>() {\n"+
 "      @Override\n"+
 "      public void call(Boolean aBoolean) {\n"+
 "        log(aBoolean);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.doOnCompleted,
 "    Observable.range(1, 3).doOnCompleted(new Action0() {\n"+
 "      @Override\n"+
@@ -923,7 +885,7 @@ mCodes.put(Constants.Utility.doOnCompleted,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.doOnEach,
 "    Observable.range(1, 10).doOnEach(new Action1<Notification<? super Integer>>() {\n"+
 "      @Override\n"+
@@ -935,21 +897,16 @@ mCodes.put(Constants.Utility.doOnEach,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Combine.switchOnNext,
-"    logNotImplemented();\n"+
-"  }\n"+
-"}\n"+
-"\n"+
-"\n"+
-"\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.Strings.encode,
 "    StringObservable.encode(Observable.just(\"abc\"), \"UTF-8\").subscribe(new Action1<byte[]>() {\n"+
 "      @Override\n"+
 "      public void call(byte[] bytes) {\n"+
 "        log(bytes.length);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.BlockingObservable.mostRecent,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -958,13 +915,11 @@ mCodes.put(Constants.BlockingObservable.mostRecent,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().mostRecent(5000).iterator();\n"+
 "    while (itr.hasNext()) {\n"+
-"      log(itr.next());\n"+
-"    }\n"+
-"  }\n");
+"      log(itr.next());\n");
 mCodes.put(Constants.MathAggregate.collect,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.ErrorHandler.retryWhen,
 "    Observable.just(1, \"abc\", \"2\")\n"+
 "              .cast(Integer.class)\n"+
@@ -990,9 +945,7 @@ mCodes.put(Constants.ErrorHandler.retryWhen,
 "                public void call(Throwable throwable) {\n"+
 "                  log(throwable);\n"+
 "                }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.ErrorHandler.onErrorReturn,
 "    Observable.just(1, \"abc\")\n"+
 "              .cast(Integer.class)\n"+
@@ -1012,7 +965,7 @@ mCodes.put(Constants.ErrorHandler.onErrorReturn,
 "                public void call(Throwable throwable) {\n"+
 "                  log(throwable);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Scheduler.trampoline,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.trampoline())\n"+
@@ -1021,8 +974,8 @@ mCodes.put(Constants.Scheduler.trampoline,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"    log(\"i'm on thread \" + Thread.currentThread().getName());\n"+
-"  }\n");
+"              });\n"+
+"    log(\"i'm on thread \" + Thread.currentThread().getName());\n");
 mCodes.put(Constants.BlockingObservable.last,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1031,8 +984,8 @@ mCodes.put(Constants.BlockingObservable.last,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().last();\n"+
+"    log(i);\n");
 mCodes.put(Constants.ObservableCreate.empty,
 "    Observable.<String>empty().subscribe(new Observer<String>() {\n"+
 "      @Override\n"+
@@ -1047,15 +1000,11 @@ mCodes.put(Constants.ObservableCreate.empty,
 "      public void onError(Throwable e) {\n"+
 "        log(\"onError:\" + e.getMessage());\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.toList,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Combine.mergeDelayError,
-"    logNotImplemented();\n"+
-"  }\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.BlockingObservable.getIterator,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1064,12 +1013,9 @@ mCodes.put(Constants.BlockingObservable.getIterator,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().getIterator();\n"+
 "    while (itr.hasNext()) {\n"+
-"      log(itr.next());\n"+
-"    }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"      log(itr.next());\n");
 mCodes.put(Constants.Scheduler.new_thread,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.newThread())\n"+
@@ -1078,7 +1024,7 @@ mCodes.put(Constants.Scheduler.new_thread,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.ErrorHandler.onExceptionResumeNext,
 "    Observable.just(1, \"abc\", \"2\")\n"+
 "              .cast(Integer.class)\n"+
@@ -1093,7 +1039,7 @@ mCodes.put(Constants.ErrorHandler.onExceptionResumeNext,
 "                public void call(Throwable throwable) {\n"+
 "                  log(throwable);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Utility.doOnSubscribe,
 "    Observable.just(1, 2).doOnSubscribe(new Action0() {\n"+
 "      @Override\n"+
@@ -1105,7 +1051,7 @@ mCodes.put(Constants.Utility.doOnSubscribe,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.finallyDo,
 "    Observable.just(1, 2).finallyDo(new Action0() {\n"+
 "      @Override\n"+
@@ -1117,18 +1063,14 @@ mCodes.put(Constants.Utility.finallyDo,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ObservableCreate.never,
 "    Observable.<Void>never().subscribe(new Action1<Void>() {\n"+
 "      @Override\n"+
 "      public void call(Void aVoid) {\n"+
 "        log(\"it's impossible!\");\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Utility.doOnUnsubscribe,
 "    Subscription subscription = Observable.just(1, 2).doOnUnsubscribe(new Action0() {\n"+
 "      @Override\n"+
@@ -1140,8 +1082,8 @@ mCodes.put(Constants.Utility.doOnUnsubscribe,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"    subscription.unsubscribe();\n"+
-"  }\n");
+"    });\n"+
+"    subscription.unsubscribe();\n");
 mCodes.put(Constants.Transformation.cast,
 "    Observable.<Object>just(1, 2, 3).\n"+
 "                                      cast(Integer.class).subscribe(new Action1<Integer>() {\n"+
@@ -1149,9 +1091,7 @@ mCodes.put(Constants.Transformation.cast,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Utility.doOnTerminate,
 "    Observable.just(1, 2).doOnTerminate(new Action0() {\n"+
 "      @Override\n"+
@@ -1163,7 +1103,7 @@ mCodes.put(Constants.Utility.doOnTerminate,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Subject.behavior_with_init_value,
 "    BehaviorSubject<Integer> s = BehaviorSubject.create(0);\n"+
 "    s.subscribe(new Action1<Integer>() {\n"+
@@ -1171,15 +1111,15 @@ mCodes.put(Constants.Subject.behavior_with_init_value,
 "      public void call(Integer integer) {\n"+
 "        log(\"\" + integer);\n"+
 "      }\n"+
-"    s.onNext(1);\n"+
-"  }\n");
+"    });\n"+
+"    s.onNext(1);\n");
 mCodes.put(Constants.Scheduler.io,
 "    Observable.just(\"a\", \"b\").observeOn(Schedulers.io()).subscribe(new Action1<String>() {\n"+
 "      @Override\n"+
 "      public void call(String s) {\n"+
 "        log(s + \" on \" + Thread.currentThread().getName());\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.filter,
 "    Observable.range(1, 10).filter(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -1191,7 +1131,7 @@ mCodes.put(Constants.Filter.filter,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.debounce,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1213,7 +1153,7 @@ mCodes.put(Constants.Filter.debounce,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Strings.stringConcat,
 "    StringObservable.stringConcat(Observable.just(\"abc\", \"def\"))\n"+
 "                    .subscribe(new Action1<String>() {\n"+
@@ -1221,9 +1161,7 @@ mCodes.put(Constants.Strings.stringConcat,
 "                      public void call(String s) {\n"+
 "                        log(s);\n"+
 "                      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"                    });\n");
 mCodes.put(Constants.Condition.amb,
 "    Observable.amb(Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "                     @Override\n"+
@@ -1256,14 +1194,14 @@ mCodes.put(Constants.Condition.amb,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.elementAt,
 "    Observable.range(1, 10).elementAt(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Combine.switchIfEmpty,
 "    Observable.<Integer>empty().switchIfEmpty(Observable.just(4, 5))\n"+
 "                               .subscribe(new Action1<Integer>() {\n"+
@@ -1271,9 +1209,7 @@ mCodes.put(Constants.Combine.switchIfEmpty,
 "                                 public void call(Integer integer) {\n"+
 "                                   log(integer);\n"+
 "                                 }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"                               });\n");
 mCodes.put(Constants.Async.startFuture,
 "    Async.startFuture(new Func0<Future<Integer>>() {\n"+
 "      @Override\n"+
@@ -1290,7 +1226,7 @@ mCodes.put(Constants.Async.startFuture,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.WhileDo,
 "    Statement.whileDo(Observable.just(1, 2, 3), new Func0<Boolean>() {\n"+
 "      int count = 2;\n"+
@@ -1303,19 +1239,16 @@ mCodes.put(Constants.Condition.WhileDo,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ObservableCreate.repeatWhen,
-"    log(\"RxJava not implemented!\");\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    log(\"RxJava not implemented!\");\n");
 mCodes.put(Constants.Filter.skip,
 "    Observable.range(1, 10).skip(2).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Strings.decode,
 "    StringObservable.decode(Observable.just(\"ABC\".getBytes(Charset.forName(\"UTF-8\"))),\n"+
 "                            Charset.forName(\"UTF-8\")).subscribe(new Action1<String>() {\n"+
@@ -1323,7 +1256,7 @@ mCodes.put(Constants.Strings.decode,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ConnectableObservable.replay,
 "    Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1348,9 +1281,9 @@ mCodes.put(Constants.ConnectableObservable.replay,
 "      public void call(Integer integer) {\n"+
 "        log(\"s2:\" + integer);\n"+
 "      }\n"+
+"    });\n"+
 "    log(\"begin connect\");\n"+
-"    co.connect();\n"+
-"  }\n");
+"    co.connect();\n");
 mCodes.put(Constants.Combine.combineLatest,
 "    Observable.combineLatest(Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "                               @Override\n"+
@@ -1381,7 +1314,7 @@ mCodes.put(Constants.Combine.combineLatest,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.exists,
 "    Observable.just(1, 2, 3).exists(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -1393,7 +1326,7 @@ mCodes.put(Constants.Condition.exists,
 "      public void call(Boolean aBoolean) {\n"+
 "        log(aBoolean);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Transformation.switchMap,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1422,7 +1355,7 @@ mCodes.put(Constants.Transformation.switchMap,
 "      public void call(Integer s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.BlockingObservable.toFuture,
 "    Future<Integer> future = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1430,6 +1363,7 @@ mCodes.put(Constants.BlockingObservable.toFuture,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().toFuture();\n"+
 "    try {\n"+
 "      log(future.get());\n"+
 "    } catch (InterruptedException e) {\n"+
@@ -1437,9 +1371,7 @@ mCodes.put(Constants.BlockingObservable.toFuture,
 "      log(e);\n"+
 "    } catch (ExecutionException e) {\n"+
 "      e.printStackTrace();\n"+
-"      log(e);\n"+
-"    }\n"+
-"  }\n");
+"      log(e);\n");
 mCodes.put(Constants.BlockingObservable.latest,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1448,10 +1380,9 @@ mCodes.put(Constants.BlockingObservable.latest,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().latest().iterator();\n"+
 "    while (itr.hasNext()) {\n"+
-"      log(itr.next());\n"+
-"    }\n"+
-"  }\n");
+"      log(itr.next());\n");
 mCodes.put(Constants.Transformation.window,
 "    Observable.range(1, 10).window(3).subscribe(new Action1<Observable<Integer>>() {\n"+
 "      @Override\n"+
@@ -1463,7 +1394,7 @@ mCodes.put(Constants.Transformation.window,
 "          }\n"+
 "        });\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Condition.all,
 "    Observable.just(2, 4, 6).all(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -1475,7 +1406,7 @@ mCodes.put(Constants.Condition.all,
 "      public void call(Boolean aBoolean) {\n"+
 "        log(aBoolean);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Combine.merge,
 "    Observable.just(1, 2, 3)\n"+
 "              .mergeWith(Observable.just(4, 5, 6))\n"+
@@ -1484,17 +1415,16 @@ mCodes.put(Constants.Combine.merge,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.MathAggregate.reduce,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Filter.takeLast,
 "    Observable.range(1, 10).takeLast(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Subject.publish,
 "    PublishSubject<Integer> subject = PublishSubject.create();\n"+
 "    subject.onNext(1);\n"+
@@ -1503,10 +1433,10 @@ mCodes.put(Constants.Subject.publish,
 "      public void call(Integer integer) {\n"+
 "        log(\"\" + integer);\n"+
 "      }\n"+
+"    });\n"+
 "    subject.onNext(2);\n"+
 "    subject.onNext(3);\n"+
-"    subject.onNext(4);\n"+
-"  }\n");
+"    subject.onNext(4);\n");
 mCodes.put(Constants.Strings.from,
 "    StringObservable.from(new ByteArrayInputStream(\"ABC\".getBytes()))\n"+
 "                    .subscribe(new Action1<byte[]>() {\n"+
@@ -1514,10 +1444,9 @@ mCodes.put(Constants.Strings.from,
 "                      public void call(byte[] bytes) {\n"+
 "                        log(bytes.length);\n"+
 "                      }\n"+
-"  }\n");
+"                    });\n");
 mCodes.put(Constants.MathAggregate.concat,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Strings.byLine,
 "    StringObservable.byLine(Observable.just(\"ab\r\ncd\r\nef\", \"12\r\n34\"))\n"+
 "                    .subscribe(new Action1<String>() {\n"+
@@ -1525,14 +1454,14 @@ mCodes.put(Constants.Strings.byLine,
 "                      public void call(String s) {\n"+
 "                        log(s);\n"+
 "                      }\n"+
-"  }\n");
+"                    });\n");
 mCodes.put(Constants.MathAggregate.max,
 "    MathObservable.max(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Scheduler.self_define,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))\n"+
@@ -1541,12 +1470,9 @@ mCodes.put(Constants.Scheduler.self_define,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.MathAggregate.toMap,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Async.fromCallable,
 "    Async.fromCallable(new Callable<Integer>() {\n"+
 "      @Override\n"+
@@ -1559,10 +1485,9 @@ mCodes.put(Constants.Async.fromCallable,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.minBy,
-"    logNotImplemented();\n"+
-"  }\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.Async.forEachFuture,
 "    Future<Void> f = Async.forEachFuture(Observable.just(1, 2, 3), new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -1574,20 +1499,17 @@ mCodes.put(Constants.Async.forEachFuture,
 "      public void call(Throwable throwable) {\n"+
 "        log(throwable);\n"+
 "      }\n"+
-"    log(\"task done:\" + f.isDone());\n"+
-"  }\n");
+"    });\n"+
+"    log(\"task done:\" + f.isDone());\n");
 mCodes.put(Constants.MathAggregate.toMultiMap,
-"    logUseObservable();\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Condition.isEmpty,
 "    Observable.empty().isEmpty().subscribe(new Action1<Boolean>() {\n"+
 "      @Override\n"+
 "      public void call(Boolean aBoolean) {\n"+
 "        log(aBoolean);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Async.fromAction,
 "    Async.fromAction(new Action0() {\n"+
 "      @Override\n"+
@@ -1600,13 +1522,11 @@ mCodes.put(Constants.Async.fromAction,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.toSortedList,
-"    logUseObservable();\n"+
-"  }\n");
+"    logUseObservable();\n");
 mCodes.put(Constants.Combine.startWith,
-"    logNotImplemented();\n"+
-"  }\n");
+"    logNotImplemented();\n");
 mCodes.put(Constants.Scheduler.immediate,
 "    Observable.just(\"a\", \"b\")\n"+
 "              .observeOn(Schedulers.immediate())\n"+
@@ -1615,8 +1535,8 @@ mCodes.put(Constants.Scheduler.immediate,
 "                public void call(String s) {\n"+
 "                  log(s + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"    log(\"i'm on thread \" + Thread.currentThread().getName());\n"+
-"  }\n");
+"              });\n"+
+"    log(\"i'm on thread \" + Thread.currentThread().getName());\n");
 mCodes.put(Constants.Utility.subscribeOn,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1634,7 +1554,7 @@ mCodes.put(Constants.Utility.subscribeOn,
 "                public void call(Integer integer) {\n"+
 "                  log(\"\" + integer + \" on \" + Thread.currentThread().getName());\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.BlockingObservable.toIterable,
 "    Iterator<Integer> itr = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1643,19 +1563,16 @@ mCodes.put(Constants.BlockingObservable.toIterable,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().toIterable().iterator();\n"+
 "    while (itr.hasNext()) {\n"+
-"      log(itr.next());\n"+
-"    }\n"+
-"  }\n");
+"      log(itr.next());\n");
 mCodes.put(Constants.ObservableCreate.range,
 "    Observable.range(1, 10).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Filter.throttleFirst,
 "    final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1670,37 +1587,35 @@ mCodes.put(Constants.Filter.throttleFirst,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
+"    });\n"+
 "    AsyncExecutor.SINGLETON.schedule(new Runnable() {\n"+
 "      @Override\n"+
 "        if (!subscription.isUnsubscribed()) {\n"+
 "          subscription.unsubscribe();\n"+
 "        }\n"+
 "      }\n"+
-"    }, 3, TimeUnit.SECONDS);\n"+
-"  }\n");
+"    }, 3, TimeUnit.SECONDS);\n");
 mCodes.put(Constants.Filter.take,
 "    Observable.range(1, 10).take(3).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.averageLong,
 "    MathObservable.averageLong(Observable.just(2L, 4L, 1L, 5L)).subscribe(new Action1<Long>() {\n"+
 "      @Override\n"+
 "      public void call(Long l) {\n"+
 "        log(l);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ObservableCreate.timer,
 "    Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {\n"+
 "      @Override\n"+
 "      public void call(Long aLong) {\n"+
 "        log(aLong);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.Filter.throttleWithTimeout,
 "    Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1720,7 +1635,7 @@ mCodes.put(Constants.Filter.throttleWithTimeout,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n");
+"              });\n");
 mCodes.put(Constants.Combine.and_then_when,
 "    Plan0<String> p = //\n"+
 "      JoinObservable.from(Observable.just(1, 2, 3))//\n"+
@@ -1738,7 +1653,7 @@ mCodes.put(Constants.Combine.and_then_when,
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Subject.async,
 "    AsyncSubject<Integer> s = AsyncSubject.create();\n"+
 "    s.subscribe(new Action1<Integer>() {\n"+
@@ -1746,11 +1661,11 @@ mCodes.put(Constants.Subject.async,
 "      public void call(Integer integer) {\n"+
 "        log(\"\" + integer);\n"+
 "      }\n"+
+"    });\n"+
 "    s.onNext(0);\n"+
 "    s.onNext(1);\n"+
 "    s.onNext(2);\n"+
-"    s.onCompleted();\n"+
-"  }\n");
+"    s.onCompleted();\n");
 mCodes.put(Constants.BlockingObservable.first,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1759,8 +1674,8 @@ mCodes.put(Constants.BlockingObservable.first,
 "        subscriber.onNext(2);\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().first();\n"+
+"    log(i);\n");
 mCodes.put(Constants.Condition.takeUntil,
 "    Observable.range(1, 10).takeUntil(new Func1<Integer, Boolean>() {\n"+
 "      @Override\n"+
@@ -1772,7 +1687,7 @@ mCodes.put(Constants.Condition.takeUntil,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.last,
 "    //normal last\n"+
 "    Observable.range(1, 10).last().subscribe(new Action1<Integer>() {\n"+
@@ -1792,15 +1707,15 @@ mCodes.put(Constants.Filter.last,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.BlockingObservable.lastOrDefault,
 "    Integer i = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Subscriber<? super Integer> subscriber) {\n"+
 "        subscriber.onCompleted();\n"+
 "      }\n"+
-"    log(i);\n"+
-"  }\n");
+"    }).subscribeOn(Schedulers.newThread()).toBlocking().lastOrDefault(5000);\n"+
+"    log(i);\n");
 mCodes.put(Constants.Async.runAsync,
 "    Async.runAsync(Schedulers.io(), new Action2<Observer<? super Integer>, Subscription>() {\n"+
 "      @Override\n"+
@@ -1815,23 +1730,21 @@ mCodes.put(Constants.Async.runAsync,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n"+
-"\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.sumInteger,
 "    MathObservable.sumInteger(Observable.just(1, 2, 3)).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.MathAggregate.sumLong,
 "    MathObservable.sumLong(Observable.just(1L, 2L, 3L)).subscribe(new Action1<Long>() {\n"+
 "      @Override\n"+
 "      public void call(Long l) {\n"+
 "        log(l);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Transformation.groupBy,
 "    Observable.range(1, 10).groupBy(new Func1<Integer, String>() {\n"+
 "      @Override\n"+
@@ -1849,14 +1762,14 @@ mCodes.put(Constants.Transformation.groupBy,
 "          }\n"+
 "        });\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Strings.join,
 "    StringObservable.join(Observable.just(\"abc\", \"def\"), \"#\").subscribe(new Action1<String>() {\n"+
 "      @Override\n"+
 "      public void call(String s) {\n"+
 "        log(s);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.serialize,
 "    Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1901,7 +1814,7 @@ mCodes.put(Constants.Utility.serialize,
 "      public void call(Throwable throwable) {\n"+
 "        log(\"Exception serialize1:\" + throwable.getMessage());\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Transformation.flatMap,
 "    Observable.just(1, 2).flatMap(new Func1<Integer, Observable<Integer>>() {\n"+
 "      @Override\n"+
@@ -1919,7 +1832,7 @@ mCodes.put(Constants.Transformation.flatMap,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.sample,
 "    final Subscription subscription = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -1937,14 +1850,14 @@ mCodes.put(Constants.Filter.sample,
 "                                                  public void call(Integer integer) {\n"+
 "                                                    log(integer);\n"+
 "                                                  }\n"+
+"                                                });\n"+
 "    AsyncExecutor.SINGLETON.schedule(new Runnable() {\n"+
 "      @Override\n"+
 "        if (!subscription.isUnsubscribed()) {\n"+
 "          subscription.unsubscribe();\n"+
 "        }\n"+
 "      }\n"+
-"    }, 3, TimeUnit.SECONDS);\n"+
-"  }\n");
+"    }, 3, TimeUnit.SECONDS);\n");
 mCodes.put(Constants.Utility.materialize,
 "    Observable o1 = Observable.range(1, 3).materialize();\n"+
 "    o1.subscribe(new Action1<Notification<Integer>>() {\n"+
@@ -1960,7 +1873,7 @@ mCodes.put(Constants.Utility.materialize,
 "      public void call(Object o) {\n"+
 "        log(o.toString());\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.ObservableCreate.defer,
 "    Observable<Long> now = Observable.defer(new Func0<Observable<Long>>() {\n"+
 "      @Override\n"+
@@ -1973,6 +1886,7 @@ mCodes.put(Constants.ObservableCreate.defer,
 "      public void call(Long aLong) {\n"+
 "        log(aLong);\n"+
 "      }\n"+
+"    });\n"+
 "    try {\n"+
 "      Thread.sleep(1000);\n"+
 "    } catch (Exception e) {\n"+
@@ -1983,9 +1897,7 @@ mCodes.put(Constants.ObservableCreate.defer,
 "      public void call(Long aLong) {\n"+
 "        log(aLong);\n"+
 "      }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"    });\n");
 mCodes.put(Constants.ConnectableObservable.connect,
 "    Observable<Integer> o = Observable.create(new Observable.OnSubscribe<Integer>() {\n"+
 "      @Override\n"+
@@ -2010,9 +1922,9 @@ mCodes.put(Constants.ConnectableObservable.connect,
 "      public void call(Integer integer) {\n"+
 "        log(\"s2:\" + integer);\n"+
 "      }\n"+
+"    });\n"+
 "    log(\"begin connect\");\n"+
-"    co.connect();\n"+
-"  }\n");
+"    co.connect();\n");
 mCodes.put(Constants.MathAggregate.averageDouble,
 "    MathObservable.averageDouble(Observable.just(1.0, 2.0, 3.0, 4.0))\n"+
 "                  .subscribe(new Action1<Double>() {\n"+
@@ -2020,7 +1932,7 @@ mCodes.put(Constants.MathAggregate.averageDouble,
 "                    public void call(Double f) {\n"+
 "                      log(f);\n"+
 "                    }\n"+
-"  }\n");
+"                  });\n");
 mCodes.put(Constants.Async.deferFuture,
 "    Async.deferFuture(new Func0<Future<? extends Observable<Integer>>>() {\n"+
 "      @Override\n"+
@@ -2037,7 +1949,7 @@ mCodes.put(Constants.Async.deferFuture,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.distinct,
 "    Observable.just(1, 1, 2, 2, 3, 4, 4, 1, 1, 5)\n"+
 "              .distinct()\n"+
@@ -2046,9 +1958,7 @@ mCodes.put(Constants.Filter.distinct,
 "                public void call(Integer integer) {\n"+
 "                  log(integer);\n"+
 "                }\n"+
-"  }\n"+
-"}\n"+
-"\n");
+"              });\n");
 mCodes.put(Constants.Async.start,
 "    Async.start(new Func0<Integer>() {\n"+
 "      @Override\n"+
@@ -2061,14 +1971,14 @@ mCodes.put(Constants.Async.start,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.first,
 "    Observable.range(1, 10).first().subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Transformation.scan,
 "    Observable.range(1, 10).scan(new Func2<Integer, Integer, Integer>() {\n"+
 "      @Override\n"+
@@ -2080,7 +1990,7 @@ mCodes.put(Constants.Transformation.scan,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Filter.lastOrDefault,
 "    Observable.range(1, 10).lastOrDefault(10).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
@@ -2098,7 +2008,7 @@ mCodes.put(Constants.Filter.lastOrDefault,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Async.fromRunnable,
 "    Async.fromRunnable(new Runnable() {\n"+
 "      @Override\n"+
@@ -2109,21 +2019,21 @@ mCodes.put(Constants.Async.fromRunnable,
 "      public void call(Integer integer) {\n"+
 "        log(integer);\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.timestamp,
 "    Observable.just(1, 2).timestamp().subscribe(new Action1<Timestamped<Integer>>() {\n"+
 "      @Override\n"+
 "      public void call(Timestamped<Integer> integerTimestamped) {\n"+
 "        log(\"\" + integerTimestamped.getValue() + \" \" + integerTimestamped.getTimestampMillis());\n"+
 "      }\n"+
-"  }\n");
+"    });\n");
 mCodes.put(Constants.Utility.observeOn,
 "    Observable.range(1, 2).observeOn(Schedulers.io()).subscribe(new Action1<Integer>() {\n"+
 "      @Override\n"+
 "      public void call(Integer integer) {\n"+
 "        log(\"\" + integer + \" on \" + Thread.currentThread().getName());\n"+
 "      }\n"+
-"  }\n");  
+"    });\n");  
   }
   public String get(String key){
     return mCodes.get(key);
