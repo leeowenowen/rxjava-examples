@@ -7,7 +7,7 @@
 # rxjava-examples
 rxjava-example android project
 
-Show how to use RxJava API, you can install the [Demo APK]() on your android phone, and then you
+Show how to use RxJava API, you can install the [Demo APK](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/apk/app-debug.apk) on your android phone, and then you
 can learn RxJava API everywhere!
 
 click the api name, and you can see the source code, output and relevant marble diagram at the same time.
