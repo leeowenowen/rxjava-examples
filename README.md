@@ -1,4 +1,4 @@
-#RxJava 示例工程(讲解ＲxJava如何使用的示例工程，你可以将它安装在android手机上，然后就可以随手学习ＲxJava的api了)
+#RxJava 示例工程
 
 #理解RxJava API的一个关键是明白API需要Observable的Case是异步使用场景，而返回普通对象类型的是同步使用场景， 比如flatmap与map, buffer中的多个重载等。
 
