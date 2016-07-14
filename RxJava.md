@@ -47,6 +47,7 @@ Rx将数据及其处理以流式建模，不仅可以让执行流程更加高效
   还是上边的下载1G文件到本地的例子，在我们自己的代码中，我们不难看到很多解决方案是直接起**一个**Executor,背后是个线程池，然后不管三七二十一把网络读取，数据处理
   以及写文件任务包装成Runnable直接丢到这个线程池里. 这种方式就是没有按照资源分解逻辑到线程上下文的典型例子．如果写文件的任务叫做WriteFileTask,网络读取以及数据
   处理（比如解压）的任务叫做NetworkTask,那么你的Executor下层的任务队列很容易出现如下状况:
+  ~~~
   -----------------
   | WriteFileTask |
   -----------------
@@ -68,8 +69,11 @@ Rx将数据及其处理以流式建模，不仅可以让执行流程更加高效
   -----------------
   | NetworkTask   |
   -----------------
+  ~~~
   在这种队列状况下，即使你的网络空闲，NetworkTask仍然可能没有被执行，因为Executor下层的线程池可能满满的都在做WriteFileTask,显然这是一种资源浪费．我们希望任何时候
   都不要让我们的资源空闲，所以我们应当将NetworkTask和WriteFileTask分解到两个Executor中去，那么运行期的执行就是这个样子：
+
+  ~~~
 
  -----------------                    -----------------
  | WriteFileTask |                    | NetworkTask   |
@@ -82,6 +86,8 @@ Rx将数据及其处理以流式建模，不仅可以让执行流程更加高效
  -----------------                    -----------------
  | WriteFileTask |                    | NetworkTask   |
  -----------------                    -----------------
+
+ ~~~
  
  这样任何时候，你的资源都不会闲置，始终在饱和的执行任务． 
  
@@ -96,24 +102,114 @@ Rx将数据及其处理以流式建模，不仅可以让执行流程更加高效
 ###RxJava Sample
  RxJava就是一个异步编程函数库，除了它在异步编程建模上的优越性之外，最大的特点，是它优雅的API. 让开发人员可以连续流畅的写代码，这也是个人比较推崇的一个重要原因.
 
- 那么下边我就先给出一个使用RxJava的例子，这个例子是之前[构建一个小型系统]()中Android客户端从服务器通过http协议获取数据的实例代码.
+ 那么下边我就先给出一个使用RxJava的例子，这个例子是之前[构建一个小型系统](http://www.atatech.org/articles/52873)中Android客户端从服务器通过http协议获取数据的实例代码.
  ~~~
+ String url = "http://localhost:9090/programmer/query?name=";
+    Observable//
+      .just(url)//
+      .flatMap(new Func1<String, Observable<Response>>() {
+        @Override
+        public Observable<Response> call(String url) {
+          final PublishSubject<Response> subject = PublishSubject.create();
+          Request request = new Request.Builder().url(url).build();
+          Call call = new OkHttpClient().newCall(request);
+          call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+              subject.onError(new Exception("Fetch Programmer info failed: " + e.getMessage()));
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+              subject.onNext(response);
+              subject.onCompleted();
+            }
+          });
+          return subject;
+        }
+      })//
+      .map(new Func1<Response, ProgrammerQueryResponseBody>() {
+        @Override
+        public ProgrammerQueryResponseBody call(Response response) {
+          if (response.isSuccessful()) {
+            APIResponse<ProgrammerQueryResponseBody> apiResponse = null;
+            try {
+              Type type = new TypeToken<APIResponse<ProgrammerQueryResponseBody>>() {
+              }.getType();
+              apiResponse = new Gson().fromJson(response.body().string(), type);
+            } catch (IOException e) {
+              Observable.error(new Exception("Parse response failed!" + e.getMessage()));
+            }
+            if (apiResponse.getCode() == 0) {
+              return apiResponse.getData();
+            }
+          }
+          Observable.error(new Exception("Convert Programmer response failed!"));
+          return null;
+        }
+      })//
+     // .cast(ProgrammerQueryResponseBody.class)//
+      .observeOn(Schedulers.from(UIThreadExecutor.SINGLETON))//
+      .subscribe(new Action1<ProgrammerQueryResponseBody>() {
+        @Override
+        public void call(ProgrammerQueryResponseBody rspBody) {
+          mProgrammerAdapter.update(rspBody.getProgrammers());
+        }
+      }, new Action1<Throwable>() {
+        @Override
+        public void call(Throwable throwable) {
+          Snackbar.make(mFab, throwable.getMessage(), Snackbar.LENGTH_LONG)
+                  .setAction("Action", null)
+                  .show();
+        }
+      });
  ~~~
  整个处理流程如下：
- 1. 
- 2. 
+ 1. 使用Okhttp通过http Get向服务器发起请求(异步使用flatMap,如果是同步可以直接使用map）。
+ 2. 使用Gson反序列化服务器响应，并获取其中的Programmer列表。
+ 3. 使用获取的Programmer数据更新ListView Adapter，从而更新ListView。
 
 ###RxJava API
  Rx基于Observer进行建模，同时对数据的操作场景进行了大量的总结和规范．由于场景覆盖非常之多，所以其Java实现--RxJava的API也是非常之多的，其API分为几个大类：
- 1. 
- 2. 
+  * Creating 创建操作 
+  * Transforming 变换操作
+  * Filtering 过滤操作
+  * Combining 结合操作
+  * Error Handling 错误处理
+  * Utility 辅助操作
+  * Conditional 条件和布尔操作
+  * Mathematical 算术和聚合操作
+  * Async 异步操作
+  * Connect 连接操作
+  * Convert 转换操作
+  * Blocking 阻塞操作
+  * String 字符串操作
 
- 但目前有一些模块并没有在RxJava代码库中，而是以扩展库的方式存在．
+ 但目前有一些模块并没有在RxJava代码库中，而是以扩展库的方式存在, 这些扩展的维护人员也比较少,所以其并入核心库估计还得一段时间.
+
 
 ###RxJava Example
- 终于到了重点了，也是我写这篇文章的目的，为了方便大家了解RxJava的API,我讲所有的RxJava API（至少是官方文档中提到的）都写在一个android apk中，并在其中附以
+ 终于到了重点了，也是写这篇文章的目的，为了方便大家了解RxJava的API,我讲所有的RxJava API（至少是官方文档中提到的）都写在一个android apk中，并在其中附以
  功能描述,代码示例，marble-diagram(Rx用来描述数据及其处理流程的图),　以及一些使用场景. 所有的资料都是在APK中，使用的时候不会消耗任何流量，而且你可以在任何时候
- 任何地方使用．APIｊ
+ 任何地方学习使用.
+ 示例程序的特点如下:
+ 1. API涵盖全面: 包含了核心库及所有扩展实现库200个左右的API.
+ 2. 数据本地化,无需流量: 示例中的所有数据和图片都是本地加载的,所以无需消耗流量.
+ 3. 示例代码都是从源码中直接生成,所以看起来跟代码直接运行的效果是一样的.
+
+ 所有示例代码托管在github上,你可以直接扫码安装(Android用户).
+
+ [Download APK](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/apk/app-debug.apk)
+
+
+![Barcode/二维码](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/res/barcode.png)
+
+![Demo Screenshot1](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/res/rxjava-1.png)
+
+
+![Demo Screenshot2](https://raw.githubusercontent.com/wiki/leeowenowen/rxjava-examples/res/rxjava-2.png)
+
+
 
 
  
