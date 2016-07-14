@@ -13,7 +13,7 @@
     <string name="sample">Case Example</string>
     <string name="source_code">SourceCode：https://github.com/leeowenowen/rxjava-examples
         .git</string>
-    <string name="dev_by">Developer：Lee Wang (leeowenowen@gmail.com)</string>
+    <string name="dev_by">Developer：Lee Wang (Alibaba_UC_Union)</string>
 
     <string name="desc_utility_materialize">convert an Observable into a list of
         Notifications, [dematerialize:convert a materialized Observable back into its
