@@ -95,7 +95,7 @@ mCodes.put(Constants.BlockingObservable.firstOrDefault,
 "    log(i);\n");
 mCodes.put(Constants.CustomerOperator.customeOperator,
 "    Observable.range(1, 10)\n"+
-"              .lift(new OperatorMapInterceptor<Integer, Integer>(new Func1<Integer, Integer>() {\n"+
+"              .lift(new MyMapOperator<Integer, Integer>(new Func1<Integer, Integer>() {\n"+
 "                @Override\n"+
 "                public Integer call(Integer integer) {\n"+
 "                  return integer * 2;\n"+
